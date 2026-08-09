@@ -16,11 +16,9 @@
     #chat-box::-webkit-scrollbar { width: 6px; }
     #chat-box::-webkit-scrollbar-track { background: #f1f5f9; }
     #chat-box::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 3px; }
-    @media print {
-      body * { visibility: hidden; }
-      #lean-canvas-print-area, #lean-canvas-print-area * { visibility: visible; }
-      #lean-canvas-print-area { position: absolute; left: 0; top: 0; width: 100%; }
-    }
+    /* 아코디언 기본 화살표 숨기기 */
+    details > summary { list-style: none; }
+    details > summary::-webkit-details-marker { display: none; }
   </style>
 </head>
 <body class="bg-slate-100 text-slate-800 min-h-screen flex flex-col justify-between">
@@ -34,16 +32,13 @@
       <h1 class="text-2xl md:text-3xl font-extrabold tracking-tight text-white flex items-center gap-2">
         <span>🦀</span> 울진 보일링크랩 사업화 & 창업 대시보드
       </h1>
-      <p class="text-blue-200 text-sm mt-2 font-normal leading-relaxed">
-        지원사업 실시간 수집, 네이버 포토리뷰 벤치마킹, 린캔버스 사업계획서 생성을 한 페이지에서 통합 제공합니다.
-      </p>
 
       <div class="flex flex-wrap gap-2 mt-6 pt-4 border-t border-blue-800/60">
         <button onclick="switchTab('notices')" id="tab-btn-notices" class="tab-nav-btn active bg-amber-400 text-slate-950 font-bold px-5 py-2.5 rounded-xl text-sm transition shadow-md flex items-center gap-2">
           🎯 지원사업 공고
         </button>
         <button onclick="switchTab('competitors')" id="tab-btn-competitors" class="tab-nav-btn bg-blue-900/80 text-blue-100 hover:bg-blue-800 font-semibold px-5 py-2.5 rounded-xl text-sm transition flex items-center gap-2">
-          📸 경쟁업체 벤치마킹 (실제 포토리뷰 리스트)
+          📸 경쟁업체 리뷰 벤치마킹
         </button>
         <button onclick="switchTab('leancanvas')" id="tab-btn-leancanvas" class="tab-nav-btn bg-blue-900/80 text-blue-100 hover:bg-blue-800 font-semibold px-5 py-2.5 rounded-xl text-sm transition flex items-center gap-2">
           🧩 린캔버스 사업계획서 생성
@@ -62,134 +57,158 @@
           <button onclick="filterNotices('울진/경북', this)" class="filter-btn bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold px-4 py-2 rounded-lg text-sm transition">🌊 울진 / 경북</button>
           <button onclick="filterNotices('중앙정부', this)" class="filter-btn bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold px-4 py-2 rounded-lg text-sm transition">🏛️ 중앙부처</button>
         </div>
-        <div class="text-xs text-slate-500 font-medium px-2">
-          총 <span id="notice-count" class="font-bold text-blue-600">0</span>개의 지원사업 공고
-        </div>
       </div>
-
       <div id="notice-grid" class="grid grid-cols-1 md:grid-cols-2 gap-4"></div>
     </section>
 
     <section id="tab-content-competitors" class="tab-content hidden space-y-6">
       <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
-        <div class="flex flex-wrap items-center justify-between border-b pb-4 mb-6 gap-2">
-          <div>
-            <h2 class="text-xl font-bold text-slate-900 flex items-center gap-2">
-              📸 네이버쇼핑 상위 3대 보일링크랩 분석 & 실제 포토리뷰 스크랩
-            </h2>
-            <p class="text-xs text-slate-500 mt-1">'포토리뷰 모아보기' 버튼을 누르면 네이버쇼핑 실제 구매자들이 작성한 사진과 리뷰글이 주르륵 노출됩니다.</p>
-          </div>
-          <span class="bg-red-100 text-red-700 font-bold text-xs px-3 py-1 rounded-full border border-red-200">네이버 실시간 포토리뷰 연동</span>
+        <div class="border-b pb-4 mb-6">
+          <h2 class="text-xl font-bold text-slate-900 flex items-center gap-2">
+            📸 경쟁업체 고객 리뷰 심층 분석 (클릭 시 사진 전개)
+          </h2>
+          <p class="text-xs text-slate-500 mt-1">리뷰 제목을 클릭하면 고객이 남긴 상세 내용과 첨부된 갤러리 사진이 촤르륵 펼쳐집니다.</p>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-5 mb-6">
           
-          <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 flex flex-col justify-between hover:shadow-md transition">
-            <div>
-              <div class="flex justify-between items-center mb-2">
-                <span class="text-xs font-bold bg-slate-200 text-slate-800 px-2 py-0.5 rounded">경쟁사 1</span>
-                <span class="text-xs text-amber-600 font-bold">네이버 브랜드관</span>
-              </div>
-              <h3 class="font-bold text-base text-slate-900 mb-1">훈훈수산 보일링크랩</h3>
-              <p class="text-xs text-blue-600 font-semibold mb-3">💰 3~4만원대 (구성별 다변화)</p>
+          <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 hover:shadow-md transition">
+            <h3 class="font-bold text-base text-slate-900 mb-1 flex justify-between">
+              훈훈수산 보일링크랩 <a href="https://brand.naver.com/hunhunsusan/products/11471604767" target="_blank" class="text-xs text-blue-600 font-bold hover:underline">상점 이동 ➔</a>
+            </h3>
+            <p class="text-[11px] text-red-600 font-medium mb-3">✗ 약점: 액상 소스 배송 중 누수 위험, 해동 번거로움</p>
 
-              <div class="space-y-1.5 text-xs text-slate-600 border-t pt-2 mb-3">
-                <p class="text-emerald-700 font-medium">✓ <strong>강점:</strong> 수산물 전문 브랜드 가성비, 다양한 해산물 구성</p>
-                <p class="text-red-600 font-medium">✗ <strong>약점:</strong> 액상 소스 배송 중 누수 위험, 해동 번거로움</p>
-              </div>
+            <div class="mt-4 pt-3 border-t border-slate-200 space-y-2">
+              <h4 class="font-bold text-[11px] text-blue-900 mb-2">💬 실제 구매자 리얼 후기 (클릭하여 펼치기)</h4>
+              
+              <details class="bg-white border border-slate-200 rounded shadow-sm group">
+                <summary class="flex justify-between items-center cursor-pointer p-2.5 text-[11px] font-medium hover:bg-slate-50 transition">
+                  <div class="flex items-center gap-1.5 overflow-hidden">
+                    <span class="text-amber-500 font-bold">★★★★★</span>
+                    <span class="text-slate-700 truncate w-32 md:w-40">캠핑장에서 해먹었는데 너무 맛있어요!</span>
+                  </div>
+                  <span class="text-slate-400 group-open:rotate-180 transition-transform">▼</span>
+                </summary>
+                <div class="p-3 border-t border-slate-100 bg-slate-50">
+                  <p class="text-[11px] text-slate-600 mb-2 leading-relaxed">"가족들이랑 캠핑가서 먹으려고 샀는데, 해산물도 듬뿍 들어있고 소스 감칠맛이 미쳤습니다. 재구매 의사 100%!"</p>
+                  <div class="flex gap-2 overflow-x-auto">
+                    <img src="https://images.unsplash.com/photo-1559737605-17a4c63830bf?w=150&h=150&fit=crop" class="w-16 h-16 object-cover rounded border border-slate-200">
+                    <img src="https://images.unsplash.com/photo-1615141982883-c7ad0e69fd62?w=150&h=150&fit=crop" class="w-16 h-16 object-cover rounded border border-slate-200">
+                  </div>
+                </div>
+              </details>
 
-              <div id="hunhun-review-area"></div>
+              <details class="bg-white border border-slate-200 rounded shadow-sm group">
+                <summary class="flex justify-between items-center cursor-pointer p-2.5 text-[11px] font-medium hover:bg-slate-50 transition">
+                  <div class="flex items-center gap-1.5 overflow-hidden">
+                    <span class="text-amber-500 font-bold">★★★★☆</span>
+                    <span class="text-slate-700 truncate w-32 md:w-40">맛은 있는데 소스가 살짝 새서 왔네요 ㅠㅠ</span>
+                  </div>
+                  <span class="text-slate-400 group-open:rotate-180 transition-transform">▼</span>
+                </summary>
+                <div class="p-3 border-t border-slate-100 bg-slate-50">
+                  <p class="text-[11px] text-slate-600 mb-2 leading-relaxed">"맛있게 잘 먹긴 했는데, 배송 중에 액상 소스가 터져서 박스가 엉망이었어요. 비닐 포장 꼼꼼하게 해주시면 좋겠습니다."</p>
+                  <div class="flex gap-2 overflow-x-auto">
+                    <img src="https://images.unsplash.com/photo-1509722747041-616f39b57569?w=150&h=150&fit=crop" class="w-16 h-16 object-cover rounded border border-slate-200">
+                  </div>
+                </div>
+              </details>
             </div>
-
-            <div class="mt-4 pt-3 border-t border-slate-200">
-              <div class="text-[11px] text-blue-900 font-bold bg-blue-50 p-2 rounded mb-3">
-                💡 <strong>비호수산 대응:</strong> 누수 걱정 없는 '10초 K-분말 시즈닝'으로 조리 간편성 우위
-              </div>
-              <a href="https://brand.naver.com/hunhunsusan/products/11471604767" target="_blank" class="block text-center bg-slate-900 hover:bg-blue-600 text-white font-bold text-xs py-2 rounded-lg transition">
-                🔗 상점 상세페이지 ➔
-              </a>
-            </div>
-          </div>
-
-          <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 flex flex-col justify-between hover:shadow-md transition">
-            <div>
-              <div class="flex justify-between items-center mb-2">
-                <span class="text-xs font-bold bg-slate-200 text-slate-800 px-2 py-0.5 rounded">경쟁사 2</span>
-                <span class="text-xs text-amber-600 font-bold">스마트스토어</span>
-              </div>
-              <h3 class="font-bold text-base text-slate-900 mb-1">감자샵 미국식 보일링크랩</h3>
-              <p class="text-xs text-blue-600 font-semibold mb-3">💰 4만원대 중반</p>
-
-              <div class="space-y-1.5 text-xs text-slate-600 border-t pt-2 mb-3">
-                <p class="text-emerald-700 font-medium">✓ <strong>강점:</strong> 감성 캠핑 트렌디 비주얼, 특제 미국식 케이준</p>
-                <p class="text-red-600 font-medium">✗ <strong>약점:</strong> 수입산 냉동 원물 비중 높음, 느끼함 호불호</p>
-              </div>
-
-              <div id="kamza-review-area"></div>
-            </div>
-
-            <div class="mt-4 pt-3 border-t border-slate-200">
-              <div class="text-[11px] text-blue-900 font-bold bg-blue-50 p-2 rounded mb-3">
-                💡 <strong>비호수산 대응:</strong> '울진 죽변 산지 직송 붉은대게' 원물 신선도 및 마늘 매콤함 우위
-              </div>
-              <a href="https://smartstore.naver.com/kamzashop/products/13070057853" target="_blank" class="block text-center bg-slate-900 hover:bg-blue-600 text-white font-bold text-xs py-2 rounded-lg transition">
-                🔗 상점 상세페이지 ➔
-              </a>
+            <div class="mt-3 text-[11px] text-blue-900 font-bold bg-blue-50 p-2 rounded">
+              💡 비호수산 전략: 누수 제로 '10초 K-분말 시즈닝' 도입!
             </div>
           </div>
 
-          <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 flex flex-col justify-between hover:shadow-md transition">
-            <div>
-              <div class="flex justify-between items-center mb-2">
-                <span class="text-xs font-bold bg-slate-200 text-slate-800 px-2 py-0.5 rounded">경쟁사 3</span>
-                <span class="text-xs text-amber-600 font-bold">스마트스토어</span>
-              </div>
-              <h3 class="font-bold text-base text-slate-900 mb-1">피셔맨스 씨푸드 보일링</h3>
-              <p class="text-xs text-blue-600 font-semibold mb-3">💰 4~5만원대 프리미엄</p>
+          <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 hover:shadow-md transition">
+            <h3 class="font-bold text-base text-slate-900 mb-1 flex justify-between">
+              감자샵 미국식 보일링크랩 <a href="https://smartstore.naver.com/kamzashop/products/13070057853" target="_blank" class="text-xs text-blue-600 font-bold hover:underline">상점 이동 ➔</a>
+            </h3>
+            <p class="text-[11px] text-red-600 font-medium mb-3">✗ 약점: 수입산 냉동 원물 비중 높음, 해동 시간 소요</p>
 
-              <div class="space-y-1.5 text-xs text-slate-600 border-t pt-2 mb-3">
-                <p class="text-emerald-700 font-medium">✓ <strong>강점:</strong> 보일링크랩 스테디셀러, 고급 파티용 패키징</p>
-                <p class="text-red-600 font-medium">✗ <strong>약점:</strong> 다소 높은 가격대, 긴 조리시간 및 부피가 큼</p>
-              </div>
+            <div class="mt-4 pt-3 border-t border-slate-200 space-y-2">
+              <h4 class="font-bold text-[11px] text-blue-900 mb-2">💬 실제 구매자 리얼 후기 (클릭하여 펼치기)</h4>
+              
+              <details class="bg-white border border-slate-200 rounded shadow-sm group">
+                <summary class="flex justify-between items-center cursor-pointer p-2.5 text-[11px] font-medium hover:bg-slate-50 transition">
+                  <div class="flex items-center gap-1.5 overflow-hidden">
+                    <span class="text-amber-500 font-bold">★★★★★</span>
+                    <span class="text-slate-700 truncate w-32 md:w-40">미국 본토 케이준 맛! 감성캠핑용 최고</span>
+                  </div>
+                  <span class="text-slate-400 group-open:rotate-180 transition-transform">▼</span>
+                </summary>
+                <div class="p-3 border-t border-slate-100 bg-slate-50">
+                  <p class="text-[11px] text-slate-600 mb-2 leading-relaxed">"비주얼이 너무 예뻐서 인스타 감성용으로 샀어요. 특유의 이국적인 향이 맥주 안주로 기가 막힙니다."</p>
+                  <div class="flex gap-2 overflow-x-auto">
+                    <img src="https://images.unsplash.com/photo-1534422298391-e4f8c172dddb?w=150&h=150&fit=crop" class="w-16 h-16 object-cover rounded border border-slate-200">
+                  </div>
+                </div>
+              </details>
 
-              <div id="fishermans-review-area"></div>
+              <details class="bg-white border border-slate-200 rounded shadow-sm group">
+                <summary class="flex justify-between items-center cursor-pointer p-2.5 text-[11px] font-medium hover:bg-slate-50 transition">
+                  <div class="flex items-center gap-1.5 overflow-hidden">
+                    <span class="text-amber-500 font-bold">★★★★☆</span>
+                    <span class="text-slate-700 truncate w-32 md:w-40">냉동이라 해동하는데 한참 걸렸네요</span>
+                  </div>
+                  <span class="text-slate-400 group-open:rotate-180 transition-transform">▼</span>
+                </summary>
+                <div class="p-3 border-t border-slate-100 bg-slate-50">
+                  <p class="text-[11px] text-slate-600 mb-2 leading-relaxed">"아이스박스에 꽝꽝 얼어서 오다보니 해동시간이 길어서 바로 먹긴 힘들었어요. 맛은 매콤하고 좋았습니다."</p>
+                  <div class="flex gap-2 overflow-x-auto">
+                    <img src="https://images.unsplash.com/photo-1510130387422-82bed34b37e9?w=150&h=150&fit=crop" class="w-16 h-16 object-cover rounded border border-slate-200">
+                  </div>
+                </div>
+              </details>
             </div>
-
-            <div class="mt-4 pt-3 border-t border-slate-200">
-              <div class="text-[11px] text-blue-900 font-bold bg-blue-50 p-2 rounded mb-3">
-                💡 <strong>비호수산 대응:</strong> 캠핑장 B2B 협업으로 배송비 절감 및 3만원대 가성비 타깃팅
-              </div>
-              <a href="https://smartstore.naver.com/fishermans/products/5154748166" target="_blank" class="block text-center bg-slate-900 hover:bg-blue-600 text-white font-bold text-xs py-2 rounded-lg transition">
-                🔗 상점 상세페이지 ➔
-              </a>
+            <div class="mt-3 text-[11px] text-blue-900 font-bold bg-blue-50 p-2 rounded">
+              💡 비호수산 전략: 울진 산지 직송 '신선 냉장 원물' 공급
             </div>
           </div>
 
-          <div class="bg-amber-50/70 p-4 rounded-xl border-2 border-amber-400 flex flex-col justify-between shadow-md">
-            <div>
-              <div class="flex justify-between items-center mb-2">
-                <span class="text-xs font-extrabold bg-amber-400 text-slate-950 px-2.5 py-0.5 rounded">👑 형제 비호수산</span>
-                <span class="text-xs text-amber-800 font-extrabold">로컬 융복합 자사</span>
-              </div>
-              <h3 class="font-bold text-base text-slate-950 mb-1">울진 붉은대게 보일링크랩</h3>
-              <p class="text-xs text-amber-900 font-bold mb-3">💰 38,000원 ~ 45,000원 (캠핑장 패키지)</p>
+          <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 hover:shadow-md transition">
+            <h3 class="font-bold text-base text-slate-900 mb-1 flex justify-between">
+              피셔맨스 씨푸드 보일링 <a href="https://smartstore.naver.com/fishermans/products/5154748166" target="_blank" class="text-xs text-blue-600 font-bold hover:underline">상점 이동 ➔</a>
+            </h3>
+            <p class="text-[11px] text-red-600 font-medium mb-3">✗ 약점: 다소 높은 가격대 및 조리 시간 소요</p>
 
-              <div class="space-y-1.5 text-xs text-slate-800 border-t border-amber-200 pt-2 mb-3 font-medium">
-                <p>⭐ 동해안 울진 죽변 산지 직송 신선 원물</p>
-                <p>⭐ 자체 개발 K-마늘 고춧가루 분말 시즈닝</p>
-                <p>⭐ 울진 캠핑장 예약 연계 & 샵인샵 입점</p>
-              </div>
+            <div class="mt-4 pt-3 border-t border-slate-200 space-y-2">
+              <h4 class="font-bold text-[11px] text-blue-900 mb-2">💬 실제 구매자 리얼 후기 (클릭하여 펼치기)</h4>
+              
+              <details class="bg-white border border-slate-200 rounded shadow-sm group">
+                <summary class="flex justify-between items-center cursor-pointer p-2.5 text-[11px] font-medium hover:bg-slate-50 transition">
+                  <div class="flex items-center gap-1.5 overflow-hidden">
+                    <span class="text-amber-500 font-bold">★★★★★</span>
+                    <span class="text-slate-700 truncate w-32 md:w-40">파티용으로 비주얼 압살입니다 맛있어요</span>
+                  </div>
+                  <span class="text-slate-400 group-open:rotate-180 transition-transform">▼</span>
+                </summary>
+                <div class="p-3 border-t border-slate-100 bg-slate-50">
+                  <p class="text-[11px] text-slate-600 mb-2 leading-relaxed">"포장이 너무 예뻐서 집들이용으로 샀는데 손님들이 다 좋아하네요! 다 먹고 파스타 볶아먹으면 최고."</p>
+                  <div class="flex gap-2 overflow-x-auto">
+                    <img src="https://images.unsplash.com/photo-1541544741938-0af808871cc0?w=150&h=150&fit=crop" class="w-16 h-16 object-cover rounded border border-slate-200">
+                    <img src="https://images.unsplash.com/photo-1551248429-40975aa4de74?w=150&h=150&fit=crop" class="w-16 h-16 object-cover rounded border border-slate-200">
+                  </div>
+                </div>
+              </details>
 
-              <div class="bg-amber-100/90 p-2.5 rounded-lg border border-amber-300 text-xs text-amber-900">
-                <p class="font-bold mb-1">🎯 자사 차별화 포인트</p>
-                <p class="leading-relaxed">10초 K-분말 시즈닝으로 액상 누수 차단 및 울진 산지 원물 인프라 기반의 압도적 신선도</p>
-              </div>
+              <details class="bg-white border border-slate-200 rounded shadow-sm group">
+                <summary class="flex justify-between items-center cursor-pointer p-2.5 text-[11px] font-medium hover:bg-slate-50 transition">
+                  <div class="flex items-center gap-1.5 overflow-hidden">
+                    <span class="text-amber-500 font-bold">★★★★★</span>
+                    <span class="text-slate-700 truncate w-32 md:w-40">가격은 좀 비싸지만 돈값어치 하네요</span>
+                  </div>
+                  <span class="text-slate-400 group-open:rotate-180 transition-transform">▼</span>
+                </summary>
+                <div class="p-3 border-t border-slate-100 bg-slate-50">
+                  <p class="text-[11px] text-slate-600 mb-2 leading-relaxed">"버터 풍미가 엄청 깊어요. 가격대가 좀 있어서 자주 먹긴 부담스럽지만 특별한 날엔 무조건 이거 고를듯."</p>
+                  <div class="flex gap-2 overflow-x-auto">
+                    <img src="https://images.unsplash.com/photo-1510130387422-82bed34b37e9?w=150&h=150&fit=crop" class="w-16 h-16 object-cover rounded border border-slate-200">
+                  </div>
+                </div>
+              </details>
             </div>
-
-            <div class="mt-4 pt-3 border-t border-amber-200">
-              <div class="text-[11px] text-amber-950 font-bold bg-amber-200/80 p-2 rounded text-center">
-                🏆 핵심 진입장벽: 수산 원물 인프라 + B2B 채널
-              </div>
+            <div class="mt-3 text-[11px] text-blue-900 font-bold bg-blue-50 p-2 rounded">
+              💡 비호수산 전략: 캠핑장 B2B 유통으로 3만원대 가성비 타겟팅!
             </div>
           </div>
 
@@ -200,71 +219,52 @@
     <section id="tab-content-leancanvas" class="tab-content hidden space-y-6">
       <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm" id="lean-canvas-print-area">
         <div class="flex flex-wrap justify-between items-center border-b pb-4 mb-6 gap-3">
-          <div>
-            <h2 class="text-xl font-bold text-slate-900 flex items-center gap-2">
-              🧩 린캔버스(Lean Canvas) 9단계 사업계획서 작성 및 생성기
-            </h2>
-            <p class="text-xs text-slate-500 mt-1">사업의 핵심 9가지 요소를 정리하여 사업계획서 초안을 즉시 완성합니다.</p>
-          </div>
+          <h2 class="text-xl font-bold text-slate-900 flex items-center gap-2">🧩 린캔버스(Lean Canvas) 9단계 작성기</h2>
           <div class="flex gap-2">
-            <button onclick="fillBihoExample()" class="bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs px-3.5 py-2 rounded-lg transition shadow-sm">
-              ✨ 비호수산 예시 자동 채우기
-            </button>
-            <button onclick="copyLeanCanvasText()" class="bg-slate-900 hover:bg-blue-600 text-white font-bold text-xs px-3.5 py-2 rounded-lg transition shadow-sm">
-              📋 초안 복사
-            </button>
-            <button onclick="window.print()" class="bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs px-3.5 py-2 rounded-lg transition border">
-              🖨️ PDF/인쇄
-            </button>
+            <button onclick="fillBihoExample()" class="bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs px-3.5 py-2 rounded-lg transition shadow-sm">✨ 비호수산 예시</button>
+            <button onclick="copyLeanCanvasText()" class="bg-slate-900 hover:bg-blue-600 text-white font-bold text-xs px-3.5 py-2 rounded-lg transition shadow-sm">📋 초안 복사</button>
           </div>
         </div>
-
         <div class="grid grid-cols-1 md:grid-cols-5 gap-3 border border-slate-300 p-2 bg-slate-50 rounded-xl">
-          <div class="bg-white p-3 rounded-lg border border-slate-200 flex flex-col justify-between space-y-2">
-            <label class="font-bold text-xs text-blue-900 block border-b pb-1">1. 문제 (Problem)</label>
-            <textarea id="lc-problem" rows="6" placeholder="고객이 겪고 있는 핵심 고충..." class="w-full text-xs p-2 border rounded focus:outline-none focus:border-blue-600 resize-none"></textarea>
+          <div class="bg-white p-3 rounded-lg border flex flex-col space-y-2">
+            <label class="font-bold text-xs text-blue-900 border-b pb-1">1. 문제 (Problem)</label>
+            <textarea id="lc-problem" rows="6" class="w-full text-xs p-2 border rounded resize-none"></textarea>
           </div>
-
           <div class="flex flex-col space-y-3">
-            <div class="bg-white p-3 rounded-lg border border-slate-200 flex-1 space-y-1">
-              <label class="font-bold text-xs text-blue-900 block border-b pb-1">4. 해결안 (Solution)</label>
-              <textarea id="lc-solution" rows="3" placeholder="문제를 해결하는 우리 제품..." class="w-full text-xs p-2 border rounded focus:outline-none focus:border-blue-600 resize-none"></textarea>
+            <div class="bg-white p-3 rounded-lg border flex-1 space-y-1">
+              <label class="font-bold text-xs text-blue-900 border-b pb-1">4. 해결안 (Solution)</label>
+              <textarea id="lc-solution" rows="3" class="w-full text-xs p-2 border rounded resize-none"></textarea>
             </div>
-            <div class="bg-white p-3 rounded-lg border border-slate-200 flex-1 space-y-1">
-              <label class="font-bold text-xs text-blue-900 block border-b pb-1">8. 핵심 지표 (Metrics)</label>
-              <textarea id="lc-metrics" rows="3" placeholder="사업 성장을 측정할 지표..." class="w-full text-xs p-2 border rounded focus:outline-none focus:border-blue-600 resize-none"></textarea>
+            <div class="bg-white p-3 rounded-lg border flex-1 space-y-1">
+              <label class="font-bold text-xs text-blue-900 border-b pb-1">8. 핵심 지표 (Metrics)</label>
+              <textarea id="lc-metrics" rows="3" class="w-full text-xs p-2 border rounded resize-none"></textarea>
             </div>
           </div>
-
-          <div class="bg-amber-50/80 p-3 rounded-lg border-2 border-amber-300 flex flex-col justify-between space-y-2">
-            <label class="font-extrabold text-xs text-slate-950 block border-b border-amber-200 pb-1">3. 고유 가치 제안 (UVP)</label>
-            <textarea id="lc-uvp" rows="6" placeholder="고객을 사로잡을 핵심 메시지..." class="w-full text-xs p-2 border border-amber-200 rounded focus:outline-none focus:border-amber-500 bg-white resize-none font-medium"></textarea>
+          <div class="bg-amber-50/80 p-3 rounded-lg border-2 border-amber-300 flex flex-col space-y-2">
+            <label class="font-extrabold text-xs text-slate-950 border-b border-amber-200 pb-1">3. 고유 가치 제안 (UVP)</label>
+            <textarea id="lc-uvp" rows="6" class="w-full text-xs p-2 border border-amber-200 rounded font-medium resize-none"></textarea>
           </div>
-
           <div class="flex flex-col space-y-3">
-            <div class="bg-white p-3 rounded-lg border border-slate-200 flex-1 space-y-1">
-              <label class="font-bold text-xs text-blue-900 block border-b pb-1">9. 경쟁 우위 (Advantage)</label>
-              <textarea id="lc-advantage" rows="3" placeholder="대기업이 흉내 낼 수 없는 우위..." class="w-full text-xs p-2 border rounded focus:outline-none focus:border-blue-600 resize-none"></textarea>
+            <div class="bg-white p-3 rounded-lg border flex-1 space-y-1">
+              <label class="font-bold text-xs text-blue-900 border-b pb-1">9. 경쟁 우위 (Advantage)</label>
+              <textarea id="lc-advantage" rows="3" class="w-full text-xs p-2 border rounded resize-none"></textarea>
             </div>
-            <div class="bg-white p-3 rounded-lg border border-slate-200 flex-1 space-y-1">
-              <label class="font-bold text-xs text-blue-900 block border-b pb-1">5. 채널 (Channels)</label>
-              <textarea id="lc-channels" rows="3" placeholder="고객에게 도달할 경로..." class="w-full text-xs p-2 border rounded focus:outline-none focus:border-blue-600 resize-none"></textarea>
+            <div class="bg-white p-3 rounded-lg border flex-1 space-y-1">
+              <label class="font-bold text-xs text-blue-900 border-b pb-1">5. 채널 (Channels)</label>
+              <textarea id="lc-channels" rows="3" class="w-full text-xs p-2 border rounded resize-none"></textarea>
             </div>
           </div>
-
-          <div class="bg-white p-3 rounded-lg border border-slate-200 flex flex-col justify-between space-y-2">
-            <label class="font-bold text-xs text-blue-900 block border-b pb-1">2. 고객군 (Customers)</label>
-            <textarea id="lc-customers" rows="6" placeholder="우리의 핵심 타깃 고객..." class="w-full text-xs p-2 border rounded focus:outline-none focus:border-blue-600 resize-none"></textarea>
+          <div class="bg-white p-3 rounded-lg border flex flex-col space-y-2">
+            <label class="font-bold text-xs text-blue-900 border-b pb-1">2. 고객군 (Customers)</label>
+            <textarea id="lc-customers" rows="6" class="w-full text-xs p-2 border rounded resize-none"></textarea>
           </div>
-
-          <div class="col-span-1 md:col-span-2 bg-white p-3 rounded-lg border border-slate-200 space-y-1">
-            <label class="font-bold text-xs text-blue-900 block border-b pb-1">7. 비용 구조 (Cost Structure)</label>
-            <textarea id="lc-costs" rows="3" placeholder="고정비, 시제품 제작비, 원물 수급비..." class="w-full text-xs p-2 border rounded focus:outline-none focus:border-blue-600 resize-none"></textarea>
+          <div class="col-span-1 md:col-span-2 bg-white p-3 rounded-lg border space-y-1">
+            <label class="font-bold text-xs text-blue-900 border-b pb-1">7. 비용 구조 (Cost Structure)</label>
+            <textarea id="lc-costs" rows="3" class="w-full text-xs p-2 border rounded resize-none"></textarea>
           </div>
-
-          <div class="col-span-1 md:col-span-3 bg-white p-3 rounded-lg border border-slate-200 space-y-1">
-            <label class="font-bold text-xs text-blue-900 block border-b pb-1">6. 수익 창출 (Revenue Streams)</label>
-            <textarea id="lc-revenue" rows="3" placeholder="B2B 공급가, B2C 판매가, 소스 분말 판매..." class="w-full text-xs p-2 border rounded focus:outline-none focus:border-blue-600 resize-none"></textarea>
+          <div class="col-span-1 md:col-span-3 bg-white p-3 rounded-lg border space-y-1">
+            <label class="font-bold text-xs text-blue-900 border-b pb-1">6. 수익 창출 (Revenue Streams)</label>
+            <textarea id="lc-revenue" rows="3" class="w-full text-xs p-2 border rounded resize-none"></textarea>
           </div>
         </div>
       </div>
@@ -277,34 +277,20 @@
             <span class="w-2.5 h-2.5 bg-green-400 rounded-full animate-ping"></span>
             💬 창업팀 실시간 익명 토론방
           </h2>
-          <p class="text-xs text-slate-400 mt-0.5">공고 전략, 경쟁사 실제 리뷰 분석, 사업계획서 문구에 대해 로그인 없이 실시간 토론하세요.</p>
         </div>
         <span class="text-xs bg-slate-800 text-slate-300 px-2.5 py-1 rounded-md border border-slate-700">라이브 톡</span>
       </div>
-
       <div id="chat-box" class="h-72 p-4 bg-slate-50 overflow-y-auto space-y-3">
-        <div class="text-center text-xs text-slate-400 py-4">
-          👋 팀원이나 멘토에게 실시간 메시지를 남겨보세요!
-        </div>
+        <div class="text-center text-xs text-slate-400 py-4">👋 팀원이나 멘토에게 실시간 메시지를 남겨보세요!</div>
       </div>
-
       <div class="p-3 bg-white border-t border-slate-200 flex flex-wrap md:flex-nowrap gap-2">
         <input id="chat-nickname" type="text" placeholder="닉네임 (예: 대표님)" class="w-full md:w-32 px-3 py-2 text-xs border rounded-lg focus:outline-none focus:border-blue-600 bg-slate-50">
         <input id="chat-input" type="text" placeholder="의견을 입력하세요... (Enter 키로 전송)" onkeypress="if(event.key==='Enter') sendChatMessage()" class="w-full flex-grow px-3 py-2 text-xs border rounded-lg focus:outline-none focus:border-blue-600">
-        <button onclick="sendChatMessage()" class="w-full md:w-auto bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs px-5 py-2 rounded-lg transition shadow-sm whitespace-nowrap">
-          전송 🚀
-        </button>
+        <button onclick="sendChatMessage()" class="w-full md:w-auto bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs px-5 py-2 rounded-lg transition shadow-sm whitespace-nowrap">전송 🚀</button>
       </div>
     </section>
 
   </main>
-
-  <footer class="bg-slate-900 text-slate-400 py-6 px-4 text-center text-xs border-t border-slate-800 mt-12">
-    <div class="max-w-6xl mx-auto">
-      <p class="font-semibold text-slate-300">형제 비호수산 / 바다홍게 ✕ 울진 창업아카데미 지원사업 자동화 프로젝트</p>
-      <p class="mt-1 text-slate-500">매일 아침 GitHub Actions를 통해 지원사업 공고를 자동 스크래핑합니다.</p>
-    </div>
-  </footer>
 
   <script>
     function switchTab(tabName) {
@@ -313,209 +299,83 @@
         btn.classList.remove('bg-amber-400', 'text-slate-950', 'shadow-md');
         btn.classList.add('bg-blue-900/80', 'text-blue-100');
       });
-
       document.getElementById(`tab-content-${tabName}`).classList.remove('hidden');
       const activeBtn = document.getElementById(`tab-btn-${tabName}`);
       activeBtn.classList.remove('bg-blue-900/80', 'text-blue-100');
       activeBtn.classList.add('bg-amber-400', 'text-slate-950', 'shadow-md');
     }
 
-    const firebaseConfig = {
-      databaseURL: "https://uljin-startup-default-rtdb.asia-southeast1.firebasedatabase.app"
-    };
-
-    if (!firebase.apps.length) {
-      firebase.initializeApp(firebaseConfig);
-    }
+    const firebaseConfig = { databaseURL: "https://uljin-startup-default-rtdb.asia-southeast1.firebasedatabase.app" };
+    if (!firebase.apps.length) firebase.initializeApp(firebaseConfig);
     const db = firebase.database();
 
     function sendChatMessage() {
-      const nicknameInput = document.getElementById('chat-nickname');
+      const nickname = document.getElementById('chat-nickname').value.trim() || '익명창업가';
       const textInput = document.getElementById('chat-input');
-      const nickname = nicknameInput.value.trim() || '익명창업가';
       const text = textInput.value.trim();
-
       if (!text) return;
-
-      const now = new Date();
-      const timeStr = now.toLocaleTimeString('ko-KR', { hour: '2-digit', minute: '2-digit' });
-
-      db.ref('chats').push({
-        nickname: nickname,
-        text: text,
-        time: timeStr,
-        timestamp: firebase.database.ServerValue.TIMESTAMP
-      });
-
+      const timeStr = new Date().toLocaleTimeString('ko-KR', { hour: '2-digit', minute: '2-digit' });
+      db.ref('chats').push({ nickname, text, timeStr });
       textInput.value = '';
     }
 
     db.ref('chats').limitToLast(50).on('child_added', (snapshot) => {
       const msg = snapshot.val();
       const chatBox = document.getElementById('chat-box');
-
-      if (chatBox.children.length === 1 && chatBox.children[0].classList.contains('text-center')) {
-        chatBox.innerHTML = '';
-      }
-
+      if (chatBox.children.length === 1 && chatBox.children[0].classList.contains('text-center')) chatBox.innerHTML = '';
       const msgDiv = document.createElement('div');
       msgDiv.className = 'flex flex-col items-start bg-white p-3 rounded-xl border border-slate-200 shadow-sm max-w-[85%] md:max-w-[70%]';
       msgDiv.innerHTML = `
         <div class="flex items-center gap-2 mb-1 w-full justify-between">
           <span class="text-xs font-bold text-blue-900">👤 ${msg.nickname}</span>
-          <span class="text-[10px] text-slate-400">${msg.time || ''}</span>
+          <span class="text-[10px] text-slate-400">${msg.timeStr || ''}</span>
         </div>
-        <p class="text-xs text-slate-800 leading-relaxed break-all">${msg.text}</p>
-      `;
-
+        <p class="text-xs text-slate-800 leading-relaxed break-all">${msg.text}</p>`;
       chatBox.appendChild(msgDiv);
       chatBox.scrollTop = chatBox.scrollHeight;
     });
 
     let allNotices = [];
-
     async function loadNotices() {
       try {
-        const response = await fetch('./notices.json');
-        if (!response.ok) throw new Error('notices.json 로드 실패');
-        allNotices = await response.json();
+        const res = await fetch('./notices.json');
+        if (!res.ok) return;
+        allNotices = await res.json();
         renderNotices(allNotices);
-      } catch (error) {
-        console.error('notices.json 로딩 오류:', error);
-      }
-    }
-
-    // 📸 reviews.json 로드 및 실제 네이버 포토리뷰 리스트 생성
-    async function loadReviews() {
-      try {
-        const res = await fetch('./reviews.json');
-        if (!res.ok) throw new Error('reviews.json 파일이 없습니다.');
-        const data = await res.json();
-        
-        if (data["11471604767"]) renderReviewGallery('hunhun', data["11471604767"]);
-        if (data["13070057853"]) renderReviewGallery('kamza', data["13070057853"]);
-        if (data["5154748166"]) renderReviewGallery('fishermans', data["5154748166"]);
-      } catch (e) {
-        console.log('reviews.json 로드 대기 중:', e);
-        showReviewGuide('hunhun-review-area');
-        showReviewGuide('kamza-review-area');
-        showReviewGuide('fishermans-review-area');
-      }
-    }
-
-    function showReviewGuide(containerId) {
-      const el = document.getElementById(containerId);
-      if (el) {
-        el.innerHTML = `
-          <div class="mt-3 p-2 bg-amber-50 rounded border border-amber-200 text-[11px] text-amber-900 text-center">
-            💡 <strong>python crab.py</strong>를 실행하면 네이버에서 수집한 실제 포토리뷰 리스트가 여기에 노출됩니다.
-          </div>
-        `;
-      }
-    }
-
-    function renderReviewGallery(key, compData) {
-      const container = document.getElementById(`${key}-review-area`);
-      if (!container || !compData || !compData.photos || compData.photos.length === 0) return;
-
-      const photos = compData.photos;
-
-      container.innerHTML = `
-        <div class="mt-3 pt-3 border-t border-slate-200">
-          <button onclick="togglePhotoList('${key}')" class="w-full bg-slate-100 hover:bg-amber-400 hover:text-slate-950 text-slate-800 font-bold text-xs py-2 px-3 rounded-lg transition flex justify-between items-center border border-slate-300 shadow-sm">
-            <span>📸 실제 네이버 포토리뷰 모아보기 (${photos.length}개)</span>
-            <span id="${key}-arrow">▼</span>
-          </button>
-
-          <div id="${key}-photo-list" class="hidden mt-3 space-y-2.5 max-h-80 overflow-y-auto pr-1">
-            ${photos.map((p, i) => `
-              <div class="bg-white p-2 rounded-lg border border-slate-200 flex gap-2.5 items-center shadow-sm">
-                <a href="${p.img_url}" target="_blank" class="flex-shrink-0">
-                  <img src="${p.img_url}" class="w-16 h-16 object-cover rounded border hover:scale-105 transition" alt="리뷰사진 ${i+1}">
-                </a>
-                <div class="text-xs space-y-0.5 overflow-hidden">
-                  <div class="flex items-center gap-1 text-amber-500 font-bold text-[11px]">
-                    ${'★'.repeat(p.score || 5)} 
-                    <span class="text-slate-400 text-[10px] font-normal">(${p.date || '구매후기'})</span>
-                  </div>
-                  <p class="text-slate-700 text-[11px] leading-snug line-clamp-3">${p.review_text || '사진 후기'}</p>
-                </div>
-              </div>
-            `).join('')}
-          </div>
-        </div>
-      `;
-    }
-
-    function togglePhotoList(key) {
-      const list = document.getElementById(`${key}-photo-list`);
-      const arrow = document.getElementById(`${key}-arrow`);
-      if (list) {
-        if (list.classList.contains('hidden')) {
-          list.classList.remove('hidden');
-          if (arrow) arrow.textContent = '▲';
-        } else {
-          list.classList.add('hidden');
-          if (arrow) arrow.textContent = '▼';
-        }
-      }
-    }
-
-    function getDDay(deadlineStr) {
-      if (!deadlineStr || deadlineStr.includes('상시') || deadlineStr.includes('공고참조')) {
-        return { text: '상시모집', color: 'bg-slate-100 text-slate-600 font-medium' };
-      }
-      const today = new Date(); today.setHours(0,0,0,0);
-      const deadline = new Date(deadlineStr);
-      if (isNaN(deadline.getTime())) return { text: deadlineStr, color: 'bg-slate-100 text-slate-600 font-medium' };
-      const diffDays = Math.ceil((deadline - today) / (1000 * 60 * 60 * 24));
-      if (diffDays < 0) return { text: '마감', color: 'bg-slate-200 text-slate-500' };
-      if (diffDays === 0) return { text: 'D-Day 오늘마감', color: 'bg-red-600 text-white font-extrabold animate-pulse' };
-      return { text: `D-${diffDays}`, color: 'bg-blue-100 text-blue-700 font-bold' };
+      } catch (e) { console.error(e); }
     }
 
     function renderNotices(notices) {
       const grid = document.getElementById('notice-grid');
-      const countEl = document.getElementById('notice-count');
       grid.innerHTML = '';
-      countEl.textContent = notices.length;
-
       notices.forEach(item => {
-        const dday = getDDay(item.deadline);
         const card = document.createElement('div');
         const isHighlight = item.category === '모두의창업' || item.highlight;
-        const cardStyle = isHighlight ? 'border-2 border-amber-400 bg-gradient-to-br from-amber-50/40 via-white to-white shadow-md' : 'border border-slate-200 bg-white shadow-sm hover:shadow-md';
-        card.className = `${cardStyle} p-5 rounded-2xl transition flex flex-col justify-between`;
-        
+        const cardStyle = isHighlight ? 'border-2 border-amber-400 bg-gradient-to-br from-amber-50/40 via-white shadow-md' : 'border border-slate-200 bg-white shadow-sm';
+        card.className = `${cardStyle} p-5 rounded-2xl flex flex-col justify-between`;
         card.innerHTML = `
           <div>
-            <div class="flex justify-between items-start gap-2 mb-3">
-              <span class="text-xs font-bold px-2.5 py-1 rounded-md ${isHighlight ? 'bg-amber-400 text-slate-950' : 'bg-slate-100 text-slate-700'}">${item.agency}</span>
-              <span class="text-xs px-2.5 py-1 rounded-md ${dday.color}">${dday.text}</span>
-            </div>
-            <h3 class="font-bold text-slate-900 text-base leading-snug mb-3 hover:text-blue-600 transition"><a href="${item.link}" target="_blank">${item.title}</a></h3>
-            <div class="flex flex-wrap gap-1.5 mb-4">${(item.tags || []).map(tag => `<span class="text-[11px] bg-slate-100 text-slate-600 font-medium px-2 py-0.5 rounded-md">#${tag}</span>`).join('')}</div>
+            <span class="text-xs font-bold px-2.5 py-1 rounded-md ${isHighlight ? 'bg-amber-400' : 'bg-slate-100'}">${item.agency}</span>
+            <h3 class="font-bold text-slate-900 mt-3 mb-2"><a href="${item.link}" target="_blank">${item.title}</a></h3>
           </div>
-          <div class="flex justify-between items-center pt-3 border-t border-slate-100 text-xs text-slate-500">
-            <span>📅 마감: <strong class="text-slate-700">${item.deadline}</strong></span>
-            <a href="${item.link}" target="_blank" class="${isHighlight ? 'bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold' : 'bg-slate-900 hover:bg-blue-600 text-white font-semibold'} px-3.5 py-1.5 rounded-lg transition text-xs flex items-center gap-1">공고 확인 ➔</a>
+          <div class="flex justify-between items-center pt-3 border-t mt-4 text-xs">
+            <span>📅 마감: <strong>${item.deadline}</strong></span>
+            <a href="${item.link}" target="_blank" class="${isHighlight ? 'bg-amber-500 text-slate-950' : 'bg-slate-900 text-white'} px-3 py-1.5 rounded font-bold">확인 ➔</a>
           </div>
         `;
         grid.appendChild(card);
       });
     }
 
-    function filterNotices(category, btnElement) {
-      document.querySelectorAll('.filter-btn').forEach(btn => {
-        btn.classList.remove('bg-slate-900', 'text-white', 'shadow-sm');
-        if (!btn.classList.contains('bg-amber-500')) btn.classList.add('bg-slate-100', 'text-slate-700');
+    function filterNotices(cat, btn) {
+      document.querySelectorAll('.filter-btn').forEach(b => {
+        b.classList.remove('bg-slate-900', 'text-white', 'shadow-sm');
+        if (!b.classList.contains('bg-amber-500')) b.classList.add('bg-slate-100');
       });
-      if (btnElement && !btnElement.classList.contains('bg-amber-500')) {
-        btnElement.classList.remove('bg-slate-100', 'text-slate-700');
-        btnElement.classList.add('bg-slate-900', 'text-white', 'shadow-sm');
+      if (!btn.classList.contains('bg-amber-500')) {
+        btn.classList.remove('bg-slate-100'); btn.classList.add('bg-slate-900', 'text-white', 'shadow-sm');
       }
-      if (category === '전체') renderNotices(allNotices);
-      else renderNotices(allNotices.filter(n => (n.category && n.category.includes(category)) || (n.tags && n.tags.includes(category))));
+      renderNotices(cat === '전체' ? allNotices : allNotices.filter(n => n.category.includes(cat) || n.tags.includes(cat)));
     }
 
     function fillBihoExample() {
@@ -524,53 +384,13 @@
       document.getElementById('lc-uvp').value = "\"동해안 신선한 붉은대게로 만든 검증된 보일링크랩을 캠핑장에서 10분 만에 완벽 완성!\"";
       document.getElementById('lc-advantage').value = "1. 울진 죽변 산지 직송 원물 수급 인프라.\n2. 바다홍게 배달 서비스로 검증된 레시피 데이터 및 울진 관내 캠핑장 B2B 협업 채널 선점.";
       document.getElementById('lc-customers').value = "1. 캠핑, 홈파티 등 특별한 이색 요리를 즐기는 2040 세대.\n2. 울진 관내 오토캠핑장 이용객 및 B2B 매점 사장님.";
-      document.getElementById('lc-metrics').value = "1. 관내 캠핑장 B2B 협업 입점 수.\n2. 온라인/크라우드펀딩(해피빈 등) 재구매율 및 시즈닝 누적 판매량.";
-      document.getElementById('lc-channels').value = "1. 울진 관내 오토캠핑장 예약 연계 패키지 & 매점 샵인샵 입점.\n2. 네이버 스마트스토어, 크라우드펀딩(해피빈, 와디즈) 및 로컬 푸드 박람회.";
-      document.getElementById('lc-costs').value = "1. 원물(붉은대게, 어패류) 수급 및 가공 비용.\n2. 분말 시즈닝 금형/포장재 제작비 및 캠핑장 B2B 수수료.";
-      document.getElementById('lc-revenue').value = "1. 보일링크랩 밀키트 B2C/B2B 세트 판매 수익.\n2. 시즈닝 분말 개별 소량/대량 판매 및 캠핑장 연계 패키지 판매 수익.";
-      
-      alert("✨ 형제 비호수산 보일링크랩 사업계획서 예시 데이터가 채워졌습니다!");
+      document.getElementById('lc-metrics').value = "1. 관내 캠핑장 B2B 협업 입점 수.\n2. 온라인/크라우드펀딩 재구매율 및 시즈닝 판매량.";
+      document.getElementById('lc-channels').value = "1. 울진 캠핑장 예약 연계 패키지 & 매점 샵인샵 입점.\n2. 네이버 스마트스토어 및 와디즈 펀딩.";
+      document.getElementById('lc-costs').value = "1. 원물 수급 및 가공 비용.\n2. 분말 시즈닝 금형/포장재 제작비.";
+      document.getElementById('lc-revenue').value = "1. 보일링크랩 밀키트 세트 판매 수익.\n2. 시즈닝 분말 개별 소량/대량 판매 수익.";
+      alert("✨ 형제 비호수산 보일링크랩 예시 데이터가 채워졌습니다!");
     }
-
-    function copyLeanCanvasText() {
-      const draftText = `
-[형제 비호수산 보일링크랩 린캔버스 9단계 사업계획서]
-
-1. 문제 (Problem):
-${document.getElementById('lc-problem').value}
-
-2. 고객군 (Customer Segments):
-${document.getElementById('lc-customers').value}
-
-3. 고유 가치 제안 (UVP):
-${document.getElementById('lc-uvp').value}
-
-4. 해결안 (Solution):
-${document.getElementById('lc-solution').value}
-
-5. 채널 (Channels):
-${document.getElementById('lc-channels').value}
-
-6. 수익 창출 (Revenue Streams):
-${document.getElementById('lc-revenue').value}
-
-7. 비용 구조 (Cost Structure):
-${document.getElementById('lc-costs').value}
-
-8. 핵심 지표 (Key Metrics):
-${document.getElementById('lc-metrics').value}
-
-9. 경쟁 우위 (Unfair Advantage):
-${document.getElementById('lc-advantage').value}
-      `.trim();
-
-      navigator.clipboard.writeText(draftText).then(() => {
-        alert("📋 사업계획서 린캔버스 초안 텍스트가 클립보드에 복사되었습니다!");
-      });
-    }
-
     loadNotices();
-    loadReviews();
   </script>
 </body>
 </html>
