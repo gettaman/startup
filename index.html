@@ -16,8 +16,6 @@
     #chat-box::-webkit-scrollbar { width: 6px; }
     #chat-box::-webkit-scrollbar-track { background: #f1f5f9; }
     #chat-box::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 3px; }
-    details > summary { list-style: none; }
-    details > summary::-webkit-details-marker { display: none; }
     @media print {
       body * { visibility: hidden; }
       #lean-canvas-print-area, #lean-canvas-print-area * { visibility: visible; }
@@ -42,7 +40,7 @@
           🎯 지원사업 공고
         </button>
         <button onclick="switchTab('competitors')" id="tab-btn-competitors" class="tab-nav-btn bg-blue-900/80 text-blue-100 hover:bg-blue-800 font-semibold px-5 py-2.5 rounded-xl text-sm transition flex items-center gap-2">
-          📸 경쟁업체 리뷰 벤치마킹
+          📝 경쟁업체 리뷰 벤치마킹
         </button>
         <button onclick="switchTab('leancanvas')" id="tab-btn-leancanvas" class="tab-nav-btn bg-blue-900/80 text-blue-100 hover:bg-blue-800 font-semibold px-5 py-2.5 rounded-xl text-sm transition flex items-center gap-2">
           🧩 린캔버스 사업계획서 생성
@@ -57,7 +55,7 @@
       <div class="flex flex-wrap items-center justify-between gap-3 bg-white p-4 rounded-2xl border border-slate-200 shadow-sm">
         <div class="flex flex-wrap gap-2" id="filter-buttons">
           <button onclick="filterNotices('전체', this)" class="filter-btn active bg-slate-900 text-white font-bold px-4 py-2 rounded-lg text-sm shadow-sm transition">전체보기</button>
-          <button onclick="filterNotices('모두의창업', this)" class="filter-btn bg-amber-500 hover:bg-amber-400 text-slate-950 font-extrabold px-4 py-2 rounded-lg text-sm shadow-sm transition">🚀 모두의 창업</button>
+          <button onclick="filterNotices('모두의창업', this)" class="filter-btn bg-amber-500 hover:bg-amber-400 text-slate-950 font-extrabold px-4 py-2 rounded-lg text-sm shadow-sm transition">🚀 모두의 창업 (통합)</button>
           <button onclick="filterNotices('울진/경북', this)" class="filter-btn bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold px-4 py-2 rounded-lg text-sm transition">🌊 울진/경북</button>
           <button onclick="filterNotices('중앙정부', this)" class="filter-btn bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold px-4 py-2 rounded-lg text-sm transition">🏛️ 중앙부처</button>
         </div>
@@ -70,9 +68,9 @@
       <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
         <div class="border-b pb-4 mb-6">
           <h2 class="text-xl font-bold text-slate-900 flex items-center gap-2">
-            📸 네이버쇼핑 상위 3대 보일링크랩 분석 & 실제 구매자 리뷰
+            📝 네이버쇼핑 상위 3대 보일링크랩 분석 및 리뷰 벤치마킹
           </h2>
-          <p class="text-xs text-slate-500 mt-1">상세 분석 내용과 함께, 파이썬이 긁어온 실제 리뷰 항목을 클릭하면 고객 사진과 전문이 나타납니다.</p>
+          <p class="text-xs text-slate-500 mt-1">버튼을 클릭하면 네이버쇼핑의 실제 고객 리뷰(사진 및 텍스트 리스트) 페이지로 즉시 연결됩니다.</p>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
@@ -90,16 +88,15 @@
                 <p class="text-emerald-700 font-medium">✓ <strong>강점:</strong> 수산물 전문 브랜드 가성비, 다양한 해산물 구성</p>
                 <p class="text-red-600 font-medium">✗ <strong>약점:</strong> 액상 소스 배송 중 누수 위험, 해동 번거로움</p>
               </div>
-
-              <div id="hunhun-review-area">
-                <p class="text-xs text-slate-400 text-center py-2 border border-dashed rounded">⏳ 실제 리뷰 데이터 불러오는 중...</p>
-              </div>
             </div>
-            <div class="mt-4 pt-3 border-t border-slate-200">
+            
+            <div class="mt-2 border-t border-slate-200 pt-3">
               <div class="text-[11px] text-blue-900 font-bold bg-blue-50 p-2 rounded mb-3">
                 💡 <strong>비호수산 대응:</strong> 누수 걱정 없는 '10초 K-분말 시즈닝' 도입
               </div>
-              <a href="https://brand.naver.com/hunhunsusan/products/11471604767" target="_blank" class="block text-center bg-slate-900 hover:bg-blue-600 text-white font-bold text-xs py-2 rounded-lg transition">🔗 상점 상세페이지 ➔</a>
+              <a href="https://brand.naver.com/hunhunsusan/products/11471604767#REVIEW" target="_blank" class="block text-center bg-white border-2 border-slate-900 text-slate-900 hover:bg-slate-900 hover:text-white font-bold text-[13px] py-2.5 rounded-lg transition shadow-sm">
+                💬 네이버 실제 리뷰 리스트 보기 ➔
+              </a>
             </div>
           </div>
 
@@ -116,16 +113,15 @@
                 <p class="text-emerald-700 font-medium">✓ <strong>강점:</strong> 감성 캠핑 트렌디 비주얼, 특제 미국식 케이준</p>
                 <p class="text-red-600 font-medium">✗ <strong>약점:</strong> 수입산 냉동 원물 비중 높음, 느끼함 호불호</p>
               </div>
-
-              <div id="kamza-review-area">
-                <p class="text-xs text-slate-400 text-center py-2 border border-dashed rounded">⏳ 실제 리뷰 데이터 불러오는 중...</p>
-              </div>
             </div>
-            <div class="mt-4 pt-3 border-t border-slate-200">
+            
+            <div class="mt-2 border-t border-slate-200 pt-3">
               <div class="text-[11px] text-blue-900 font-bold bg-blue-50 p-2 rounded mb-3">
                 💡 <strong>비호수산 대응:</strong> 울진 죽변 산지 직송 '신선 냉장 원물' 공급
               </div>
-              <a href="https://smartstore.naver.com/kamzashop/products/13070057853" target="_blank" class="block text-center bg-slate-900 hover:bg-blue-600 text-white font-bold text-xs py-2 rounded-lg transition">🔗 상점 상세페이지 ➔</a>
+              <a href="https://smartstore.naver.com/kamzashop/products/13070057853#REVIEW" target="_blank" class="block text-center bg-white border-2 border-slate-900 text-slate-900 hover:bg-slate-900 hover:text-white font-bold text-[13px] py-2.5 rounded-lg transition shadow-sm">
+                💬 네이버 실제 리뷰 리스트 보기 ➔
+              </a>
             </div>
           </div>
 
@@ -142,23 +138,22 @@
                 <p class="text-emerald-700 font-medium">✓ <strong>강점:</strong> 보일링크랩 전문 브랜드, 고급 파티용 패키징</p>
                 <p class="text-red-600 font-medium">✗ <strong>약점:</strong> 다소 높은 가격대, 긴 조리시간 및 부피</p>
               </div>
-
-              <div id="fishermans-review-area">
-                <p class="text-xs text-slate-400 text-center py-2 border border-dashed rounded">⏳ 실제 리뷰 데이터 불러오는 중...</p>
-              </div>
             </div>
-            <div class="mt-4 pt-3 border-t border-slate-200">
+            
+            <div class="mt-2 border-t border-slate-200 pt-3">
               <div class="text-[11px] text-blue-900 font-bold bg-blue-50 p-2 rounded mb-3">
                 💡 <strong>비호수산 대응:</strong> 캠핑장 B2B 협업으로 3만원대 가성비 타겟팅
               </div>
-              <a href="https://smartstore.naver.com/fishermans/products/5154748166" target="_blank" class="block text-center bg-slate-900 hover:bg-blue-600 text-white font-bold text-xs py-2 rounded-lg transition">🔗 상점 상세페이지 ➔</a>
+              <a href="https://smartstore.naver.com/fishermans/products/5154748166#REVIEW" target="_blank" class="block text-center bg-white border-2 border-slate-900 text-slate-900 hover:bg-slate-900 hover:text-white font-bold text-[13px] py-2.5 rounded-lg transition shadow-sm">
+                💬 네이버 실제 리뷰 리스트 보기 ➔
+              </a>
             </div>
           </div>
 
           <div class="bg-amber-50/70 p-4 rounded-xl border-2 border-amber-400 flex flex-col justify-between shadow-md">
             <div>
               <div class="flex justify-between items-center mb-2">
-                <span class="text-xs font-extrabold bg-amber-400 text-slate-950 px-2.5 py-0.5 rounded">👑 비호수산</span>
+                <span class="text-xs font-extrabold bg-amber-400 text-slate-950 px-2.5 py-0.5 rounded">👑비호수산</span>
                 <span class="text-xs text-amber-800 font-extrabold">로컬 융복합 자사</span>
               </div>
               <h3 class="font-bold text-base text-slate-950 mb-1">울진 붉은대게 보일링크랩</h3>
@@ -169,10 +164,15 @@
                 <p>⭐ 자체 개발 K-마늘 고춧가루 분말 시즈닝</p>
                 <p>⭐ 울진 캠핑장 예약 연계 & 샵인샵 입점</p>
               </div>
+              
+              <div class="bg-amber-100/90 p-2.5 rounded-lg border border-amber-300 text-xs text-amber-900 mt-2">
+                <p class="font-bold mb-1">🎯 자사 차별화 포인트</p>
+                <p class="leading-relaxed">경쟁사들의 액상 누수 및 긴 해동시간 문제를 '분말 시즈닝 + 신선 원물'로 100% 해결</p>
+              </div>
             </div>
             <div class="mt-4 pt-3 border-t border-amber-200">
-              <div class="text-[11px] text-amber-950 font-bold bg-amber-100/90 p-2 rounded text-center">
-                🎯 <strong>핵심 우위:</strong> 수산 원물 수급 인프라 + 캠핑장 B2B 유통망
+              <div class="text-[11px] text-amber-950 font-bold bg-amber-200/80 p-2 rounded text-center">
+                🏆 핵심 진입장벽: 수산 원물 인프라 + B2B 채널
               </div>
             </div>
           </div>
@@ -238,19 +238,22 @@
     <section class="mt-12 bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
       <div class="bg-slate-900 text-white px-6 py-4 flex justify-between items-center">
         <h2 class="text-base font-bold flex items-center gap-2"><span class="w-2.5 h-2.5 bg-green-400 rounded-full animate-ping"></span>💬 창업팀 실시간 익명 토론방</h2>
+        <span class="text-xs bg-slate-800 text-slate-300 px-2.5 py-1 rounded-md border border-slate-700">라이브 톡</span>
       </div>
-      <div id="chat-box" class="h-72 p-4 bg-slate-50 overflow-y-auto space-y-3"></div>
+      <div id="chat-box" class="h-72 p-4 bg-slate-50 overflow-y-auto space-y-3">
+        <div class="text-center text-xs text-slate-400 py-4">👋 팀원이나 멘토에게 실시간 메시지를 남겨보세요!</div>
+      </div>
       <div class="p-3 bg-white border-t border-slate-200 flex flex-wrap md:flex-nowrap gap-2">
         <input id="chat-nickname" type="text" placeholder="닉네임 (예: 대표님)" class="w-full md:w-32 px-3 py-2 text-xs border rounded-lg focus:outline-none focus:border-blue-600 bg-slate-50">
         <input id="chat-input" type="text" placeholder="의견을 입력하세요... (Enter 키로 전송)" onkeypress="if(event.key==='Enter') sendChatMessage()" class="w-full flex-grow px-3 py-2 text-xs border rounded-lg focus:outline-none focus:border-blue-600">
-        <button onclick="sendChatMessage()" class="w-full md:w-auto bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs px-5 py-2 rounded-lg transition">전송 🚀</button>
+        <button onclick="sendChatMessage()" class="w-full md:w-auto bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs px-5 py-2 rounded-lg transition shadow-sm whitespace-nowrap">전송 🚀</button>
       </div>
     </section>
 
   </main>
 
   <script>
-    // 탭 스위치
+    // 탭 스위치 로직
     function switchTab(tabName) {
       document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
       document.querySelectorAll('.tab-nav-btn').forEach(btn => {
@@ -263,7 +266,7 @@
       activeBtn.classList.add('bg-amber-400', 'text-slate-950', 'shadow-md');
     }
 
-    // 파이어베이스 채팅
+    // 파이어베이스 채팅 로직
     const firebaseConfig = { databaseURL: "https://uljin-startup-default-rtdb.asia-southeast1.firebasedatabase.app" };
     if (!firebase.apps.length) firebase.initializeApp(firebaseConfig);
     const db = firebase.database();
@@ -281,6 +284,7 @@
     db.ref('chats').limitToLast(50).on('child_added', (snapshot) => {
       const msg = snapshot.val();
       const chatBox = document.getElementById('chat-box');
+      if (chatBox.children.length === 1 && chatBox.children[0].classList.contains('text-center')) chatBox.innerHTML = '';
       const msgDiv = document.createElement('div');
       msgDiv.className = 'flex flex-col items-start bg-white p-3 rounded-xl border border-slate-200 shadow-sm max-w-[85%] md:max-w-[70%]';
       msgDiv.innerHTML = `
@@ -293,7 +297,7 @@
       chatBox.scrollTop = chatBox.scrollHeight;
     });
 
-    // 지원사업 로드
+    // 지원사업 로드 로직
     let allNotices = [];
     async function loadNotices() {
       try {
@@ -336,59 +340,7 @@
       renderNotices(cat === '전체' ? allNotices : allNotices.filter(n => n.category.includes(cat) || n.tags.includes(cat)));
     }
 
-    // 📸 실제 리뷰 JSON 데이터를 읽어 아코디언(펼치기) UI 동적 생성
-    async function loadReviews() {
-      try {
-        const res = await fetch('./reviews.json');
-        if (!res.ok) throw new Error();
-        const data = await res.json();
-        
-        if (data["11471604767"]) renderAccordionReviews('hunhun', data["11471604767"]);
-        if (data["13070057853"]) renderAccordionReviews('kamza', data["13070057853"]);
-        if (data["5154748166"]) renderAccordionReviews('fishermans', data["5154748166"]);
-      } catch (e) {
-        console.log('reviews.json 파일을 기다리는 중입니다.');
-      }
-    }
-
-    function renderAccordionReviews(key, compData) {
-      const container = document.getElementById(`${key}-review-area`);
-      if (!container || !compData || !compData.photos || compData.photos.length === 0) return;
-
-      const photos = compData.photos.slice(0, 5); // 5개만 노출
-      let html = `<div class="mt-4 pt-3 border-t border-slate-200 space-y-2">
-                    <h4 class="font-bold text-[11px] text-blue-900 mb-2">💬 파이썬 수집 리얼 구매후기 (클릭)</h4>`;
-      
-      photos.forEach(p => {
-        // 별점 생성
-        let stars = '★'.repeat(p.score || 5) + '☆'.repeat(5 - (p.score || 5));
-        let shortText = p.review_text.substring(0, 15) + '...';
-        
-        html += `
-          <details class="bg-white border border-slate-200 rounded shadow-sm group">
-            <summary class="flex justify-between items-center cursor-pointer p-2 text-[11px] font-medium hover:bg-slate-50 transition">
-              <div class="flex items-center gap-1.5 overflow-hidden">
-                <span class="text-amber-500 font-bold">${stars}</span>
-                <span class="text-slate-700 truncate">${shortText}</span>
-              </div>
-              <span class="text-slate-400 group-open:rotate-180 transition-transform">▼</span>
-            </summary>
-            <div class="p-3 border-t border-slate-100 bg-slate-50">
-              <p class="text-[11px] text-slate-600 mb-2 leading-relaxed">"${p.review_text}"</p>
-              <div class="flex gap-2">
-                <a href="${p.img_url}" target="_blank">
-                  <img src="${p.img_url}" class="w-16 h-16 object-cover rounded border border-slate-200 hover:scale-105 transition">
-                </a>
-              </div>
-            </div>
-          </details>
-        `;
-      });
-      html += `</div>`;
-      container.innerHTML = html;
-    }
-
-    // 린캔버스 예시
+    // 린캔버스 예시 채우기
     function fillBihoExample() {
       document.getElementById('lc-problem').value = "1. 집/캠핑장에서 보일링크랩 조리 시 원물 손질과 소스 조리 어려움\n2. 액상 소스 누수 및 무거운 중량으로 인한 물류 한계";
       document.getElementById('lc-solution').value = "1. 동해안 신선 붉은대게 산지 직송\n2. 누수 0% 자체 개발 K-분말 시즈닝";
@@ -399,16 +351,14 @@
       document.getElementById('lc-channels').value = "1. 울진 캠핑장 예약 연계 및 매점 샵인샵\n2. 네이버 스마트스토어, 크라우드펀딩";
       document.getElementById('lc-costs').value = "1. 원물 수급 및 가공비\n2. 분말 시즈닝 포장재 제작비";
       document.getElementById('lc-revenue').value = "1. B2C/B2B 밀키트 세트 판매\n2. 시즈닝 분말 개별 판매";
-      alert("✨  비호수산 보일링크랩 예시 데이터가 채워졌습니다!");
+      alert("✨비호수산 보일링크랩 예시 데이터가 채워졌습니다!");
     }
 
     function copyLeanCanvasText() {
       alert("📋 사업계획서 린캔버스 초안 텍스트가 클립보드에 복사되었습니다!");
     }
 
-    // 실행
     loadNotices();
-    loadReviews(); // JSON 파싱 후 실제 아코디언 생성
   </script>
 </body>
 </html>
