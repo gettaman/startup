@@ -16,10 +16,12 @@
     #chat-box::-webkit-scrollbar { width: 6px; }
     #chat-box::-webkit-scrollbar-track { background: #f1f5f9; }
     #chat-box::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 3px; }
+    details > summary { list-style: none; }
+    details > summary::-webkit-details-marker { display: none; }
     @media print {
       body * { visibility: hidden; }
-      #lean-canvas-print-area, #lean-canvas-print-area * { visibility: visible; }
-      #lean-canvas-print-area { position: absolute; left: 0; top: 0; width: 100%; }
+      .print-area, .print-area * { visibility: visible; }
+      .print-area { position: absolute; left: 0; top: 0; width: 100%; }
     }
   </style>
 </head>
@@ -29,7 +31,7 @@
     <div class="max-w-6xl mx-auto">
       <div class="flex flex-wrap items-center gap-2 mb-3">
         <span class="bg-amber-400 text-slate-950 text-xs font-extrabold px-3 py-1 rounded-full shadow-sm">🚀 통합 창업 솔루션</span>
-        <span class="bg-blue-800/80 text-blue-100 text-xs font-semibold px-3 py-1 rounded-full border border-blue-500/50">울진 창업아카데미 / 비호수산</span>
+        <span class="bg-blue-800/80 text-blue-100 text-xs font-semibold px-3 py-1 rounded-full border border-blue-500/50">울진 창업아카데미 / 형제 비호수산</span>
       </div>
       <h1 class="text-2xl md:text-3xl font-extrabold tracking-tight text-white flex items-center gap-2">
         <span>🦀</span> 울진 보일링크랩 사업화 & 창업 대시보드
@@ -40,10 +42,13 @@
           🎯 지원사업 공고
         </button>
         <button onclick="switchTab('competitors')" id="tab-btn-competitors" class="tab-nav-btn bg-blue-900/80 text-blue-100 hover:bg-blue-800 font-semibold px-5 py-2.5 rounded-xl text-sm transition flex items-center gap-2">
-          📝 경쟁업체 리뷰 벤치마킹
+          📝 경쟁업체 리뷰/태그
+        </button>
+        <button onclick="switchTab('calculator')" id="tab-btn-calculator" class="tab-nav-btn bg-blue-900/80 text-blue-100 hover:bg-blue-800 font-semibold px-5 py-2.5 rounded-xl text-sm transition flex items-center gap-2">
+          💰 원가 및 마진 계산기
         </button>
         <button onclick="switchTab('leancanvas')" id="tab-btn-leancanvas" class="tab-nav-btn bg-blue-900/80 text-blue-100 hover:bg-blue-800 font-semibold px-5 py-2.5 rounded-xl text-sm transition flex items-center gap-2">
-          🧩 린캔버스 사업계획서 생성
+          🧩 린캔버스 사업계획
         </button>
       </div>
     </div>
@@ -68,9 +73,9 @@
       <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
         <div class="border-b pb-4 mb-6">
           <h2 class="text-xl font-bold text-slate-900 flex items-center gap-2">
-            📝 네이버쇼핑 상위 3대 보일링크랩 벤치마킹
+            📝 네이버쇼핑 상위 3대 보일링크랩 분석 & 태그 벤치마킹
           </h2>
-          <p class="text-xs text-slate-500 mt-1">버튼을 클릭하면 각 경쟁사의 '상세페이지 디테일'과 '실제 리뷰 리스트'로 즉시 이동합니다.</p>
+          <p class="text-xs text-slate-500 mt-1">경쟁사들이 고객 검색 노출을 위해 네이버 쇼핑 하단에 숨겨둔 핵심 해시태그(#) 리스트를 스크랩했습니다.</p>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
@@ -88,18 +93,23 @@
                 <p class="text-emerald-700 font-medium">✓ <strong>강점:</strong> 수산물 전문 브랜드 가성비, 다양한 해산물 구성</p>
                 <p class="text-red-600 font-medium">✗ <strong>약점:</strong> 액상 소스 배송 중 누수 위험, 해동 번거로움</p>
               </div>
+
+              <div class="mb-3">
+                <p class="text-[10px] font-bold text-slate-500 mb-1">🏷️ 검색 노출 타겟 태그 (스크랩)</p>
+                <div class="flex flex-wrap gap-1">
+                  <span class="text-[10px] bg-white border border-slate-300 text-slate-600 px-1.5 py-0.5 rounded-full">#보일링크랩</span>
+                  <span class="text-[10px] bg-white border border-slate-300 text-slate-600 px-1.5 py-0.5 rounded-full">#해물찜</span>
+                  <span class="text-[10px] bg-white border border-slate-300 text-slate-600 px-1.5 py-0.5 rounded-full">#캠핑밀키트</span>
+                  <span class="text-[10px] bg-white border border-slate-300 text-slate-600 px-1.5 py-0.5 rounded-full">#해산물파티</span>
+                  <span class="text-[10px] bg-white border border-slate-300 text-slate-600 px-1.5 py-0.5 rounded-full">#홈파티음식</span>
+                  <span class="text-[10px] bg-white border border-slate-300 text-slate-600 px-1.5 py-0.5 rounded-full">#봉지해물찜</span>
+                </div>
+              </div>
             </div>
             
             <div class="mt-2 border-t border-slate-200 pt-3 space-y-2">
-              <div class="text-[11px] text-blue-900 font-bold bg-blue-50 p-2 rounded mb-2">
-                💡 <strong>비호수산 대응:</strong> 누수 걱정 없는 '10초 K-분말 시즈닝' 도입
-              </div>
-              <a href="https://brand.naver.com/hunhunsusan/products/11471604767" target="_blank" class="block text-center bg-blue-600 hover:bg-blue-700 text-white font-bold text-[12px] py-2 rounded-lg transition shadow-sm">
-                🔎 상세페이지 디테일 ➔
-              </a>
-              <a href="https://brand.naver.com/hunhunsusan/products/11471604767#REVIEW" target="_blank" class="block text-center bg-white border-2 border-slate-900 text-slate-900 hover:bg-slate-900 hover:text-white font-bold text-[12px] py-2 rounded-lg transition shadow-sm">
-                💬 실제 리뷰 리스트 보기 ➔
-              </a>
+              <a href="https://brand.naver.com/hunhunsusan/products/11471604767" target="_blank" class="block text-center bg-blue-600 hover:bg-blue-700 text-white font-bold text-[12px] py-2 rounded-lg transition shadow-sm">🔎 상세페이지 디테일 ➔</a>
+              <a href="https://brand.naver.com/hunhunsusan/products/11471604767#REVIEW" target="_blank" class="block text-center bg-white border-2 border-slate-900 text-slate-900 hover:bg-slate-900 hover:text-white font-bold text-[12px] py-2 rounded-lg transition shadow-sm">💬 실제 리뷰 리스트 보기 ➔</a>
             </div>
           </div>
 
@@ -116,18 +126,22 @@
                 <p class="text-emerald-700 font-medium">✓ <strong>강점:</strong> 감성 캠핑 트렌디 비주얼, 특제 미국식 케이준</p>
                 <p class="text-red-600 font-medium">✗ <strong>약점:</strong> 수입산 냉동 원물 비중 높음, 느끼함 호불호</p>
               </div>
+
+              <div class="mb-3">
+                <p class="text-[10px] font-bold text-slate-500 mb-1">🏷️ 검색 노출 타겟 태그 (스크랩)</p>
+                <div class="flex flex-wrap gap-1">
+                  <span class="text-[10px] bg-white border border-slate-300 text-slate-600 px-1.5 py-0.5 rounded-full">#미국식해물찜</span>
+                  <span class="text-[10px] bg-white border border-slate-300 text-slate-600 px-1.5 py-0.5 rounded-full">#케이준씨푸드</span>
+                  <span class="text-[10px] bg-white border border-slate-300 text-slate-600 px-1.5 py-0.5 rounded-full">#보일링크랩밀키트</span>
+                  <span class="text-[10px] bg-white border border-slate-300 text-slate-600 px-1.5 py-0.5 rounded-full">#캠핑음식</span>
+                  <span class="text-[10px] bg-white border border-slate-300 text-slate-600 px-1.5 py-0.5 rounded-full">#감성캠핑요리</span>
+                </div>
+              </div>
             </div>
             
             <div class="mt-2 border-t border-slate-200 pt-3 space-y-2">
-              <div class="text-[11px] text-blue-900 font-bold bg-blue-50 p-2 rounded mb-2">
-                💡 <strong>비호수산 대응:</strong> 울진 죽변 산지 직송 '신선 냉장 원물' 공급
-              </div>
-              <a href="https://smartstore.naver.com/kamzashop/products/13070057853" target="_blank" class="block text-center bg-blue-600 hover:bg-blue-700 text-white font-bold text-[12px] py-2 rounded-lg transition shadow-sm">
-                🔎 상세페이지 디테일 ➔
-              </a>
-              <a href="https://smartstore.naver.com/kamzashop/products/13070057853#REVIEW" target="_blank" class="block text-center bg-white border-2 border-slate-900 text-slate-900 hover:bg-slate-900 hover:text-white font-bold text-[12px] py-2 rounded-lg transition shadow-sm">
-                💬 실제 리뷰 리스트 보기 ➔
-              </a>
+              <a href="https://smartstore.naver.com/kamzashop/products/13070057853" target="_blank" class="block text-center bg-blue-600 hover:bg-blue-700 text-white font-bold text-[12px] py-2 rounded-lg transition shadow-sm">🔎 상세페이지 디테일 ➔</a>
+              <a href="https://smartstore.naver.com/kamzashop/products/13070057853#REVIEW" target="_blank" class="block text-center bg-white border-2 border-slate-900 text-slate-900 hover:bg-slate-900 hover:text-white font-bold text-[12px] py-2 rounded-lg transition shadow-sm">💬 실제 리뷰 리스트 보기 ➔</a>
             </div>
           </div>
 
@@ -144,25 +158,29 @@
                 <p class="text-emerald-700 font-medium">✓ <strong>강점:</strong> 보일링크랩 전문 브랜드, 고급 파티용 패키징</p>
                 <p class="text-red-600 font-medium">✗ <strong>약점:</strong> 다소 높은 가격대, 긴 조리시간 및 부피</p>
               </div>
+
+              <div class="mb-3">
+                <p class="text-[10px] font-bold text-slate-500 mb-1">🏷️ 검색 노출 타겟 태그 (스크랩)</p>
+                <div class="flex flex-wrap gap-1">
+                  <span class="text-[10px] bg-white border border-slate-300 text-slate-600 px-1.5 py-0.5 rounded-full">#피셔맨스</span>
+                  <span class="text-[10px] bg-white border border-slate-300 text-slate-600 px-1.5 py-0.5 rounded-full">#씨푸드보일링</span>
+                  <span class="text-[10px] bg-white border border-slate-300 text-slate-600 px-1.5 py-0.5 rounded-full">#보일링크랩</span>
+                  <span class="text-[10px] bg-white border border-slate-300 text-slate-600 px-1.5 py-0.5 rounded-full">#홈파티밀키트</span>
+                  <span class="text-[10px] bg-white border border-slate-300 text-slate-600 px-1.5 py-0.5 rounded-full">#집들이음식추천</span>
+                </div>
+              </div>
             </div>
             
             <div class="mt-2 border-t border-slate-200 pt-3 space-y-2">
-              <div class="text-[11px] text-blue-900 font-bold bg-blue-50 p-2 rounded mb-2">
-                💡 <strong>비호수산 대응:</strong> 캠핑장 B2B 협업으로 3만원대 가성비 타겟팅
-              </div>
-              <a href="https://smartstore.naver.com/fishermans/products/5154748166" target="_blank" class="block text-center bg-blue-600 hover:bg-blue-700 text-white font-bold text-[12px] py-2 rounded-lg transition shadow-sm">
-                🔎 상세페이지 디테일 ➔
-              </a>
-              <a href="https://smartstore.naver.com/fishermans/products/5154748166#REVIEW" target="_blank" class="block text-center bg-white border-2 border-slate-900 text-slate-900 hover:bg-slate-900 hover:text-white font-bold text-[12px] py-2 rounded-lg transition shadow-sm">
-                💬 실제 리뷰 리스트 보기 ➔
-              </a>
+              <a href="https://smartstore.naver.com/fishermans/products/5154748166" target="_blank" class="block text-center bg-blue-600 hover:bg-blue-700 text-white font-bold text-[12px] py-2 rounded-lg transition shadow-sm">🔎 상세페이지 디테일 ➔</a>
+              <a href="https://smartstore.naver.com/fishermans/products/5154748166#REVIEW" target="_blank" class="block text-center bg-white border-2 border-slate-900 text-slate-900 hover:bg-slate-900 hover:text-white font-bold text-[12px] py-2 rounded-lg transition shadow-sm">💬 실제 리뷰 리스트 보기 ➔</a>
             </div>
           </div>
 
           <div class="bg-amber-50/70 p-4 rounded-xl border-2 border-amber-400 flex flex-col justify-between shadow-md">
             <div>
               <div class="flex justify-between items-center mb-2">
-                <span class="text-xs font-extrabold bg-amber-400 text-slate-950 px-2.5 py-0.5 rounded">👑비호수산</span>
+                <span class="text-xs font-extrabold bg-amber-400 text-slate-950 px-2.5 py-0.5 rounded">👑 형제 비호수산</span>
                 <span class="text-xs text-amber-800 font-extrabold">로컬 융복합 자사</span>
               </div>
               <h3 class="font-bold text-base text-slate-950 mb-1">울진 붉은대게 보일링크랩</h3>
@@ -173,13 +191,19 @@
                 <p>⭐ 자체 개발 K-마늘 고춧가루 분말 시즈닝</p>
                 <p>⭐ 울진 캠핑장 예약 연계 & 샵인샵 입점</p>
               </div>
-              
-              <div class="bg-amber-100/90 p-2.5 rounded-lg border border-amber-300 text-xs text-amber-900 mt-2">
-                <p class="font-bold mb-1">🎯 자사 차별화 포인트</p>
-                <p class="leading-relaxed">경쟁사들의 액상 누수 및 긴 해동시간 문제를 '분말 시즈닝 + 신선 원물'로 100% 해결</p>
+
+              <div class="mb-3">
+                <p class="text-[10px] font-bold text-amber-700 mb-1">🎯 비호수산 선점 타겟 태그</p>
+                <div class="flex flex-wrap gap-1">
+                  <span class="text-[10px] bg-amber-200 text-amber-900 font-bold px-1.5 py-0.5 rounded-full border border-amber-300">#울진붉은대게</span>
+                  <span class="text-[10px] bg-amber-200 text-amber-900 font-bold px-1.5 py-0.5 rounded-full border border-amber-300">#보일링크랩분말</span>
+                  <span class="text-[10px] bg-amber-200 text-amber-900 font-bold px-1.5 py-0.5 rounded-full border border-amber-300">#캠핑밀키트추천</span>
+                  <span class="text-[10px] bg-amber-200 text-amber-900 font-bold px-1.5 py-0.5 rounded-full border border-amber-300">#비호수산</span>
+                  <span class="text-[10px] bg-amber-200 text-amber-900 font-bold px-1.5 py-0.5 rounded-full border border-amber-300">#산지직송해산물</span>
+                </div>
               </div>
             </div>
-            <div class="mt-4 pt-3 border-t border-amber-200">
+            <div class="mt-2 pt-3 border-t border-amber-200">
               <div class="text-[11px] text-amber-950 font-bold bg-amber-200/80 p-2 rounded text-center">
                 🏆 핵심 진입장벽: 수산 원물 인프라 + B2B 채널
               </div>
@@ -190,8 +214,89 @@
       </div>
     </section>
 
-    <section id="tab-content-leancanvas" class="tab-content hidden space-y-6">
-      <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm" id="lean-canvas-print-area">
+    <section id="tab-content-calculator" class="tab-content hidden space-y-6">
+      <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+        <div class="flex flex-wrap justify-between items-center border-b pb-4 mb-6 gap-3">
+          <div>
+            <h2 class="text-xl font-bold text-slate-900 flex items-center gap-2">💰 보일링크랩 원가 및 마진 시뮬레이터</h2>
+            <p class="text-xs text-slate-500 mt-1">숫자를 입력하면 B2C/B2B 마진율이 실시간으로 자동 계산됩니다.</p>
+          </div>
+          <button onclick="fillCalcExample()" class="bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs px-4 py-2 rounded-lg shadow-sm transition">
+            ✨ 비호수산 기본값 불러오기
+          </button>
+        </div>
+
+        <div class="flex flex-col md:flex-row gap-6">
+          <div class="flex-1 bg-slate-50 p-5 rounded-xl border border-slate-200 space-y-4">
+            <h3 class="font-bold text-sm text-slate-800 border-b pb-2 mb-3">1. 원가 및 비용 입력 (원)</h3>
+            
+            <div class="flex justify-between items-center gap-4">
+              <label class="text-xs font-bold text-slate-700 w-24">판매가(매출)</label>
+              <input type="number" id="calc-sell" value="0" oninput="calcMargin()" class="flex-1 p-2 text-right text-sm border border-slate-300 rounded focus:border-blue-500 focus:outline-none font-bold text-blue-700">
+            </div>
+            
+            <div class="flex justify-between items-center gap-4">
+              <label class="text-xs font-medium text-slate-600 w-24">수산물 원물비</label>
+              <input type="number" id="calc-raw" value="0" oninput="calcMargin()" placeholder="홍게, 조개류 등" class="flex-1 p-2 text-right text-sm border border-slate-300 rounded focus:border-blue-500 focus:outline-none">
+            </div>
+
+            <div class="flex justify-between items-center gap-4">
+              <label class="text-xs font-medium text-slate-600 w-24">K-시즈닝(분말)</label>
+              <input type="number" id="calc-sauce" value="0" oninput="calcMargin()" placeholder="자체 분말 소스비" class="flex-1 p-2 text-right text-sm border border-slate-300 rounded focus:border-blue-500 focus:outline-none">
+            </div>
+
+            <div class="flex justify-between items-center gap-4">
+              <label class="text-xs font-medium text-slate-600 w-24">부자재/포장비</label>
+              <input type="number" id="calc-pkg" value="0" oninput="calcMargin()" placeholder="아이스박스, 진공팩" class="flex-1 p-2 text-right text-sm border border-slate-300 rounded focus:border-blue-500 focus:outline-none">
+            </div>
+
+            <div class="flex justify-between items-center gap-4">
+              <label class="text-xs font-medium text-slate-600 w-24">배송비(물류)</label>
+              <input type="number" id="calc-ship" value="0" oninput="calcMargin()" placeholder="택배비 등" class="flex-1 p-2 text-right text-sm border border-slate-300 rounded focus:border-blue-500 focus:outline-none">
+            </div>
+
+            <div class="flex justify-between items-center gap-4">
+              <label class="text-xs font-medium text-slate-600 w-24">마진/수수료(%)</label>
+              <div class="flex-1 flex items-center gap-2">
+                <input type="number" id="calc-fee-rate" value="0" oninput="calcMargin()" placeholder="스토어/B2B 수수료율" class="w-full p-2 text-right text-sm border border-slate-300 rounded focus:border-blue-500 focus:outline-none">
+                <span class="text-xs font-bold">%</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="flex-1 flex flex-col justify-center bg-slate-900 text-white p-6 rounded-xl shadow-md border border-slate-800">
+            <h3 class="font-bold text-sm text-slate-400 mb-6 text-center">2. 실시간 예상 마진 분석 결과</h3>
+            
+            <div class="space-y-5">
+              <div class="flex justify-between items-center border-b border-slate-700 pb-2">
+                <span class="text-sm font-medium">총 투입 원가</span>
+                <span class="text-lg font-bold text-red-400"><span id="result-cost">0</span>원</span>
+              </div>
+              
+              <div class="flex justify-between items-center border-b border-slate-700 pb-2">
+                <span class="text-sm font-medium">수수료 지출액</span>
+                <span class="text-lg font-bold text-orange-300"><span id="result-fee">0</span>원</span>
+              </div>
+
+              <div class="flex justify-between items-center pt-2">
+                <span class="text-base font-bold text-blue-200">순 마진액 (이익)</span>
+                <span class="text-2xl font-extrabold text-emerald-400"><span id="result-margin">0</span>원</span>
+              </div>
+
+              <div class="mt-4 p-4 rounded-lg bg-slate-800 text-center border border-slate-600">
+                <span class="text-xs text-slate-400 block mb-1">최종 마진율</span>
+                <span id="result-rate" class="text-3xl font-black text-white">0.0%</span>
+              </div>
+              
+              <p id="margin-feedback" class="text-center text-xs mt-2 text-slate-400">판매가 및 원가를 입력해 주세요.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="tab-content-leancanvas" class="tab-content hidden space-y-6 print-area">
+      <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
         <div class="flex flex-wrap justify-between items-center border-b pb-4 mb-6 gap-3">
           <h2 class="text-xl font-bold text-slate-900 flex items-center gap-2">🧩 린캔버스(Lean Canvas) 9단계 작성기</h2>
           <div class="flex gap-2">
@@ -273,6 +378,59 @@
       const activeBtn = document.getElementById(`tab-btn-${tabName}`);
       activeBtn.classList.remove('bg-blue-900/80', 'text-blue-100');
       activeBtn.classList.add('bg-amber-400', 'text-slate-950', 'shadow-md');
+    }
+
+    // 마진 계산기 로직
+    function calcMargin() {
+      const sell = parseInt(document.getElementById('calc-sell').value) || 0;
+      const raw = parseInt(document.getElementById('calc-raw').value) || 0;
+      const sauce = parseInt(document.getElementById('calc-sauce').value) || 0;
+      const pkg = parseInt(document.getElementById('calc-pkg').value) || 0;
+      const ship = parseInt(document.getElementById('calc-ship').value) || 0;
+      const feeRate = parseFloat(document.getElementById('calc-fee-rate').value) || 0;
+
+      const feeCost = Math.round(sell * (feeRate / 100));
+      const totalCost = raw + sauce + pkg + ship;
+      const totalCostWithFee = totalCost + feeCost;
+      const margin = sell - totalCostWithFee;
+      const marginRate = sell > 0 ? (margin / sell) * 100 : 0;
+
+      document.getElementById('result-cost').textContent = totalCost.toLocaleString();
+      document.getElementById('result-fee').textContent = feeCost.toLocaleString();
+      document.getElementById('result-margin').textContent = margin.toLocaleString();
+      
+      const rateEl = document.getElementById('result-rate');
+      rateEl.textContent = marginRate.toFixed(1) + '%';
+      
+      const feedback = document.getElementById('margin-feedback');
+      if (sell === 0) {
+        rateEl.className = "text-3xl font-black text-white";
+        feedback.textContent = "판매가 및 원가를 입력해 주세요.";
+        feedback.className = "text-center text-xs mt-2 text-slate-400";
+      } else if (marginRate >= 30) {
+        rateEl.className = "text-3xl font-black text-emerald-400 animate-pulse";
+        feedback.textContent = "✅ 아주 훌륭한 마진율입니다! (안정적 사업 가능)";
+        feedback.className = "text-center text-xs mt-2 text-emerald-400 font-bold";
+      } else if (marginRate >= 15) {
+        rateEl.className = "text-3xl font-black text-blue-300";
+        feedback.textContent = "👍 무난한 마진율입니다. (박리다매 가능)";
+        feedback.className = "text-center text-xs mt-2 text-blue-300";
+      } else {
+        rateEl.className = "text-3xl font-black text-red-500";
+        feedback.textContent = "⚠️ 마진율이 낮습니다. 원가 절감이나 판가 인상이 필요합니다.";
+        feedback.className = "text-center text-xs mt-2 text-red-400 font-bold";
+      }
+    }
+
+    function fillCalcExample() {
+      document.getElementById('calc-sell').value = 39000;
+      document.getElementById('calc-raw').value = 14500;
+      document.getElementById('calc-sauce').value = 1800;
+      document.getElementById('calc-pkg').value = 2500;
+      document.getElementById('calc-ship').value = 4000;
+      document.getElementById('calc-fee-rate').value = 5.8; // 네이버 스마트스토어 평균
+      calcMargin();
+      alert("✨ 비호수산 기본 시뮬레이션(3.9만원 판매 시) 값이 입력되었습니다!");
     }
 
     // 파이어베이스 채팅 로직
@@ -360,7 +518,7 @@
       document.getElementById('lc-channels').value = "1. 울진 캠핑장 예약 연계 및 매점 샵인샵\n2. 네이버 스마트스토어, 크라우드펀딩";
       document.getElementById('lc-costs').value = "1. 원물 수급 및 가공비\n2. 분말 시즈닝 포장재 제작비";
       document.getElementById('lc-revenue').value = "1. B2C/B2B 밀키트 세트 판매\n2. 시즈닝 분말 개별 판매";
-      alert("✨비호수산 보일링크랩 예시 데이터가 채워졌습니다!");
+      alert("✨ 형제 비호수산 보일링크랩 린캔버스 데이터가 채워졌습니다!");
     }
 
     function copyLeanCanvasText() {
