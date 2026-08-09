@@ -1,0 +1,142 @@
+[
+  {
+    "id": "modoo_fallback",
+    "category": "모두의창업",
+    "agency": "소상공인시장진흥공단 (모두의 창업)",
+    "title": "[모두의 창업] 2026년 모두의 창업 로컬 트랙 (1,000팀) 모집 공고",
+    "deadline": "2026-08-31",
+    "link": "https://www.modoo.or.kr/notice/list",
+    "tags": [
+      "모두의창업",
+      "로컬트랙",
+      "비수도권90%"
+    ],
+    "highlight": true
+  },
+  {
+    "id": "kstartup_fallback",
+    "category": "중앙정부",
+    "agency": "중소벤처기업부 (K-Startup)",
+    "title": "2026년 예비창업패키지 및 초기창업패키지 모집 통합 공고",
+    "deadline": "상시/공고참조",
+    "link": "https://www.k-startup.go.kr/web/contents/bizpbanc-ongoing.do",
+    "tags": [
+      "중기부",
+      "K-Startup",
+      "사업화자금"
+    ],
+    "highlight": true
+  },
+  {
+    "id": "kised_fallback",
+    "category": "중앙정부",
+    "agency": "창업진흥원 (KISED)",
+    "title": "2026년 창업진흥원 주관 수산/농복합 창업 지원 가이드 공고",
+    "deadline": "상시/공고참조",
+    "link": "https://www.kised.or.kr/misAnnouncement/index.es?mid=a10302000000",
+    "tags": [
+      "창업진흥원",
+      "전담기관",
+      "정부지원금"
+    ],
+    "highlight": false
+  },
+  {
+    "id": "gcube_1",
+    "category": "울진/경북",
+    "agency": "경상북도콘텐츠진흥원 (GCA)",
+    "title": "[°ø°í Á¦2026-107È£] ¸Þ°¡ ÀÌº¥Æ® ¿¬°è Á¦ÀÛ Áö¿ø»ç¾÷ Âü¿©±â¾÷ ¸ðÁý°ø°í",
+    "deadline": "26-08-06",
+    "link": "https://gcube.or.kr:1021/home/sub1/sub1.asp",
+    "tags": [
+      "경북콘텐츠",
+      "로컬크리에이터",
+      "동해안권"
+    ],
+    "highlight": false
+  },
+  {
+    "id": "gcube_2",
+    "category": "울진/경북",
+    "agency": "경상북도콘텐츠진흥원 (GCA)",
+    "title": "[°ø°í Á¦2026-106È£] 2026 ÇØ¾ç ÄÜÅÙÃ÷ Á¦ÀÛ Áö¿ø»ç¾÷ Âü¿©±â¾÷ ¸ðÁý°ø°í",
+    "deadline": "26-08-06",
+    "link": "https://gcube.or.kr:1021/home/sub1/sub1.asp",
+    "tags": [
+      "경북콘텐츠",
+      "로컬크리에이터",
+      "동해안권"
+    ],
+    "highlight": false
+  },
+  {
+    "id": "gcube_3",
+    "category": "울진/경북",
+    "agency": "경상북도콘텐츠진흥원 (GCA)",
+    "title": "[°æºÏ¹®È­Àç´Ü ÄÜÅÙÃ÷ÁøÈï¿ø °ø°í Á¦2026-7È£]°ü·Ã Á¦24È¸ °æ»óºÏµµ ¿µ»óÄÜÅÙÃ÷ ½Ã³ª¸®¿À °ø¸ðÀü ÃÖÁ¾½É»ç °á°ú °øÁö",
+    "deadline": "26-08-06",
+    "link": "https://gcube.or.kr:1021/home/sub1/sub1.asp",
+    "tags": [
+      "경북콘텐츠",
+      "로컬크리에이터",
+      "동해안권"
+    ],
+    "highlight": false
+  },
+  {
+    "id": "gcube_4",
+    "category": "울진/경북",
+    "agency": "경상북도콘텐츠진흥원 (GCA)",
+    "title": "[°ø°í Á¦2026-105È£] 2026³â °æºÏ ·ÎÄÉÀÌ¼Ç Á¦ÀÛÁö¿ø Ãß°¡°ø°í",
+    "deadline": "26-08-03",
+    "link": "https://gcube.or.kr:1021/home/sub1/sub1.asp",
+    "tags": [
+      "경북콘텐츠",
+      "로컬크리에이터",
+      "동해안권"
+    ],
+    "highlight": false
+  },
+  {
+    "id": "gcube_5",
+    "category": "울진/경북",
+    "agency": "경상북도콘텐츠진흥원 (GCA)",
+    "title": "°­Ä¡¾ÆÀÏ·£µå ½ÃÁð3 TV½Ã¸®Áî ¾Ö´Ï¸ÞÀÌ¼Ç  Á¦ÀÛ ÀÔÂû °ø°í",
+    "deadline": "26-07-30",
+    "link": "https://gcube.or.kr:1021/home/sub1/sub1.asp",
+    "tags": [
+      "경북콘텐츠",
+      "로컬크리에이터",
+      "동해안권"
+    ],
+    "highlight": false
+  },
+  {
+    "id": "apfs_secured",
+    "category": "중앙정부",
+    "agency": "농업정책보험금융원 (농식품부)",
+    "title": "2026년 농식품·수산 모태펀드 및 스타트업 투자 유치 공고",
+    "deadline": "상시/공고참조",
+    "link": "https://assist.apfs.kr/usr/inform/bbs/listNotice.do",
+    "tags": [
+      "농식품부",
+      "수산/농업",
+      "모태펀드"
+    ],
+    "highlight": false
+  },
+  {
+    "id": "daegu_fallback",
+    "category": "모두의창업",
+    "agency": "대구대학교 창업중심대학",
+    "title": "[창업중심대학] 2026년 대구·경북 권역 예비/초기창업자 모집 (울진 가점)",
+    "deadline": "2026-09-05",
+    "link": "https://iacf.daegu.ac.kr/jTCstasZhsBg/20230049",
+    "tags": [
+      "창업중심대학",
+      "대구대",
+      "울진가점"
+    ],
+    "highlight": true
+  }
+]

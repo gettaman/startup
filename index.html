@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🦀 울진&경북 창업 지원사업 실시간 대시보드</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;800&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Noto Sans KR', sans-serif; }
+  </style>
+</head>
+<body class="bg-slate-100 text-slate-800 min-h-screen flex flex-col justify-between">
+
+  <header class="bg-gradient-to-r from-blue-900 via-indigo-900 to-slate-900 text-white py-8 px-4 shadow-xl">
+    <div class="max-w-5xl mx-auto">
+      <div class="flex flex-wrap items-center gap-2 mb-3">
+        <span class="bg-amber-400 text-slate-950 text-xs font-extrabold px-3 py-1 rounded-full shadow-sm">🔥 정부 통합 브랜드</span>
+        <span class="bg-blue-800/80 text-blue-100 text-xs font-semibold px-3 py-1 rounded-full border border-blue-500/50">울진 창업아카데미 / 비호수산</span>
+      </div>
+      <h1 class="text-2xl md:text-3xl font-extrabold tracking-tight text-white flex items-center gap-2">
+        <span>🦀</span> 창업 지원사업 실시간 모니터링 대시보드
+      </h1>
+      <p class="text-blue-200 text-sm mt-2 font-normal leading-relaxed">
+        중소벤처기업부 '모두의 창업', 창업진흥원, 경북콘텐츠진흥원, 대구대 창업중심대학 등 6대 핵심 포털의 공고를 실시간 수집합니다.
+      </p>
+    </div>
+  </header>
+
+  <main class="max-w-5xl mx-auto px-4 py-8 w-full flex-grow">
+    
+    <div class="flex flex-wrap items-center justify-between gap-3 mb-6 bg-white p-3 rounded-xl border border-slate-200 shadow-sm">
+      <div class="flex flex-wrap gap-2" id="filter-buttons">
+        <button onclick="filterNotices('전체', this)" class="filter-btn active bg-slate-900 text-white font-bold px-4 py-2 rounded-lg text-sm transition shadow-sm">
+          전체보기
+        </button>
+        <button onclick="filterNotices('모두의창업', this)" class="filter-btn bg-amber-500 hover:bg-amber-400 text-slate-950 font-extrabold px-4 py-2 rounded-lg text-sm shadow-sm transition">
+          🚀 모두의 창업 (통합)
+        </button>
+        <button onclick="filterNotices('울진/경북', this)" class="filter-btn bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold px-4 py-2 rounded-lg text-sm transition">
+          🌊 울진 / 경북
+        </button>
+        <button onclick="filterNotices('중앙정부', this)" class="filter-btn bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold px-4 py-2 rounded-lg text-sm transition">
+          🏛️ 중앙부처
+        </button>
+      </div>
+
+      <div class="text-xs text-slate-500 font-medium px-2">
+        총 <span id="notice-count" class="font-bold text-blue-600">0</span>개의 지원사업
+      </div>
+    </div>
+
+    <div id="notice-grid" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      </div>
+
+    <section class="mt-12 bg-white p-6 md:p-8 rounded-2xl border border-slate-200 shadow-sm">
+      <div class="border-b border-slate-100 pb-4 mb-6">
+        <h2 class="text-xl font-bold text-slate-900 flex items-center gap-2">
+          <span>💬</span> 창업 지원사업 신청 전략 및 의견 교환
+        </h2>
+        <p class="text-slate-500 text-sm mt-1">
+          "울진 붉은대게 분말 소스와 캠핑장 B2B 상생 모델을 이 공고 서류에 어떻게 강조할까?" 등 자유롭게 팀원·멘토와 토론해 보세요.
+        </p>
+      </div>
+
+      <div id="giscus-container" class="min-h-[120px]">
+        <div class="bg-slate-50 p-4 rounded-xl border border-dashed border-slate-300 text-center text-xs text-slate-500">
+          💡 GitHub Discussion 연동(Giscus)을 설정하시면 이곳에 실시간 댓글 커뮤니티창이 생성됩니다.
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="bg-slate-900 text-slate-400 py-6 px-4 text-center text-xs border-t border-slate-800 mt-12">
+    <div class="max-w-5xl mx-auto">
+      <p class="font-semibold text-slate-300">비호수산 / 바다홍게 ✕ 울진 창업아카데미 지원사업 자동화 프로젝트</p>
+      <p class="mt-1 text-slate-500">매일 아침 GitHub Actions를 통해 최신 공고를 데이터 스크래핑하여 자동 업데이트합니다.</p>
+    </div>
+  </footer>
+
+  <script>
+    let allNotices = [];
+
+    // notices.json 파일 불러오기
+    async function loadNotices() {
+      try {
+        const response = await fetch('./notices.json');
+        if (!response.ok) throw new Error('notices.json 로드 실패');
+        allNotices = await response.json();
+        renderNotices(allNotices);
+      } catch (error) {
+        console.error('데이터 로딩 중 오류 발생:', error);
+        document.getElementById('notice-grid').innerHTML = `
+          <div class="col-span-full bg-white p-8 rounded-xl text-center border border-red-200">
+            <p class="text-red-500 font-bold mb-1">⚠️ notices.json 데이터를 불러올 수 없습니다.</p>
+            <p class="text-xs text-slate-500">crab.py 파이썬 스크립트를 먼저 실행하여 notices.json 파일을 생성해 주세요.</p>
+          </div>
+        `;
+      }
+    }
+
+    // D-Day 계산 함수
+    function getDDay(deadlineStr) {
+      if (!deadlineStr || deadlineStr.includes('상시') || deadlineStr.includes('공고참조')) {
+        return { text: '상시모집', color: 'bg-slate-100 text-slate-600 font-medium' };
+      }
+      
+      const today = new Date();
+      today.setHours(0,0,0,0);
+      const deadline = new Date(deadlineStr);
+      
+      if (isNaN(deadline.getTime())) {
+        return { text: deadlineStr, color: 'bg-slate-100 text-slate-600 font-medium' };
+      }
+
+      const diffTime = deadline - today;
+      const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+      
+      if (diffDays < 0) return { text: '마감', color: 'bg-slate-200 text-slate-500' };
+      if (diffDays === 0) return { text: 'D-Day 오늘마감', color: 'bg-red-600 text-white font-extrabold animate-pulse' };
+      if (diffDays <= 7) return { text: `D-${diffDays}`, color: 'bg-red-100 text-red-600 font-bold border border-red-200' };
+      return { text: `D-${diffDays}`, color: 'bg-blue-100 text-blue-700 font-bold' };
+    }
+
+    // 카드 렌더링 함수
+    function renderNotices(notices) {
+      const grid = document.getElementById('notice-grid');
+      const countEl = document.getElementById('notice-count');
+      grid.innerHTML = '';
+      countEl.textContent = notices.length;
+
+      if (notices.length === 0) {
+        grid.innerHTML = `
+          <div class="col-span-full bg-white p-8 rounded-xl text-center border text-slate-500 text-sm">
+            해당 카테고리에 해당하는 창업 지원사업 공고가 없습니다.
+          </div>
+        `;
+        return;
+      }
+
+      notices.forEach(item => {
+        const dday = getDDay(item.deadline);
+        const card = document.createElement('div');
+        
+        // 모두의 창업 또는 하이라이팅 공고 강조 스타일
+        const isHighlight = item.category === '모두의창업' || item.highlight;
+        const cardStyle = isHighlight 
+          ? 'border-2 border-amber-400 bg-gradient-to-br from-amber-50/40 via-white to-white shadow-md' 
+          : 'border border-slate-200 bg-white shadow-sm hover:shadow-md';
+
+        card.className = `${cardStyle} p-5 rounded-2xl transition flex flex-col justify-between`;
+        
+        card.innerHTML = `
+          <div>
+            <div class="flex justify-between items-start gap-2 mb-3">
+              <span class="text-xs font-bold px-2.5 py-1 rounded-md ${isHighlight ? 'bg-amber-400 text-slate-950' : 'bg-slate-100 text-slate-700'}">
+                ${item.agency}
+              </span>
+              <span class="text-xs px-2.5 py-1 rounded-md ${dday.color}">${dday.text}</span>
+            </div>
+
+            <h3 class="font-bold text-slate-900 text-base leading-snug mb-3 hover:text-blue-600 transition">
+              <a href="${item.link}" target="_blank">${item.title}</a>
+            </h3>
+
+            <div class="flex flex-wrap gap-1.5 mb-4">
+              ${(item.tags || []).map(tag => `<span class="text-[11px] bg-slate-100 text-slate-600 font-medium px-2 py-0.5 rounded-md">#${tag}</span>`).join('')}
+            </div>
+          </div>
+
+          <div class="flex justify-between items-center pt-3 border-t border-slate-100 text-xs text-slate-500">
+            <span>📅 마감: <strong class="text-slate-700">${item.deadline}</strong></span>
+            <a href="${item.link}" target="_blank" class="${isHighlight ? 'bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold' : 'bg-slate-900 hover:bg-blue-600 text-white font-semibold'} px-3.5 py-1.5 rounded-lg transition text-xs flex items-center gap-1">
+              공고 확인 ➔
+            </a>
+          </div>
+        `;
+        grid.appendChild(card);
+      });
+    }
+
+    // 카테고리 필터 기능
+    function filterNotices(category, btnElement) {
+      // 버튼 활성화 스타일 변경
+      document.querySelectorAll('.filter-btn').forEach(btn => {
+        btn.classList.remove('bg-slate-900', 'text-white', 'shadow-sm');
+        if (!btn.classList.contains('bg-amber-500')) {
+          btn.classList.add('bg-slate-100', 'text-slate-700');
+        }
+      });
+
+      if (btnElement && !btnElement.classList.contains('bg-amber-500')) {
+        btnElement.classList.remove('bg-slate-100', 'text-slate-700');
+        btnElement.classList.add('bg-slate-900', 'text-white', 'shadow-sm');
+      }
+
+      if (category === '전체') {
+        renderNotices(allNotices);
+      } else {
+        const filtered = allNotices.filter(n => 
+          (n.category && n.category.includes(category)) || 
+          (n.tags && n.tags.includes(category))
+        );
+        renderNotices(filtered);
+      }
+    }
+
+    // 페이지 로드 시 notices.json 즉시 실행
+    loadNotices();
+  </script>
+</body>
+</html>
