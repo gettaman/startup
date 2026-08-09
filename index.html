@@ -24,7 +24,7 @@
         <span>🦀</span> 창업 지원사업 실시간 모니터링 대시보드
       </h1>
       <p class="text-blue-200 text-sm mt-2 font-normal leading-relaxed">
-        중소벤처기업부 '모두의 창업', 창업진흥원, 경북콘텐츠진흥원, 대구대 창업중심대학 등 6대 핵심 포털의 공고를 실시간 수집합니다.
+        중소벤처기업부 '모두의 창업', 창업진흥원, 경북콘텐츠진흥원, 대구대 창업중심대학 등 6대 포털 공고를 실시간으로 모니터링합니다.
       </p>
     </div>
   </header>
@@ -58,32 +58,36 @@
     <section class="mt-12 bg-white p-6 md:p-8 rounded-2xl border border-slate-200 shadow-sm">
       <div class="border-b border-slate-100 pb-4 mb-6">
         <h2 class="text-xl font-bold text-slate-900 flex items-center gap-2">
-          <span>💬</span> 창업 지원사업 신청 전략 및 의견 교환
+          <span>💬</span> 자유 토론 및 익명 의견 공유
         </h2>
         <p class="text-slate-500 text-sm mt-1">
-          "울진 붉은대게 분말 소스와 캠핑장 B2B 상생 모델을 이 공고 서류에 어떻게 강조할까?" 등 자유롭게 팀원·멘토와 토론해 보세요.
+          로그인/회원가입 없이 닉네임만 적어 자유롭게 팀원·창업가들과 의견을 나누세요.
         </p>
       </div>
 
-      <div id="giscus-container" class="min-h-[120px]">
-        <div class="bg-slate-50 p-4 rounded-xl border border-dashed border-slate-300 text-center text-xs text-slate-500">
-          💡 GitHub Discussion 연동(Giscus)을 설정하시면 이곳에 실시간 댓글 커뮤니티창이 생성됩니다.
-        </div>
+      <div id="cusdis_thread"
+        data-host="https://cusdis.com"
+        data-app-id="49aa3a22-1fcb-422c-bad1-2567ed8b8e32"
+        data-page-id="startup-dashboard"
+        data-page-url="https://gettaman.github.io/startup/"
+        data-page-title="울진 창업 지원사업 대시보드"
+        data-theme="auto">
       </div>
+      <script async defer src="https://cusdis.com/js/cusdis.es.js"></script>
     </section>
   </main>
 
   <footer class="bg-slate-900 text-slate-400 py-6 px-4 text-center text-xs border-t border-slate-800 mt-12">
     <div class="max-w-5xl mx-auto">
       <p class="font-semibold text-slate-300">비호수산 / 바다홍게 ✕ 울진 창업아카데미 지원사업 자동화 프로젝트</p>
-      <p class="mt-1 text-slate-500">매일 아침 GitHub Actions를 통해 최신 공고를 데이터 스크래핑하여 자동 업데이트합니다.</p>
+      <p class="mt-1 text-slate-500">매일 아침 GitHub Actions를 통해 최신 공고를 자동 스크래핑하여 업데이트합니다.</p>
     </div>
   </footer>
 
   <script>
     let allNotices = [];
 
-    // notices.json 파일 불러오기
+    // notices.json 로드
     async function loadNotices() {
       try {
         const response = await fetch('./notices.json');
@@ -91,17 +95,17 @@
         allNotices = await response.json();
         renderNotices(allNotices);
       } catch (error) {
-        console.error('데이터 로딩 중 오류 발생:', error);
+        console.error('데이터 로딩 오류:', error);
         document.getElementById('notice-grid').innerHTML = `
           <div class="col-span-full bg-white p-8 rounded-xl text-center border border-red-200">
             <p class="text-red-500 font-bold mb-1">⚠️ notices.json 데이터를 불러올 수 없습니다.</p>
-            <p class="text-xs text-slate-500">crab.py 파이썬 스크립트를 먼저 실행하여 notices.json 파일을 생성해 주세요.</p>
+            <p class="text-xs text-slate-500">crab.py 파이썬 스크립트를 재실행해 notices.json을 갱신해 주세요.</p>
           </div>
         `;
       }
     }
 
-    // D-Day 계산 함수
+    // D-Day 계산
     function getDDay(deadlineStr) {
       if (!deadlineStr || deadlineStr.includes('상시') || deadlineStr.includes('공고참조')) {
         return { text: '상시모집', color: 'bg-slate-100 text-slate-600 font-medium' };
@@ -124,7 +128,7 @@
       return { text: `D-${diffDays}`, color: 'bg-blue-100 text-blue-700 font-bold' };
     }
 
-    // 카드 렌더링 함수
+    // 공고 카드 렌더링
     function renderNotices(notices) {
       const grid = document.getElementById('notice-grid');
       const countEl = document.getElementById('notice-count');
@@ -134,7 +138,7 @@
       if (notices.length === 0) {
         grid.innerHTML = `
           <div class="col-span-full bg-white p-8 rounded-xl text-center border text-slate-500 text-sm">
-            해당 카테고리에 해당하는 창업 지원사업 공고가 없습니다.
+            선택한 카테고리의 지원사업 공고가 없습니다.
           </div>
         `;
         return;
@@ -144,7 +148,6 @@
         const dday = getDDay(item.deadline);
         const card = document.createElement('div');
         
-        // 모두의 창업 또는 하이라이팅 공고 강조 스타일
         const isHighlight = item.category === '모두의창업' || item.highlight;
         const cardStyle = isHighlight 
           ? 'border-2 border-amber-400 bg-gradient-to-br from-amber-50/40 via-white to-white shadow-md' 
@@ -181,9 +184,8 @@
       });
     }
 
-    // 카테고리 필터 기능
+    // 필터링
     function filterNotices(category, btnElement) {
-      // 버튼 활성화 스타일 변경
       document.querySelectorAll('.filter-btn').forEach(btn => {
         btn.classList.remove('bg-slate-900', 'text-white', 'shadow-sm');
         if (!btn.classList.contains('bg-amber-500')) {
@@ -207,7 +209,6 @@
       }
     }
 
-    // 페이지 로드 시 notices.json 즉시 실행
     loadNotices();
   </script>
 </body>
