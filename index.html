@@ -29,10 +29,9 @@
         -webkit-appearance: none;
         margin: 0;
     }
-    /* 캡처 시 스타일 유지를 위한 CSS */
     .capture-ready textarea {
       resize: none; 
-      overflow: hidden;
+      overflow: visible !important;
     }
   </style>
 </head>
@@ -117,6 +116,10 @@
                   <span class="text-[10px] bg-white border border-slate-300 text-slate-600 px-1.5 py-0.5 rounded-md">#캠핑요리</span>
                   <span class="text-[10px] bg-white border border-slate-300 text-slate-600 px-1.5 py-0.5 rounded-md">#캠핑음식</span>
                   <span class="text-[10px] bg-white border border-slate-300 text-slate-600 px-1.5 py-0.5 rounded-md">#간편조리</span>
+                  <span class="text-[10px] bg-white border border-slate-300 text-slate-600 px-1.5 py-0.5 rounded-md">#간편식품</span>
+                  <span class="text-[10px] bg-white border border-slate-300 text-slate-600 px-1.5 py-0.5 rounded-md">#파티용</span>
+                  <span class="text-[10px] bg-white border border-slate-300 text-slate-600 px-1.5 py-0.5 rounded-md">#집들이상</span>
+                  <span class="text-[10px] bg-white border border-slate-300 text-slate-600 px-1.5 py-0.5 rounded-md">#집들이음식</span>
                 </div>
               </div>
             </div>
@@ -176,10 +179,15 @@
               <div class="mb-3">
                 <p class="text-[10px] font-bold text-slate-500 mb-1.5">🏷️ 검색 노출 타겟 태그</p>
                 <div class="flex flex-wrap gap-1">
-                  <span class="text-[10px] bg-white border border-slate-300 text-slate-600 px-1.5 py-0.5 rounded-md">#캠핑음식</span>
+                <span class="text-[10px] bg-white border border-slate-300 text-slate-600 px-1.5 py-0.5 rounded-md">#캠핑음식캠핑요리</span>
                   <span class="text-[10px] bg-white border border-slate-300 text-slate-600 px-1.5 py-0.5 rounded-md">#홈파티음식</span>
+                  <span class="text-[10px] bg-white border border-slate-300 text-slate-600 px-1.5 py-0.5 rounded-md">#새우요리</span>
                   <span class="text-[10px] bg-white border border-slate-300 text-slate-600 px-1.5 py-0.5 rounded-md">#밀키트</span>
                   <span class="text-[10px] bg-white border border-slate-300 text-slate-600 px-1.5 py-0.5 rounded-md">#생일음식</span>
+                  <span class="text-[10px] bg-white border border-slate-300 text-slate-600 px-1.5 py-0.5 rounded-md">#캠핑밀키트</span>
+                  <span class="text-[10px] bg-white border border-slate-300 text-slate-600 px-1.5 py-0.5 rounded-md">#홈파티밀키트</span>
+                  <span class="text-[10px] bg-white border border-slate-300 text-slate-600 px-1.5 py-0.5 rounded-md">#생일파티밀키트</span>
+                  <span class="text-[10px] bg-white border border-slate-300 text-slate-600 px-1.5 py-0.5 rounded-md">#홈파티</span>
                   <span class="text-[10px] bg-white border border-slate-300 text-slate-600 px-1.5 py-0.5 rounded-md">#홈캉스</span>
                 </div>
               </div>
@@ -298,7 +306,7 @@
             <div class="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-2.5 mb-5">
               <div class="flex justify-between items-center gap-2"><label class="text-[10px] font-bold text-amber-700 w-24">(비호수산) 시즈닝</label><input type="number" id="calc-seasoning" value="0" oninput="calcMargin()" class="flex-1 p-1 text-right text-xs border border-amber-300 bg-amber-50 rounded"></div>
               <div class="flex justify-between items-center gap-2"><label class="text-[11px] font-medium text-slate-700 w-24">갈릭 오일</label><input type="number" id="calc-garlicoil" value="0" oninput="calcMargin()" class="flex-1 p-1 text-right text-xs border border-slate-300 rounded"></div>
-              <div class="flex justify-between items-center gap-2"><label class="text-[11px] font-medium text-slate-700 w-24">페퍼론치노 홀</label><input type="number" id="calc-peperoncino" value="0" oninput="calcMargin()" class="flex-1 p-1 text-right text-xs border border-slate-300 rounded"></div>
+              <div class="flex justify-between items-center gap-2"><label class="text-[11px] font-medium text-slate-700 w-24">페퍼론치 홀</label><input type="number" id="calc-peperoncino" value="0" oninput="calcMargin()" class="flex-1 p-1 text-right text-xs border border-slate-300 rounded"></div>
               <div class="flex justify-between items-center gap-2"><label class="text-[11px] font-medium text-slate-700 w-24">파슬리 가루</label><input type="number" id="calc-parsley" value="0" oninput="calcMargin()" class="flex-1 p-1 text-right text-xs border border-slate-300 rounded"></div>
               <div class="flex justify-between items-center gap-2"><label class="text-[11px] font-medium text-slate-700 w-24">반조리 파스타생면</label><input type="number" id="calc-pasta" value="0" oninput="calcMargin()" class="flex-1 p-1 text-right text-xs border border-slate-300 rounded"></div>
             </div>
@@ -397,9 +405,9 @@
             </div>
         </div>
 
-        <div id="modu-capture-area" class="space-y-6 p-4 bg-white">
+        <div id="modu-capture-area" class="space-y-6 p-4 bg-white relative">
             <div class="text-center mb-6 hidden" id="modu-capture-title">
-                <h1 class="text-2xl font-bold text-slate-900">모두의창업 2기 지원서 초안 (비호수산)</h1>
+                <h1 class="text-2xl font-bold text-slate-900 pb-4">모두의창업 2기 지원서 초안 (비호수산)</h1>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -504,7 +512,7 @@
     }
 
     // ----------------------------------------------------
-    // 2. '모두의 창업 2기' 관련 함수 (캡처 영역 textarea 변환 로직 포함)
+    // 2. '모두의 창업 2기' 관련 함수
     // ----------------------------------------------------
     function fillModuExample() {
         document.getElementById('md-q1').value = "미국 남부의 맛을 캠핑장으로! 10초 완성 '울진 붉은대게 K-보일링크랩' 밀키트";
@@ -523,45 +531,60 @@
         inputs.forEach(input => input.value = '');
     }
 
-    // 폼 캡처 로직 (글자 잘림 완벽 해결)
+    // 폼 캡처 로직 (글자 잘림 100% 완벽 해결버전)
     function captureModuForm() {
         const captureArea = document.getElementById('modu-capture-area');
         const titleArea = document.getElementById('modu-capture-title');
         
+        // ★ 핵심 조치 1: 캡처 전 스크롤을 맨 위로 강제 이동 (html2canvas 잘림 버그 방지)
+        const currentScrollY = window.scrollY;
+        window.scrollTo(0, 0);
+
         titleArea.classList.remove('hidden');
         captureArea.classList.add('capture-ready');
         
+        // ★ 핵심 조치 2: 텍스트 박스를 완벽한 줄바꿈이 적용된 DIV로 변환
         const textareas = captureArea.querySelectorAll('textarea');
         textareas.forEach(ta => {
             const div = document.createElement('div');
-            div.style.whiteSpace = 'pre-wrap'; 
-            div.textContent = ta.value;
+            // 엔터키(\n)를 HTML 줄바꿈(<br>)으로 강제 변환
+            div.innerHTML = ta.value.replace(/\n/g, '<br>');
+            
+            // 한글 글자가 박스를 넘어가지 않도록 강제 단어 단위 줄바꿈 적용
+            div.style.wordBreak = 'keep-all'; 
+            div.style.overflowWrap = 'break-word';
+            div.style.whiteSpace = 'pre-wrap';
+            
             div.className = ta.className; 
             div.style.height = 'auto';
-            div.style.minHeight = ta.offsetHeight + 'px';
+            div.style.minHeight = Math.max(ta.scrollHeight, ta.offsetHeight) + 'px';
             
             ta.parentNode.insertBefore(div, ta);
             ta.style.display = 'none'; 
             ta._tempDiv = div; 
         });
 
+        // 이미지 캡처 실행
         html2canvas(captureArea, {
             backgroundColor: "#ffffff", 
-            scale: 2,
-            windowWidth: captureArea.scrollWidth,
-            windowHeight: captureArea.scrollHeight
+            scale: 2, // 고해상도
+            scrollY: 0, // 스크롤 버그 방지
+            useCORS: true
         }).then(canvas => {
             const link = document.createElement('a');
             link.download = '모두의창업2기_초안_비호수산.png';
             link.href = canvas.toDataURL('image/png');
             link.click();
             
+            // 캡처 완료 후 화면 원상 복구
             titleArea.classList.add('hidden');
             captureArea.classList.remove('capture-ready');
             textareas.forEach(ta => {
                 ta.style.display = ''; 
                 if (ta._tempDiv) ta._tempDiv.remove(); 
             });
+            // 사용자 스크롤 원위치
+            window.scrollTo(0, currentScrollY);
         }).catch(err => {
             alert("이미지 저장 중 오류가 발생했습니다: " + err);
             titleArea.classList.add('hidden');
@@ -570,6 +593,7 @@
                 ta.style.display = '';
                 if (ta._tempDiv) ta._tempDiv.remove();
             });
+            window.scrollTo(0, currentScrollY);
         });
     }
 
