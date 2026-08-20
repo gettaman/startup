@@ -46,7 +46,7 @@
           ✕
         </button>
       </div>
-      <img id="modal-img" src="" alt="예시 이미지" class="w-full h-auto rounded-lg" onerror="this.onerror=null; alert('이미지 파일을 찾을 수 없습니다. sample1.jpg 또는 sample2.jpg 파일이 같은 폴더에 있는지 확인해 주세요.'); closeImageModal();">
+      <img id="modal-img" src="" alt="예시 이미지" class="w-full h-auto rounded-lg" onerror="this.onerror=null; alert('이미지 파일을 찾을 수 없습니다. sample1.png 또는 sample2.png 파일이 같은 폴더에 있는지 확인해 주세요.'); closeImageModal();">
     </div>
   </div>
 
@@ -402,10 +402,10 @@
                 <button onclick="fillModuExample()" class="bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs px-3.5 py-2 rounded-lg shadow-sm transition">
                     ✨ 텍스트 예시 채우기
                 </button>
-                <button onclick="showImageModal('sample1.jpg')" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs px-3.5 py-2 rounded-lg shadow-sm transition flex items-center gap-1">
+                <button onclick="showImageModal('sample1.png')" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs px-3.5 py-2 rounded-lg shadow-sm transition flex items-center gap-1">
                     🖼️ 예제1 (시안)
                 </button>
-                <button onclick="showImageModal('sample2.jpg')" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs px-3.5 py-2 rounded-lg shadow-sm transition flex items-center gap-1">
+                <button onclick="showImageModal('sample2.png')" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs px-3.5 py-2 rounded-lg shadow-sm transition flex items-center gap-1">
                     🖼️ 예제2 (시안)
                 </button>
                 <button onclick="captureModuForm()" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs px-3.5 py-2 rounded-lg shadow-sm transition flex items-center gap-1.5">
@@ -521,7 +521,7 @@
     }
 
     // ----------------------------------------------------
-    // 2. 모달 팝업 로직 (예제1, 예제2 버튼 처리)
+    // 2. 모달 팝업 로직 (.png 파일 연결)
     // ----------------------------------------------------
     function showImageModal(imgSrc) {
         const modal = document.getElementById('image-modal');
