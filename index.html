@@ -29,6 +29,7 @@
         -webkit-appearance: none;
         margin: 0;
     }
+    /* 캡처 시 스타일 유지를 위한 CSS */
     .capture-ready textarea {
       resize: none; 
       overflow: hidden;
@@ -85,10 +86,141 @@
     <section id="tab-content-competitors" class="tab-content hidden space-y-6">
       <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
         <div class="border-b pb-4 mb-6">
-          <h2 class="text-xl font-bold text-slate-900 flex items-center gap-2">📝 네이버쇼핑 3사 & 와디즈(Wadiz) 펀딩 벤치마킹</h2>
+          <h2 class="text-xl font-bold text-slate-900 flex items-center gap-2">
+            📝 네이버쇼핑 3사 & 와디즈(Wadiz) 펀딩 벤치마킹
+          </h2>
+          <p class="text-xs text-slate-500 mt-1">경쟁사 태그와 리뷰뿐만 아니라, 와디즈 펀딩 성공 사례의 스토리텔링 상세페이지를 벤치마킹하세요.</p>
         </div>
+
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4 mb-6">
           
+          <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 hover:shadow-md transition flex flex-col justify-between">
+            <div>
+              <div class="flex justify-between items-center mb-2">
+                <span class="text-[10px] font-bold bg-slate-200 text-slate-800 px-2 py-0.5 rounded">경쟁사 1</span>
+                <span class="text-[10px] text-amber-600 font-bold">브랜드관</span>
+              </div>
+              <h3 class="font-bold text-base text-slate-900 mb-1">훈훈수산 보일링크랩</h3>
+              <p class="text-xs text-blue-600 font-semibold mb-3">💰 3~4만원대 (구성별 다변화)</p>
+              
+              <div class="space-y-1.5 text-xs text-slate-600 border-t pt-2 mb-3">
+                <p class="text-emerald-700 font-medium">✓ <strong>강점:</strong> 수산물 전문 브랜드 가성비, 다양한 해산물 구성</p>
+                <p class="text-red-600 font-medium">✗ <strong>약점:</strong> 봉투터짐 및 비린맛, 애매한맛, 감자의퍼석함, 미국맛이아니다, 싱겁다, 배송이 녹아서옴</p>
+              </div>
+
+              <div class="mb-3">
+                <p class="text-[10px] font-bold text-slate-500 mb-1.5">🏷️ 검색 노출 타겟 태그</p>
+                <div class="flex flex-wrap gap-1">
+                  <span class="text-[10px] bg-white border border-slate-300 text-slate-600 px-1.5 py-0.5 rounded-md">#홈파티</span>
+                  <span class="text-[10px] bg-white border border-slate-300 text-slate-600 px-1.5 py-0.5 rounded-md">#술안주</span>
+                  <span class="text-[10px] bg-white border border-slate-300 text-slate-600 px-1.5 py-0.5 rounded-md">#미국식</span>
+                  <span class="text-[10px] bg-white border border-slate-300 text-slate-600 px-1.5 py-0.5 rounded-md">#캠핑요리</span>
+                  <span class="text-[10px] bg-white border border-slate-300 text-slate-600 px-1.5 py-0.5 rounded-md">#캠핑음식</span>
+                  <span class="text-[10px] bg-white border border-slate-300 text-slate-600 px-1.5 py-0.5 rounded-md">#간편조리</span>
+                </div>
+              </div>
+            </div>
+            
+            <div class="mt-2 border-t border-slate-200 pt-3 space-y-2">
+              <a href="https://brand.naver.com/hunhunsusan/products/11471604767" target="_blank" class="block text-center bg-blue-600 hover:bg-blue-700 text-white font-bold text-[12px] py-2 rounded-lg transition shadow-sm">🔎 상세페이지 디테일 ➔</a>
+              <a href="https://brand.naver.com/hunhunsusan/products/11471604767#REVIEW" target="_blank" class="block text-center bg-white border-2 border-slate-900 text-slate-900 hover:bg-slate-900 hover:text-white font-bold text-[12px] py-2 rounded-lg transition shadow-sm">💬 실제 리뷰 리스트 보기 ➔</a>
+            </div>
+          </div>
+
+          <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 hover:shadow-md transition flex flex-col justify-between">
+            <div>
+              <div class="flex justify-between items-center mb-2">
+                <span class="text-[10px] font-bold bg-slate-200 text-slate-800 px-2 py-0.5 rounded">경쟁사 2</span>
+                <span class="text-[10px] text-amber-600 font-bold">스마트스토어</span>
+              </div>
+              <h3 class="font-bold text-base text-slate-900 mb-1">감자샵 미국식 보일링크랩</h3>
+              <p class="text-xs text-blue-600 font-semibold mb-3">💰 4만원대 중반</p>
+              
+              <div class="space-y-1.5 text-xs text-slate-600 border-t pt-2 mb-3">
+                <p class="text-emerald-700 font-medium">✓ <strong>강점:</strong> 감성 캠핑 트렌디 비주얼, 특제 미국식 케이준</p>
+                <p class="text-red-600 font-medium">✗ <strong>약점:</strong> 수입산 냉동 원물 비중 높음, 비린맛, 껍데기, 느끼함 호불호</p>
+              </div>
+
+              <div class="mb-3">
+                <p class="text-[10px] font-bold text-slate-500 mb-1.5">🏷️ 검색 노출 타겟 태그</p>
+                <div class="flex flex-wrap gap-1">
+                  <span class="text-[10px] bg-white border border-slate-300 text-slate-600 px-1.5 py-0.5 rounded-md">#캠핑요리</span>
+                  <span class="text-[10px] bg-white border border-slate-300 text-slate-600 px-1.5 py-0.5 rounded-md">#집들이용</span>
+                  <span class="text-[10px] bg-white border border-slate-300 text-slate-600 px-1.5 py-0.5 rounded-md">#홈파티음식</span>
+                  <span class="text-[10px] bg-white border border-slate-300 text-slate-600 px-1.5 py-0.5 rounded-md">#홈파티메뉴</span>
+                  <span class="text-[10px] bg-white border border-slate-300 text-slate-600 px-1.5 py-0.5 rounded-md">#랍스터</span>
+                </div>
+              </div>
+            </div>
+            
+            <div class="mt-2 border-t border-slate-200 pt-3 space-y-2">
+              <a href="https://smartstore.naver.com/kamzashop/products/13070057853" target="_blank" class="block text-center bg-blue-600 hover:bg-blue-700 text-white font-bold text-[12px] py-2 rounded-lg transition shadow-sm">🔎 상세페이지 디테일 ➔</a>
+              <a href="https://smartstore.naver.com/kamzashop/products/13070057853#REVIEW" target="_blank" class="block text-center bg-white border-2 border-slate-900 text-slate-900 hover:bg-slate-900 hover:text-white font-bold text-[12px] py-2 rounded-lg transition shadow-sm">💬 실제 리뷰 리스트 보기 ➔</a>
+            </div>
+          </div>
+
+          <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 hover:shadow-md transition flex flex-col justify-between">
+            <div>
+              <div class="flex justify-between items-center mb-2">
+                <span class="text-[10px] font-bold bg-slate-200 text-slate-800 px-2 py-0.5 rounded">경쟁사 3</span>
+                <span class="text-[10px] text-amber-600 font-bold">스마트스토어</span>
+              </div>
+              <h3 class="font-bold text-base text-slate-900 mb-1">피셔맨스 씨푸드 보일링</h3>
+              <p class="text-xs text-blue-600 font-semibold mb-3">💰 4~5만원대 프리미엄</p>
+              
+              <div class="space-y-1.5 text-xs text-slate-600 border-t pt-2 mb-3">
+                <p class="text-emerald-700 font-medium">✓ <strong>강점:</strong> 보일링크랩 전문 브랜드, 고급 파티용 패키징</p>
+                <p class="text-red-600 font-medium">✗ <strong>약점:</strong> 다소 높은 가격대, 해물탕/짬뽕맛 강함, 미국맛아님, 홍합불량</p>
+              </div>
+
+              <div class="mb-3">
+                <p class="text-[10px] font-bold text-slate-500 mb-1.5">🏷️ 검색 노출 타겟 태그</p>
+                <div class="flex flex-wrap gap-1">
+                  <span class="text-[10px] bg-white border border-slate-300 text-slate-600 px-1.5 py-0.5 rounded-md">#캠핑음식</span>
+                  <span class="text-[10px] bg-white border border-slate-300 text-slate-600 px-1.5 py-0.5 rounded-md">#홈파티음식</span>
+                  <span class="text-[10px] bg-white border border-slate-300 text-slate-600 px-1.5 py-0.5 rounded-md">#밀키트</span>
+                  <span class="text-[10px] bg-white border border-slate-300 text-slate-600 px-1.5 py-0.5 rounded-md">#생일음식</span>
+                  <span class="text-[10px] bg-white border border-slate-300 text-slate-600 px-1.5 py-0.5 rounded-md">#홈캉스</span>
+                </div>
+              </div>
+            </div>
+            
+            <div class="mt-2 border-t border-slate-200 pt-3 space-y-1.5">
+              <a href="https://smartstore.naver.com/fishermans/products/5154748166" target="_blank" class="block text-center bg-blue-600 hover:bg-blue-700 text-white font-bold text-[11px] py-2 rounded transition shadow-sm">🔎 상세페이지 ➔</a>
+              <a href="https://smartstore.naver.com/fishermans/products/5154748166#REVIEW" target="_blank" class="block text-center bg-white border border-slate-400 text-slate-800 hover:bg-slate-100 font-bold text-[11px] py-2 rounded transition shadow-sm">💬 리뷰 바로가기 ➔</a>
+            </div>
+          </div>
+
+          <div class="bg-cyan-50/70 p-4 rounded-xl border-2 border-cyan-300 hover:shadow-md transition flex flex-col justify-between">
+            <div>
+              <div class="flex justify-between items-center mb-2">
+                <span class="text-[10px] font-extrabold bg-cyan-600 text-white px-2 py-0.5 rounded">상세페이지 기획</span>
+                <span class="text-[10px] text-cyan-800 font-extrabold">와디즈 펀딩</span>
+              </div>
+              <h3 class="font-bold text-sm text-slate-950 mb-1">와디즈 펀딩 벤치마킹</h3>
+              <p class="text-[11px] text-cyan-800 font-bold mb-3">💡 스토리텔링 레퍼런스</p>
+              
+              <div class="space-y-1 text-[11px] text-slate-700 border-t border-cyan-200 pt-2 mb-3 font-medium">
+                <p>⭐ 매력적인 상세페이지 기획 참고</p>
+                <p>⭐ 얼리버드 리워드 세트 구성 전략</p>
+                <p>⭐ 서포터(고객) 소통 및 마케팅</p>
+              </div>
+
+              <div class="mb-3">
+                <div class="flex flex-wrap gap-1">
+                  <span class="text-[9px] bg-cyan-100 text-cyan-900 font-bold px-1.5 py-0.5 rounded-md border border-cyan-200">#펀딩스토리</span>
+                  <span class="text-[9px] bg-cyan-100 text-cyan-900 font-bold px-1.5 py-0.5 rounded-md border border-cyan-200">#보일링크랩펀딩</span>
+                </div>
+              </div>
+            </div>
+            
+            <div class="mt-2 border-t border-cyan-200 pt-3">
+              <a href="https://www.wadiz.kr/web/wcampaign/search?keyword=%EB%B0%80%ED%82%A4%ED%8A%B8&productType=REWARD" target="_blank" class="block text-center bg-cyan-600 hover:bg-cyan-700 text-white font-bold text-[12px] py-2.5 rounded-lg transition shadow-sm">
+                🔍 와디즈 사례 검색 ➔
+              </a>
+            </div>
+          </div>
+
           <div class="bg-amber-50/70 p-4 rounded-xl border-2 border-amber-400 flex flex-col justify-between shadow-md">
             <div>
               <div class="flex justify-between items-center mb-2">
@@ -97,11 +229,13 @@
               </div>
               <h3 class="font-bold text-sm text-slate-950 mb-1">울진 붉은대게 보일링크랩</h3>
               <p class="text-[11px] text-amber-900 font-bold mb-3">💰 38,000원 ~ 45,000원</p>
+              
               <div class="space-y-1 text-[11px] text-slate-800 border-t border-amber-200 pt-2 mb-3 font-medium">
                 <p>⭐ 동해안 산지 직송 신선 원물</p>
                 <p>⭐ 누수 0% 특제 분말 시즈닝</p>
                 <p>⭐ 관내 오토캠핑장 B2B 샵인샵</p>
               </div>
+
               <div class="mb-3">
                 <p class="text-[10px] font-bold text-amber-700 mb-1">🎯 선점 타겟 태그</p>
                 <div class="flex flex-wrap gap-1">
@@ -118,26 +252,6 @@
             </div>
           </div>
 
-          <div class="bg-cyan-50/70 p-4 rounded-xl border-2 border-cyan-300 hover:shadow-md transition flex flex-col justify-between">
-            <div>
-              <div class="flex justify-between items-center mb-2">
-                <span class="text-[10px] font-extrabold bg-cyan-600 text-white px-2 py-0.5 rounded">상세페이지 기획</span>
-                <span class="text-[10px] text-cyan-800 font-extrabold">와디즈 펀딩</span>
-              </div>
-              <h3 class="font-bold text-sm text-slate-950 mb-1">와디즈 펀딩 벤치마킹</h3>
-              <p class="text-[11px] text-cyan-800 font-bold mb-3">💡 스토리텔링 레퍼런스</p>
-              <div class="space-y-1 text-[11px] text-slate-700 border-t border-cyan-200 pt-2 mb-3 font-medium">
-                <p>⭐ 매력적인 상세페이지 기획 참고</p>
-                <p>⭐ 얼리버드 리워드 세트 구성 전략</p>
-                <p>⭐ 서포터(고객) 소통 및 마케팅</p>
-              </div>
-            </div>
-            <div class="mt-2 border-t border-cyan-200 pt-3">
-              <a href="https://www.wadiz.kr/web/wcampaign/search?keyword=%EB%B0%80%ED%82%A4%ED%8A%B8&productType=REWARD" target="_blank" class="block text-center bg-cyan-600 hover:bg-cyan-700 text-white font-bold text-[12px] py-2.5 rounded-lg transition shadow-sm">
-                🔍 와디즈 사례 검색 ➔
-              </a>
-            </div>
-          </div>
         </div>
       </div>
     </section>
@@ -409,15 +523,14 @@
         inputs.forEach(input => input.value = '');
     }
 
+    // 폼 캡처 로직 (글자 잘림 완벽 해결)
     function captureModuForm() {
         const captureArea = document.getElementById('modu-capture-area');
         const titleArea = document.getElementById('modu-capture-title');
         
-        // 1. 캡처 전 타이틀 노출
         titleArea.classList.remove('hidden');
         captureArea.classList.add('capture-ready');
         
-        // 2. 텍스트 박스(textarea)를 일반 div로 임시 변환 (글자 잘림 완벽 방지)
         const textareas = captureArea.querySelectorAll('textarea');
         textareas.forEach(ta => {
             const div = document.createElement('div');
@@ -432,7 +545,6 @@
             ta._tempDiv = div; 
         });
 
-        // 3. 이미지 캡처 실행
         html2canvas(captureArea, {
             backgroundColor: "#ffffff", 
             scale: 2,
@@ -444,7 +556,6 @@
             link.href = canvas.toDataURL('image/png');
             link.click();
             
-            // 4. 캡처 완료 후 원상 복구
             titleArea.classList.add('hidden');
             captureArea.classList.remove('capture-ready');
             textareas.forEach(ta => {
