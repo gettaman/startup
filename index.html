@@ -29,6 +29,11 @@
         -webkit-appearance: none;
         margin: 0;
     }
+    /* 캡처 시 스타일 유지를 위한 추가 CSS */
+    .capture-ready textarea {
+      resize: none; 
+      overflow: hidden;
+    }
   </style>
 </head>
 <body class="bg-slate-100 text-slate-800 min-h-screen flex flex-col justify-between">
@@ -98,7 +103,7 @@
               </div>
             </div>
           </div>
-          </div>
+        </div>
       </div>
     </section>
 
@@ -177,12 +182,21 @@
             <h2 class="text-xl font-bold text-slate-900 flex items-center gap-2">
                 📝 모두의창업 2기 초안서 작성기
             </h2>
-            <button onclick="fillModuExample()" class="bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs px-4 py-2 rounded-lg shadow-sm transition">
-                ✨ 비호수산 예시 자동입력
-            </button>
+            <div class="flex gap-2">
+                <button onclick="fillModuExample()" class="bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs px-4 py-2 rounded-lg shadow-sm transition">
+                    ✨ 예시 자동입력
+                </button>
+                <button onclick="captureModuForm()" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs px-4 py-2 rounded-lg shadow-sm transition flex items-center gap-1.5">
+                    📸 초안 캡처(저장)
+                </button>
+            </div>
         </div>
 
-        <div class="space-y-6">
+        <div id="modu-capture-area" class="space-y-6 p-4 bg-white">
+            <div class="text-center mb-6 hidden" id="modu-capture-title">
+                <h1 class="text-2xl font-bold text-slate-900">모두의창업 2기 지원서 초안 (비호수산)</h1>
+            </div>
+
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
                     <label class="block text-sm font-bold text-slate-700 mb-2">Q1. 나의 아이디어를 한 줄로 소개해주세요. (필수)</label>
@@ -243,11 +257,10 @@
                     <input type="text" id="md-q8" class="w-full border border-slate-300 rounded-lg p-3 text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none" placeholder="예: 오프라인 매장 운영 3년 등">
                 </div>
             </div>
-
-            <div class="flex justify-end gap-3 mt-6 pt-6 border-t border-slate-200">
-                <button onclick="clearModuForm()" class="px-5 py-2.5 border border-slate-300 text-slate-700 rounded-lg text-sm font-bold hover:bg-slate-50 transition">전체 지우기</button>
-                <button onclick="saveModuDraft()" class="px-5 py-2.5 bg-slate-900 text-white rounded-lg text-sm font-bold hover:bg-slate-800 transition shadow-md">💾 초안 임시저장</button>
-            </div>
+        </div>
+        
+        <div class="flex justify-end gap-3 mt-6 pt-6 border-t border-slate-200">
+            <button onclick="clearModuForm()" class="px-5 py-2.5 border border-slate-300 text-slate-700 rounded-lg text-sm font-bold hover:bg-slate-50 transition">전체 지우기</button>
         </div>
       </div>
     </section>
@@ -274,14 +287,11 @@
     // 1. 탭 전환 로직
     // ----------------------------------------------------
     function switchTab(tabName) {
-      // 모든 콘텐츠 숨기기
       document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
-      // 모든 버튼 기본 스타일로 되돌리기
       document.querySelectorAll('.tab-nav-btn').forEach(btn => {
         btn.classList.remove('bg-amber-400', 'text-slate-950', 'shadow-md');
         btn.classList.add('bg-blue-900/80', 'text-blue-100');
       });
-      // 선택한 콘텐츠와 버튼 활성화
       document.getElementById(`tab-content-${tabName}`).classList.remove('hidden');
       const activeBtn = document.getElementById(`tab-btn-${tabName}`);
       activeBtn.classList.remove('bg-blue-900/80', 'text-blue-100');
@@ -289,21 +299,16 @@
     }
 
     // ----------------------------------------------------
-    // 2. 신규 추가: '모두의 창업 2기' 관련 함수
+    // 2. '모두의 창업 2기' 관련 함수 (캡처 기능 포함)
     // ----------------------------------------------------
     function fillModuExample() {
         document.getElementById('md-q1').value = "미국 남부의 맛을 캠핑장으로! 10초 완성 '울진 붉은대게 K-보일링크랩' 밀키트";
         document.getElementById('md-q6').value = "식품/가공";
         document.getElementById('md-q2').value = "오프라인 해산물 매장('바다홍게')을 운영하며 캠핑용 포장 문의를 자주 받았습니다. 하지만 기존 해물 요리는 야외에서 원물 손질이 어렵고 액상 소스가 터지는 등 불편함이 컸습니다. 이에 물만 부으면 되는 분말 시즈닝을 개발하여 야외에서도 화려한 해물찜을 즐길 수 있도록 기획했습니다.";
-        
         document.getElementById('md-q3-1').value = "1. 압도적 원물: 수입산 냉동이 아닌 100% 동해안 울진 산지 직송 붉은대게 사용\n2. 극강의 편의성: 번거로운 액상 소스 대신 10초 만에 녹는 자체 개발 'K-분말 시즈닝' 적용 (누수 스트레스 0%)\n3. 패키징: 게 가시 찔림을 방지하는 NY/PE 2중 강화 진공 포장";
-        
         document.getElementById('md-q3-2').value = "- 원물 수급: 울진 죽변항 인프라를 통한 신선 원물 직접 수급 및 자체 가공(자숙/손질)\n- 시즈닝 제조: 위생적인 식품제조가공업 시설에서 K-분말 시즈닝 대량 배합 및 이지컷 스틱 포장\n- 패키징: 실링 트레이와 진공 포장재를 결합하여 밀키트화";
-        
         document.getElementById('md-q4-1').value = "- 1단계: 와디즈 크라우드 펀딩을 통해 3040 캠핑/요리족 타깃으로 초기 자금 확보 및 시장 검증\n- 2단계: 네이버 스마트스토어 입점 및 인스타그램 숏폼(AI 생성 영상) 활용 SNS 퍼포먼스 마케팅\n- 3단계: 울진 관내 주요 오토캠핑장 매점(B2B) 입점 및 예약 패키지 연계";
-        
         document.getElementById('md-q4-2').value = "1. 분말 시즈닝 대량 생산을 위한 자동 포장기 및 실링기 등 설비 자금 지원\n2. 패키지 디자인 및 브랜드(CI/BI) 고도화를 위한 전문가 멘토링\n3. 초기 판로 확대를 위한 라이브 커머스 및 마케팅 채널 지원";
-        
         document.getElementById('md-q7').value = "기창업자";
         document.getElementById('md-q8').value = "울진 산지 수산물 유통 네트워크 보유 및 '바다홍게' 배달/매장 운영을 통한 고객 입맛 데이터 축적";
     }
@@ -313,12 +318,43 @@
         inputs.forEach(input => input.value = '');
     }
 
-    function saveModuDraft() {
-        alert("모두의창업 2기 초안이 성공적으로 임시 저장되었습니다! (제출용 변환 기능은 추후 연동 예정)");
+    // 폼 캡처 로직
+    function captureModuForm() {
+        const captureArea = document.getElementById('modu-capture-area');
+        const titleArea = document.getElementById('modu-capture-title');
+        
+        // 캡처 전에 타이틀을 보이게 하고 텍스트 영역 크기를 내용에 맞게 조절
+        titleArea.classList.remove('hidden');
+        captureArea.classList.add('capture-ready');
+        
+        const textareas = captureArea.querySelectorAll('textarea');
+        textareas.forEach(ta => {
+            ta.style.height = 'auto';
+            ta.style.height = ta.scrollHeight + 'px';
+        });
+
+        html2canvas(captureArea, {
+            backgroundColor: "#ffffff", 
+            scale: 2 
+        }).then(canvas => {
+            const link = document.createElement('a');
+            link.download = '모두의창업2기_초안_비호수산.png';
+            link.href = canvas.toDataURL('image/png');
+            link.click();
+            
+            // 캡처 후 스타일 원상복구
+            titleArea.classList.add('hidden');
+            captureArea.classList.remove('capture-ready');
+            textareas.forEach(ta => ta.style.height = '');
+        }).catch(err => {
+            alert("이미지 저장 중 오류가 발생했습니다: " + err);
+            titleArea.classList.add('hidden');
+            captureArea.classList.remove('capture-ready');
+        });
     }
 
     // ----------------------------------------------------
-    // 3. 기존 함수들 (린캔버스, 계산기, 채팅)
+    // 3. 기존 함수들 (린캔버스, 계산기 등 유지)
     // ----------------------------------------------------
     function captureMarginCalc() {
       const captureArea = document.getElementById('calc-capture-area');
@@ -334,109 +370,6 @@
         alert("이미지 저장 중 오류가 발생했습니다: " + err);
       });
     }
-
-    // (계산기 로직: 기존과 동일, 에러 방지를 위해 최소한의 구조 유지)
-    function calcMargin() {
-      // (기존 코드에 있던 계산 로직을 그대로 두시면 됩니다.)
-    }
-    
-    function fillCalcExample() {
-      // (기존 코드와 동일)
-    }
-
-    // 파이어베이스 채팅 로직
-    const firebaseConfig = { databaseURL: "https://uljin-startup-default-rtdb.asia-southeast1.firebasedatabase.app" };
-    if (!firebase.apps.length) firebase.initializeApp(firebaseConfig);
-    const db = firebase.database();
-
-    function sendChatMessage() {
-      const nickname = document.getElementById('chat-nickname').value.trim() || '익명창업가';
-      const textInput = document.getElementById('chat-input');
-      const text = textInput.value.trim();
-      if (!text) return;
-      const timeStr = new Date().toLocaleTimeString('ko-KR', { hour: '2-digit', minute: '2-digit' });
-      db.ref('chats').push({ nickname, text, timeStr });
-      textInput.value = '';
-    }
-
-    db.ref('chats').limitToLast(50).on('child_added', (snapshot) => {
-      const msg = snapshot.val();
-      const chatBox = document.getElementById('chat-box');
-      if (chatBox.children.length === 1 && chatBox.children[0].classList.contains('text-center')) chatBox.innerHTML = '';
-      const msgDiv = document.createElement('div');
-      msgDiv.className = 'flex flex-col items-start bg-white p-3 rounded-xl border border-slate-200 shadow-sm max-w-[85%] md:max-w-[70%]';
-      msgDiv.innerHTML = `
-        <div class="flex items-center gap-2 mb-1 w-full justify-between">
-          <span class="text-xs font-bold text-blue-900">👤 ${msg.nickname}</span>
-          <span class="text-[10px] text-slate-400">${msg.timeStr || ''}</span>
-        </div>
-        <p class="text-xs text-slate-800 leading-relaxed break-all">${msg.text}</p>`;
-      chatBox.appendChild(msgDiv);
-      chatBox.scrollTop = chatBox.scrollHeight;
-    });
-
-    // 지원사업 로드 로직
-    let allNotices = [];
-    async function loadNotices() {
-      try {
-        const res = await fetch('./notices.json');
-        if (!res.ok) return;
-        allNotices = await res.json();
-        renderNotices(allNotices);
-      } catch (e) { console.error(e); }
-    }
-
-    function renderNotices(notices) {
-      const grid = document.getElementById('notice-grid');
-      document.getElementById('notice-count').textContent = notices.length;
-      grid.innerHTML = '';
-      notices.forEach(item => {
-        const isHighlight = item.category === '모두의창업' || item.highlight;
-        const cardStyle = isHighlight ? 'border-2 border-amber-400 bg-gradient-to-br from-amber-50/40 via-white shadow-md' : 'border border-slate-200 bg-white shadow-sm';
-        grid.innerHTML += `
-          <div class="${cardStyle} p-5 rounded-2xl flex flex-col justify-between">
-            <div>
-              <span class="text-xs font-bold px-2.5 py-1 rounded-md ${isHighlight ? 'bg-amber-400' : 'bg-slate-100'}">${item.agency}</span>
-              <h3 class="font-bold text-slate-900 mt-3 mb-2"><a href="${item.link}" target="_blank">${item.title}</a></h3>
-            </div>
-            <div class="flex justify-between items-center pt-3 border-t mt-4 text-xs">
-              <span>📅 마감: <strong>${item.deadline}</strong></span>
-              <a href="${item.link}" target="_blank" class="${isHighlight ? 'bg-amber-500 text-slate-950' : 'bg-slate-900 text-white'} px-3 py-1.5 rounded font-bold">확인 ➔</a>
-            </div>
-          </div>`;
-      });
-    }
-
-    function filterNotices(cat, btn) {
-      document.querySelectorAll('.filter-btn').forEach(b => {
-        b.classList.remove('bg-slate-900', 'text-white', 'shadow-sm');
-        if (!b.classList.contains('bg-amber-500')) b.classList.add('bg-slate-100');
-      });
-      if (!btn.classList.contains('bg-amber-500')) {
-        btn.classList.remove('bg-slate-100'); btn.classList.add('bg-slate-900', 'text-white', 'shadow-sm');
-      }
-      renderNotices(cat === '전체' ? allNotices : allNotices.filter(n => n.category.includes(cat) || n.tags.includes(cat)));
-    }
-
-    // 린캔버스 예시 함수
-    function fillBihoExample() {
-      document.getElementById('lc-problem').value = "1. 집/캠핑장에서 보일링크랩 조리 시 원물 손질과 소스 조리 어려움\n2. 액상 소스 누수 및 무거운 중량으로 인한 물류 한계";
-      document.getElementById('lc-solution').value = "1. 동해안 신선 붉은대게 산지 직송\n2. 누수 0% 자체 개발 K-분말 시즈닝";
-      document.getElementById('lc-uvp').value = "\"동해안 신선한 붉은대게로 만든 보일링크랩을 캠핑장에서 10분 만에 완성!\"";
-      document.getElementById('lc-advantage').value = "1. 울진 죽변 산지 직송 인프라\n2. 바다홍게 배달 데이터 및 관내 캠핑장 B2B 유통망";
-      document.getElementById('lc-customers').value = "1. 이색 캠핑 요리를 원하는 2040\n2. 울진 관내 오토캠핑장 및 매점";
-      document.getElementById('lc-metrics').value = "1. 관내 캠핑장 B2B 입점 수\n2. 온라인 재구매율 및 판매량";
-      document.getElementById('lc-channels').value = "1. 울진 캠핑장 예약 연계 및 매점 샵인샵\n2. 네이버 스마트스토어, 크라우드펀딩";
-      document.getElementById('lc-costs').value = "1. 원물 수급 및 가공비\n2. 분말 시즈닝 포장재 제작비";
-      document.getElementById('lc-revenue').value = "1. B2C/B2B 밀키트 세트 판매\n2. 시즈닝 분말 개별 판매";
-      alert("✨ 형제 비호수산 보일링크랩 린캔버스 데이터가 채워졌습니다!");
-    }
-
-    function copyLeanCanvasText() {
-      alert("📋 사업계획서 린캔버스 초안 텍스트가 클립보드에 복사되었습니다!");
-    }
-
-    loadNotices();
   </script>
 </body>
 </html>
