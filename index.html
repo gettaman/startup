@@ -36,6 +36,20 @@
 </head>
 <body class="bg-slate-100 text-slate-800 min-h-screen flex flex-col justify-between">
 
+  <div id="image-modal" class="fixed inset-0 bg-black/80 z-50 hidden flex items-center justify-center p-4 transition-opacity" onclick="closeImageModal()">
+    <div class="relative bg-white rounded-2xl max-w-4xl w-full max-h-[90vh] overflow-y-auto p-4 shadow-2xl" onclick="event.stopPropagation()">
+      <div class="flex justify-between items-center pb-3 border-b border-slate-200 mb-4">
+        <h3 class="font-bold text-slate-900 text-lg flex items-center gap-2">
+          🖼️ 작성 예시 참고 이미지
+        </h3>
+        <button onclick="closeImageModal()" class="bg-slate-800 hover:bg-red-500 text-white w-8 h-8 rounded-full font-bold flex items-center justify-center transition">
+          ✕
+        </button>
+      </div>
+      <img id="modal-img" src="" alt="예시 이미지" class="w-full h-auto rounded-lg" onerror="this.onerror=null; alert('이미지 파일을 찾을 수 없습니다. sample1.jpg 또는 sample2.jpg 파일이 같은 폴더에 있는지 확인해 주세요.'); closeImageModal();">
+    </div>
+  </div>
+
   <header class="bg-gradient-to-r from-blue-950 via-indigo-950 to-slate-900 text-white py-8 px-4 shadow-xl">
     <div class="max-w-6xl mx-auto">
       <div class="flex flex-wrap items-center gap-2 mb-3">
@@ -384,11 +398,17 @@
             <h2 class="text-xl font-bold text-slate-900 flex items-center gap-2">
                 📝 모두의창업 2기 초안서 작성기
             </h2>
-            <div class="flex gap-2">
-                <button onclick="fillModuExample()" class="bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs px-4 py-2 rounded-lg shadow-sm transition">
-                    ✨ 예시 자동입력
+            <div class="flex flex-wrap gap-2">
+                <button onclick="fillModuExample()" class="bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs px-3.5 py-2 rounded-lg shadow-sm transition">
+                    ✨ 텍스트 예시 채우기
                 </button>
-                <button onclick="captureModuForm()" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs px-4 py-2 rounded-lg shadow-sm transition flex items-center gap-1.5">
+                <button onclick="showImageModal('sample1.jpg')" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs px-3.5 py-2 rounded-lg shadow-sm transition flex items-center gap-1">
+                    🖼️ 예제1 (시안)
+                </button>
+                <button onclick="showImageModal('sample2.jpg')" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs px-3.5 py-2 rounded-lg shadow-sm transition flex items-center gap-1">
+                    🖼️ 예제2 (시안)
+                </button>
+                <button onclick="captureModuForm()" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs px-3.5 py-2 rounded-lg shadow-sm transition flex items-center gap-1.5">
                     📸 초안 캡처(저장)
                 </button>
             </div>
@@ -501,7 +521,22 @@
     }
 
     // ----------------------------------------------------
-    // 2. '모두의 창업 2기' 관련 함수
+    // 2. 모달 팝업 로직 (예제1, 예제2 버튼 처리)
+    // ----------------------------------------------------
+    function showImageModal(imgSrc) {
+        const modal = document.getElementById('image-modal');
+        const modalImg = document.getElementById('modal-img');
+        modalImg.src = imgSrc;
+        modal.classList.remove('hidden');
+    }
+
+    function closeImageModal() {
+        const modal = document.getElementById('image-modal');
+        modal.classList.add('hidden');
+    }
+
+    // ----------------------------------------------------
+    // 3. '모두의 창업 2기' 관련 함수
     // ----------------------------------------------------
     function fillModuExample() {
         document.getElementById('md-q1').value = "미국 남부의 맛을 캠핑장으로! 10초 완성 '울진 붉은대게 K-보일링크랩' 밀키트";
@@ -520,7 +555,7 @@
         inputs.forEach(input => input.value = '');
     }
 
-    // ★ 폼 캡처 로직 (input, select, textarea 모두 변환하여 잘림 완벽 방지) ★
+    // 폼 캡처 로직 (input, select, textarea 모두 변환하여 잘림 완벽 방지)
     function captureModuForm() {
         const captureArea = document.getElementById('modu-capture-area');
         const titleArea = document.getElementById('modu-capture-title');
@@ -531,12 +566,10 @@
         titleArea.classList.remove('hidden');
         captureArea.classList.add('capture-ready');
         
-        // input, select, textarea 모두 선택해서 임시 div로 변경
         const formElements = captureArea.querySelectorAll('textarea, input[type="text"], select');
         formElements.forEach(el => {
             const div = document.createElement('div');
             
-            // 요소 종류에 따라 값 가져오기
             let textValue = el.value;
             if(el.tagName === 'SELECT') {
                 textValue = el.options[el.selectedIndex] ? el.options[el.selectedIndex].text : '';
@@ -548,7 +581,6 @@
                 div.textContent = textValue;
             }
             
-            // 글자 넘어감 방지 및 스타일 세팅
             div.style.wordBreak = 'keep-all'; 
             div.style.overflowWrap = 'break-word';
             div.style.whiteSpace = el.tagName === 'TEXTAREA' ? 'pre-wrap' : 'normal';
@@ -560,7 +592,7 @@
             div.style.minHeight = Math.max(el.scrollHeight, el.offsetHeight) + 'px';
             
             el.parentNode.insertBefore(div, el);
-            el.style.display = 'none'; // 원본 폼 요소 숨김
+            el.style.display = 'none'; 
             el._tempDiv = div; 
         });
 
@@ -575,7 +607,6 @@
             link.href = canvas.toDataURL('image/png');
             link.click();
             
-            // 원상 복구
             titleArea.classList.add('hidden');
             captureArea.classList.remove('capture-ready');
             formElements.forEach(el => {
@@ -596,7 +627,7 @@
     }
 
     // ----------------------------------------------------
-    // 3. 기존 함수들 (린캔버스, 계산기 등 유지)
+    // 4. 기존 함수들 (린캔버스, 계산기 등 유지)
     // ----------------------------------------------------
     function captureMarginCalc() {
       const captureArea = document.getElementById('calc-capture-area');
