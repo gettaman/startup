@@ -29,8 +29,7 @@
         -webkit-appearance: none;
         margin: 0;
     }
-    .capture-ready textarea {
-      resize: none; 
+    .capture-ready input, .capture-ready select, .capture-ready textarea {
       overflow: visible !important;
     }
   </style>
@@ -92,7 +91,6 @@
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4 mb-6">
-          
           <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 hover:shadow-md transition flex flex-col justify-between">
             <div>
               <div class="flex justify-between items-center mb-2">
@@ -116,10 +114,6 @@
                   <span class="text-[10px] bg-white border border-slate-300 text-slate-600 px-1.5 py-0.5 rounded-md">#캠핑요리</span>
                   <span class="text-[10px] bg-white border border-slate-300 text-slate-600 px-1.5 py-0.5 rounded-md">#캠핑음식</span>
                   <span class="text-[10px] bg-white border border-slate-300 text-slate-600 px-1.5 py-0.5 rounded-md">#간편조리</span>
-                  <span class="text-[10px] bg-white border border-slate-300 text-slate-600 px-1.5 py-0.5 rounded-md">#간편식품</span>
-                  <span class="text-[10px] bg-white border border-slate-300 text-slate-600 px-1.5 py-0.5 rounded-md">#파티용</span>
-                  <span class="text-[10px] bg-white border border-slate-300 text-slate-600 px-1.5 py-0.5 rounded-md">#집들이상</span>
-                  <span class="text-[10px] bg-white border border-slate-300 text-slate-600 px-1.5 py-0.5 rounded-md">#집들이음식</span>
                 </div>
               </div>
             </div>
@@ -179,15 +173,10 @@
               <div class="mb-3">
                 <p class="text-[10px] font-bold text-slate-500 mb-1.5">🏷️ 검색 노출 타겟 태그</p>
                 <div class="flex flex-wrap gap-1">
-                <span class="text-[10px] bg-white border border-slate-300 text-slate-600 px-1.5 py-0.5 rounded-md">#캠핑음식캠핑요리</span>
+                  <span class="text-[10px] bg-white border border-slate-300 text-slate-600 px-1.5 py-0.5 rounded-md">#캠핑음식</span>
                   <span class="text-[10px] bg-white border border-slate-300 text-slate-600 px-1.5 py-0.5 rounded-md">#홈파티음식</span>
-                  <span class="text-[10px] bg-white border border-slate-300 text-slate-600 px-1.5 py-0.5 rounded-md">#새우요리</span>
                   <span class="text-[10px] bg-white border border-slate-300 text-slate-600 px-1.5 py-0.5 rounded-md">#밀키트</span>
                   <span class="text-[10px] bg-white border border-slate-300 text-slate-600 px-1.5 py-0.5 rounded-md">#생일음식</span>
-                  <span class="text-[10px] bg-white border border-slate-300 text-slate-600 px-1.5 py-0.5 rounded-md">#캠핑밀키트</span>
-                  <span class="text-[10px] bg-white border border-slate-300 text-slate-600 px-1.5 py-0.5 rounded-md">#홈파티밀키트</span>
-                  <span class="text-[10px] bg-white border border-slate-300 text-slate-600 px-1.5 py-0.5 rounded-md">#생일파티밀키트</span>
-                  <span class="text-[10px] bg-white border border-slate-300 text-slate-600 px-1.5 py-0.5 rounded-md">#홈파티</span>
                   <span class="text-[10px] bg-white border border-slate-300 text-slate-600 px-1.5 py-0.5 rounded-md">#홈캉스</span>
                 </div>
               </div>
@@ -306,7 +295,7 @@
             <div class="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-2.5 mb-5">
               <div class="flex justify-between items-center gap-2"><label class="text-[10px] font-bold text-amber-700 w-24">(비호수산) 시즈닝</label><input type="number" id="calc-seasoning" value="0" oninput="calcMargin()" class="flex-1 p-1 text-right text-xs border border-amber-300 bg-amber-50 rounded"></div>
               <div class="flex justify-between items-center gap-2"><label class="text-[11px] font-medium text-slate-700 w-24">갈릭 오일</label><input type="number" id="calc-garlicoil" value="0" oninput="calcMargin()" class="flex-1 p-1 text-right text-xs border border-slate-300 rounded"></div>
-              <div class="flex justify-between items-center gap-2"><label class="text-[11px] font-medium text-slate-700 w-24">페퍼론치 홀</label><input type="number" id="calc-peperoncino" value="0" oninput="calcMargin()" class="flex-1 p-1 text-right text-xs border border-slate-300 rounded"></div>
+              <div class="flex justify-between items-center gap-2"><label class="text-[11px] font-medium text-slate-700 w-24">페퍼론치노 홀</label><input type="number" id="calc-peperoncino" value="0" oninput="calcMargin()" class="flex-1 p-1 text-right text-xs border border-slate-300 rounded"></div>
               <div class="flex justify-between items-center gap-2"><label class="text-[11px] font-medium text-slate-700 w-24">파슬리 가루</label><input type="number" id="calc-parsley" value="0" oninput="calcMargin()" class="flex-1 p-1 text-right text-xs border border-slate-300 rounded"></div>
               <div class="flex justify-between items-center gap-2"><label class="text-[11px] font-medium text-slate-700 w-24">반조리 파스타생면</label><input type="number" id="calc-pasta" value="0" oninput="calcMargin()" class="flex-1 p-1 text-right text-xs border border-slate-300 rounded"></div>
             </div>
@@ -531,44 +520,54 @@
         inputs.forEach(input => input.value = '');
     }
 
-    // 폼 캡처 로직 (글자 잘림 100% 완벽 해결버전)
+    // ★ 폼 캡처 로직 (input, select, textarea 모두 변환하여 잘림 완벽 방지) ★
     function captureModuForm() {
         const captureArea = document.getElementById('modu-capture-area');
         const titleArea = document.getElementById('modu-capture-title');
         
-        // ★ 핵심 조치 1: 캡처 전 스크롤을 맨 위로 강제 이동 (html2canvas 잘림 버그 방지)
         const currentScrollY = window.scrollY;
         window.scrollTo(0, 0);
 
         titleArea.classList.remove('hidden');
         captureArea.classList.add('capture-ready');
         
-        // ★ 핵심 조치 2: 텍스트 박스를 완벽한 줄바꿈이 적용된 DIV로 변환
-        const textareas = captureArea.querySelectorAll('textarea');
-        textareas.forEach(ta => {
+        // input, select, textarea 모두 선택해서 임시 div로 변경
+        const formElements = captureArea.querySelectorAll('textarea, input[type="text"], select');
+        formElements.forEach(el => {
             const div = document.createElement('div');
-            // 엔터키(\n)를 HTML 줄바꿈(<br>)으로 강제 변환
-            div.innerHTML = ta.value.replace(/\n/g, '<br>');
             
-            // 한글 글자가 박스를 넘어가지 않도록 강제 단어 단위 줄바꿈 적용
+            // 요소 종류에 따라 값 가져오기
+            let textValue = el.value;
+            if(el.tagName === 'SELECT') {
+                textValue = el.options[el.selectedIndex] ? el.options[el.selectedIndex].text : '';
+            }
+            
+            if(el.tagName === 'TEXTAREA') {
+                div.innerHTML = textValue.replace(/\n/g, '<br>');
+            } else {
+                div.textContent = textValue;
+            }
+            
+            // 글자 넘어감 방지 및 스타일 세팅
             div.style.wordBreak = 'keep-all'; 
             div.style.overflowWrap = 'break-word';
-            div.style.whiteSpace = 'pre-wrap';
+            div.style.whiteSpace = el.tagName === 'TEXTAREA' ? 'pre-wrap' : 'normal';
+            div.style.display = 'flex';
+            div.style.alignItems = 'center';
             
-            div.className = ta.className; 
+            div.className = el.className; 
             div.style.height = 'auto';
-            div.style.minHeight = Math.max(ta.scrollHeight, ta.offsetHeight) + 'px';
+            div.style.minHeight = Math.max(el.scrollHeight, el.offsetHeight) + 'px';
             
-            ta.parentNode.insertBefore(div, ta);
-            ta.style.display = 'none'; 
-            ta._tempDiv = div; 
+            el.parentNode.insertBefore(div, el);
+            el.style.display = 'none'; // 원본 폼 요소 숨김
+            el._tempDiv = div; 
         });
 
-        // 이미지 캡처 실행
         html2canvas(captureArea, {
             backgroundColor: "#ffffff", 
-            scale: 2, // 고해상도
-            scrollY: 0, // 스크롤 버그 방지
+            scale: 2, 
+            scrollY: 0, 
             useCORS: true
         }).then(canvas => {
             const link = document.createElement('a');
@@ -576,22 +575,21 @@
             link.href = canvas.toDataURL('image/png');
             link.click();
             
-            // 캡처 완료 후 화면 원상 복구
+            // 원상 복구
             titleArea.classList.add('hidden');
             captureArea.classList.remove('capture-ready');
-            textareas.forEach(ta => {
-                ta.style.display = ''; 
-                if (ta._tempDiv) ta._tempDiv.remove(); 
+            formElements.forEach(el => {
+                el.style.display = ''; 
+                if (el._tempDiv) el._tempDiv.remove(); 
             });
-            // 사용자 스크롤 원위치
             window.scrollTo(0, currentScrollY);
         }).catch(err => {
             alert("이미지 저장 중 오류가 발생했습니다: " + err);
             titleArea.classList.add('hidden');
             captureArea.classList.remove('capture-ready');
-            textareas.forEach(ta => {
-                ta.style.display = '';
-                if (ta._tempDiv) ta._tempDiv.remove();
+            formElements.forEach(el => {
+                el.style.display = '';
+                if (el._tempDiv) el._tempDiv.remove();
             });
             window.scrollTo(0, currentScrollY);
         });
