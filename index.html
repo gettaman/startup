@@ -14,9 +14,9 @@
 
   <style>
     body { font-family: 'Noto Sans KR', sans-serif; }
-    #chat-box::-webkit-scrollbar { width: 6px; }
-    #chat-box::-webkit-scrollbar-track { background: #f1f5f9; }
-    #chat-box::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 3px; }
+    #chat-box::-webkit-scrollbar, .custom-scrollbar::-webkit-scrollbar { width: 6px; }
+    #chat-box::-webkit-scrollbar-track, .custom-scrollbar::-webkit-scrollbar-track { background: #f1f5f9; }
+    #chat-box::-webkit-scrollbar-thumb, .custom-scrollbar::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 3px; }
     details > summary { list-style: none; }
     details > summary::-webkit-details-marker { display: none; }
     @media print {
@@ -64,6 +64,9 @@
         <button onclick="switchTab('notices')" id="tab-btn-notices" class="tab-nav-btn active bg-amber-400 text-slate-950 font-bold px-5 py-2.5 rounded-xl text-sm transition shadow-md flex items-center gap-2">
           🎯 지원사업 공고
         </button>
+        <button onclick="switchTab('lecture')" id="tab-btn-lecture" class="tab-nav-btn bg-blue-900/80 text-blue-100 hover:bg-blue-800 font-semibold px-5 py-2.5 rounded-xl text-sm transition flex items-center gap-2">
+          🤖 AI 강의 요약
+        </button>
         <button onclick="switchTab('competitors')" id="tab-btn-competitors" class="tab-nav-btn bg-blue-900/80 text-blue-100 hover:bg-blue-800 font-semibold px-5 py-2.5 rounded-xl text-sm transition flex items-center gap-2">
           📝 경쟁업체 & 와디즈
         </button>
@@ -82,6 +85,7 @@
 
   <main class="max-w-6xl mx-auto px-4 py-8 w-full flex-grow">
 
+    <!-- 지원사업 탭 -->
     <section id="tab-content-notices" class="tab-content space-y-6">
       <div class="flex flex-wrap items-center justify-between gap-3 bg-white p-4 rounded-2xl border border-slate-200 shadow-sm">
         <div class="flex flex-wrap gap-2" id="filter-buttons">
@@ -95,6 +99,229 @@
       <div id="notice-grid" class="grid grid-cols-1 md:grid-cols-2 gap-4"></div>
     </section>
 
+    <!-- 🤖 AI 강의 요약 탭 (신규 추가) -->
+    <section id="tab-content-lecture" class="tab-content hidden space-y-6">
+      <div class="bg-white p-6 md:p-8 rounded-2xl border border-slate-200 shadow-sm max-w-4xl mx-auto">
+        <!-- Header -->
+        <div class="border-b border-slate-200 pb-5 mb-6 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+          <div>
+            <h2 class="text-2xl font-bold text-slate-900 flex items-center gap-2">
+              <span class="text-2xl">📝</span> AI 맞춤 요약
+            </h2>
+            <p class="text-sm text-slate-500 mt-2 font-medium">윤성영 선생님 ・ 2026.08.21 금 오후 2:01 ・ 180분</p>
+          </div>
+          <div class="flex gap-2 bg-slate-100 p-1.5 rounded-lg border border-slate-200">
+            <button class="px-4 py-1.5 text-sm font-semibold text-slate-500 rounded-md hover:text-slate-900 transition">AI 맞춤 요약</button>
+            <button class="px-4 py-1.5 text-sm font-bold bg-white text-slate-900 rounded-md shadow-sm border border-slate-200/60">시간대별 요약</button>
+          </div>
+        </div>
+
+        <!-- Warning message like ClovaNote -->
+        <div class="bg-slate-50 rounded-lg p-4 mb-6 border border-slate-100 flex items-start gap-3">
+          <span class="text-slate-400">💡</span>
+          <p class="text-[13px] text-slate-500 leading-relaxed">AI가 음성 기록을 요약한 결과로, 부정확하거나 부적절한 내용이 포함될 수 있습니다.</p>
+        </div>
+
+        <!-- Content List -->
+        <div class="space-y-8 h-[700px] overflow-y-auto pr-4 custom-scrollbar">
+          
+          <div class="border-b border-slate-100 pb-8 last:border-0 last:pb-0">
+            <div class="text-sm text-slate-500 mb-1.5 font-medium tracking-wide">00:00~01:51</div>
+            <h3 class="font-bold text-slate-900 text-lg mb-3">온라인 판매자의 고민</h3>
+            <ul class="list-disc pl-5 text-[15px] text-slate-700 space-y-2 marker:text-slate-300 leading-relaxed">
+              <li>대부분 지금 아니면 이 과정이랑 별개로 본인 사업을 하고 계신 분이 없음</li>
+              <li>온라인으로 판매하고 오프라인으로 판매하고 계신 분들 아니면 해외에서 판매하고 계신 분들 거의 대부분 완전 처음임</li>
+              <li>광고 대행사를 하고 있음</li>
+            </ul>
+          </div>
+
+          <div class="border-b border-slate-100 pb-8 last:border-0 last:pb-0">
+            <div class="text-sm text-slate-500 mb-1.5 font-medium tracking-wide">02:52~04:52</div>
+            <h3 class="font-bold text-slate-900 text-lg mb-3">네이버 탑스 프로그램의 컨설턴트</h3>
+            <ul class="list-disc pl-5 text-[15px] text-slate-700 space-y-2 marker:text-slate-300 leading-relaxed">
+              <li>네이버 탑스 프로그램의 컨설턴트이고 카카오 선물하기의 공식 컨설턴트임</li>
+              <li>춘천에 있는 백곡을 베이스로 뷰티랑 주얼리 브랜드를 직접 하고 있음</li>
+              <li>클라우드 펀딩 플랫폼인 와디즈에서 5년 정도 일을 했음</li>
+              <li>오프라인 사업을 하면서 대기업들이랑 콜라보 팝업 공간을 여는 일들을 했음</li>
+            </ul>
+          </div>
+
+          <div class="border-b border-slate-100 pb-8 last:border-0 last:pb-0">
+            <div class="text-sm text-slate-500 mb-1.5 font-medium tracking-wide">05:51~09:34</div>
+            <h3 class="font-bold text-slate-900 text-lg mb-3">와디즈 투자 사업팀</h3>
+            <ul class="list-disc pl-5 text-[15px] text-slate-700 space-y-2 marker:text-slate-300 leading-relaxed">
+              <li>와디즈라는 플랫폼에서 한 달에 한 천 개 정도의 기업들이 프로젝트를 하는데 그 기업들 중에서 잘 플레이를 한다 가능성이 있겠다 아이디어가 좋다 하는 팀들에게 투자하는 일을 하는 투자 사업팀이 있음</li>
+              <li>와디즈 전속 강사이기도 하고 창조경제혁신센터는 서울 춘천, 울산 경북 경남 지역들이 마케팅 전략 강의 전략 하고 대학들 홍대, 울산대, 경희대 이런 데는 대학 강의를 연에 한 네다섯 번째씩 특강을 나가고 있음</li>
+              <li>한국 마케팅 진흥원 하고 디자인 진흥원 강의도 나가고 있음</li>
+            </ul>
+          </div>
+
+          <div class="border-b border-slate-100 pb-8 last:border-0 last:pb-0">
+            <div class="text-sm text-slate-500 mb-1.5 font-medium tracking-wide">10:33~13:23</div>
+            <h3 class="font-bold text-slate-900 text-lg mb-3">온라인 샐러드 마케팅</h3>
+            <ul class="list-disc pl-5 text-[15px] text-slate-700 space-y-2 marker:text-slate-300 leading-relaxed">
+              <li>제품이 별로면 대행사가 안 붙어 있는 경우가 많음</li>
+              <li>인티처럼 세상에 없던 상품들은 자본력이나 기술력 인적 리소스들이 있어야만 가능한 일이기 때문에 현실적으로 접근을 하는 방향 안에서 우리가 제품에 특별한 걸 전 세계에 하나밖에 없는 특허를 만들 수 없으니까 이후에 후천적으로 우리가 만들어진 우리가 할 수 있는 제품을 가지고 어떻게 팔아야 잘 팔릴 것인가 이 방법을 찾다 보니 대부분의 국내 온라인 샐러드를 준비하시는 대표님들이나 사업을 준비하시는 대표님들이 마케팅에 대한 공부들이나 강의를 들으시는 거임</li>
+            </ul>
+          </div>
+
+          <div class="border-b border-slate-100 pb-8 last:border-0 last:pb-0">
+            <div class="text-sm text-slate-500 mb-1.5 font-medium tracking-wide">14:18~16:22</div>
+            <h3 class="font-bold text-slate-900 text-lg mb-3">쿠팡, 드론 배송 서비스 도입</h3>
+            <ul class="list-disc pl-5 text-[15px] text-slate-700 space-y-2 marker:text-slate-300 leading-relaxed">
+              <li>펀딩을 한 번만 하고 바로 모든 쿠팡부터 해가지고 온라인 유통 시장에 쫙 깔려서 지금은 업데이트 버전까지 나옴</li>
+              <li>상세 페이지도 같이 보시면 너무 좋을 거임</li>
+              <li>AI 드론은 손바닥 위에 올려놓고 버튼을 누르면 3초 안에 알아서 이륙을 함</li>
+              <li>사용자의 얼굴을 인식하고 사용자가 돌아다니면 드론이 따라다니면서 촬영을 함</li>
+            </ul>
+          </div>
+
+          <div class="border-b border-slate-100 pb-8 last:border-0 last:pb-0">
+            <div class="text-sm text-slate-500 mb-1.5 font-medium tracking-wide">17:24~19:23</div>
+            <h3 class="font-bold text-slate-900 text-lg mb-3">지방에서 드론을 띄우려면</h3>
+            <ul class="list-disc pl-5 text-[15px] text-slate-700 space-y-2 marker:text-slate-300 leading-relaxed">
+              <li>지방에서 드론을 띄우려면 구청과 군 두 군데에서 승인을 받아야 되는데 못 받음</li>
+              <li>국내 전국 8도의 로컬 식품들 한국에서 나는 국내산들로만 올리는 플랫폼이 있음</li>
+            </ul>
+          </div>
+
+          <div class="border-b border-slate-100 pb-8 last:border-0 last:pb-0">
+            <div class="text-sm text-slate-500 mb-1.5 font-medium tracking-wide">20:19~24:37</div>
+            <h3 class="font-bold text-slate-900 text-lg mb-3">로컬 마케팅 강의</h3>
+            <ul class="list-disc pl-5 text-[15px] text-slate-700 space-y-2 marker:text-slate-300 leading-relaxed">
+              <li>로컬 사업에 대한 이해도가 매우 높고 지원 사업들이나 연계에 대한 것들도 매우 높기 때문에 추후에 여러분들이 사업화를 해 나갈 때마다 질문이 있으시거나 도움받고 싶은 게 있으실 때는 저한테 메일을 주시면 도움을 드리겠음</li>
+              <li>마케팅이라는 거는 물건을 잘 팔기 위한 강의는 4시간짜리 강의임</li>
+              <li>4시간짜리 강의가 8주짜리 교육 커리큘럼을 함</li>
+              <li>주에 두 번씩 만나서 16번 만나는 걸 줄여서 4시간짜리를 남겨놓은 거임</li>
+            </ul>
+          </div>
+
+          <div class="border-b border-slate-100 pb-8 last:border-0 last:pb-0">
+            <div class="text-sm text-slate-500 mb-1.5 font-medium tracking-wide">25:39~29:30</div>
+            <h3 class="font-bold text-slate-900 text-lg mb-3">마케팅의 정의</h3>
+            <ul class="list-disc pl-5 text-[15px] text-slate-700 space-y-2 marker:text-slate-300 leading-relaxed">
+              <li>마케팅은 제품이 만들어지고 판매가 되고 홍보를 하고 배송이 가고 CS가 들어오고 클레임 걸고 다시 피드백을 바탕으로 다시 상품 개발하고 상품을 만들고 판매하는 소비자와 접촉하는 모든 생애 주기 전체를 마케팅이라고 함</li>
+            </ul>
+          </div>
+
+          <div class="border-b border-slate-100 pb-8 last:border-0 last:pb-0">
+            <div class="text-sm text-slate-500 mb-1.5 font-medium tracking-wide">30:25~31:39</div>
+            <h3 class="font-bold text-slate-900 text-lg mb-3">온라인 유통의 장점</h3>
+            <ul class="list-disc pl-5 text-[15px] text-slate-700 space-y-2 marker:text-slate-300 leading-relaxed">
+              <li>오프라인 물리적 지리적 특성 안에서 멀리 있는 소외되어 있는 지역인 거는 현실임</li>
+              <li>그걸 깨기 위해서 가장 좋은 방법이라고 생각하는 게 온라인 유통임</li>
+              <li>온라인 유통이 가장 효율적이고 합리적인 방식인 건 맞음</li>
+            </ul>
+          </div>
+
+          <div class="border-b border-slate-100 pb-8 last:border-0 last:pb-0">
+            <div class="text-sm text-slate-500 mb-1.5 font-medium tracking-wide">32:35~34:12</div>
+            <h3 class="font-bold text-slate-900 text-lg mb-3">울진의 특산물</h3>
+            <ul class="list-disc pl-5 text-[15px] text-slate-700 space-y-2 marker:text-slate-300 leading-relaxed">
+              <li>우리의 특산물을 가지고 상품화를 할 때 울진의 특산물 소스를 사용을 하더라도 흔한 제품이 돼버림</li>
+              <li>울진의 특산물이 유명하지 않기 때문에 2차 상품화를 할 때는 하나의 키 포인트를 만들어야 함</li>
+              <li>마케팅은 모든 사업의 베이스가 되는 것으로 어떻게 할 것인가에 대해서 얘기를 나눌 것임</li>
+            </ul>
+          </div>
+
+          <div class="border-b border-slate-100 pb-8 last:border-0 last:pb-0">
+            <div class="text-sm text-slate-500 mb-1.5 font-medium tracking-wide">35:10~37:55</div>
+            <h3 class="font-bold text-slate-900 text-lg mb-3">울진의 차별점</h3>
+            <ul class="list-disc pl-5 text-[15px] text-slate-700 space-y-2 marker:text-slate-300 leading-relaxed">
+              <li>우리가 남들과 다를 수 있는 게 구체적으로 뭔지 점검을 해봄</li>
+              <li>우리가 되게 차별성을 가질 수 있는 영역임</li>
+              <li>울진은 지역적인 장점이 있기 때문에 있음</li>
+              <li>우리만 쓸 수 있는 시즌이 있음</li>
+              <li>온라인과 오프라인을 사업 초기에는 근본적으로 잘 생각해야 함</li>
+            </ul>
+          </div>
+          
+          <div class="border-b border-slate-100 pb-8 last:border-0 last:pb-0">
+            <div class="text-sm text-slate-500 mb-1.5 font-medium tracking-wide">38:44~39:27</div>
+            <h3 class="font-bold text-slate-900 text-lg mb-3">오프라인 매장의 중요성</h3>
+            <ul class="list-disc pl-5 text-[15px] text-slate-700 space-y-2 marker:text-slate-300 leading-relaxed">
+              <li>푸드나 뷰티는 맛보고 써본 사람을 초기에 최대한 많이 확보하는 게 1번임</li>
+              <li>오프라인도 현실적으로 고려해야 함</li>
+            </ul>
+          </div>
+
+          <div class="border-b border-slate-100 pb-8 last:border-0 last:pb-0">
+            <div class="text-sm text-slate-500 mb-1.5 font-medium tracking-wide">40:23~42:55</div>
+            <h3 class="font-bold text-slate-900 text-lg mb-3">네이버 부동산 검색</h3>
+            <ul class="list-disc pl-5 text-[15px] text-slate-700 space-y-2 marker:text-slate-300 leading-relaxed">
+              <li>네이버 부동산 검색해서 평가가 비싼 아파트에 잘 사는 사람 많은 단지들을 찾으라고 함</li>
+              <li>푸드 뷰티는 샘플 바리바리 싸들고 와서 지나가는 사람 붙잡고 입에다가 바로 먹임</li>
+              <li>온라인만 조명하면 안 되고 오프라인도 같이 해야 함</li>
+            </ul>
+          </div>
+
+          <div class="border-b border-slate-100 pb-8 last:border-0 last:pb-0">
+            <div class="text-sm text-slate-500 mb-1.5 font-medium tracking-wide">43:50~46:40</div>
+            <h3 class="font-bold text-slate-900 text-lg mb-3">하우의 차별화</h3>
+            <ul class="list-disc pl-5 text-[15px] text-slate-700 space-y-2 marker:text-slate-300 leading-relaxed">
+              <li>온라인 광고를 통해서 우리 매장 홍보를 하겠다 이런 부분들을 여러분들이 스스로 적립할 수 있어야 됨</li>
+              <li>하우는 어떻게 팔 것인가가 차별성을 가질 수 있는 가능성 높은 영역 중에 하나임</li>
+              <li>어떻게 팔 것인가를 통해 차별화를 가질 수 있는 포인트가 많음</li>
+            </ul>
+          </div>
+
+          <div class="border-b border-slate-100 pb-8 last:border-0 last:pb-0">
+            <div class="text-sm text-slate-500 mb-1.5 font-medium tracking-wide">49:40~54:02</div>
+            <h3 class="font-bold text-slate-900 text-lg mb-3">온라인 시장의 핵심</h3>
+            <ul class="list-disc pl-5 text-[15px] text-slate-700 space-y-2 marker:text-slate-300 leading-relaxed">
+              <li>클라우드 펀딩이나 플리 마켓 같은 데 나가서 시장 검증 사람들의 실제 반응들이나 판매에 대한 피드백들을 받고 최종적으로 온라인에 나가기 위한 상품을 준비하는 걸 반드시 권장드림</li>
+              <li>대한민국에 있는 20대 여성은 내가 다 독점할 거야는 가장 우리가 차별성을 갖기 어려운 일임</li>
+              <li>온라인 시장의 핵심은 누구에게 팔 것인가가 아니라 누가 팔 것인가임</li>
+            </ul>
+          </div>
+
+          <div class="border-b border-slate-100 pb-8 last:border-0 last:pb-0">
+            <div class="text-sm text-slate-500 mb-1.5 font-medium tracking-wide">87:19~95:57</div>
+            <h3 class="font-bold text-slate-900 text-lg mb-3">올리브영의 광고비</h3>
+            <ul class="list-disc pl-5 text-[15px] text-slate-700 space-y-2 marker:text-slate-300 leading-relaxed">
+              <li>올리브영은 광고 안 해도 됨</li>
+              <li>물건을 잘 만드는 게 무조건 1번임</li>
+              <li>우리 특산물을 활용하더라도 사람들이 시간당 만들더라도 한 번 먹고 또 먹을 정도의 퀄리티를 만들어내고 그 뒤에 어떻게 팔지에 대한 고민들을 해야 됨</li>
+              <li>사업 준비를 할 때 매출 다음으로 2순위로 중요한 걸 기록이라고 함</li>
+            </ul>
+          </div>
+
+          <div class="border-b border-slate-100 pb-8 last:border-0 last:pb-0">
+            <div class="text-sm text-slate-500 mb-1.5 font-medium tracking-wide">123:56~125:01</div>
+            <h3 class="font-bold text-slate-900 text-lg mb-3">키워드 마케팅</h3>
+            <ul class="list-disc pl-5 text-[15px] text-slate-700 space-y-2 marker:text-slate-300 leading-relaxed">
+              <li>페르소나들에게 우리 제품을 팔 것인지 추석 전 배송 키워드를 팔 것인지 아니면 일주일 뒤 피부 트러블 개선 몇 프로 이걸 할 것인지 키워드들을 도출함</li>
+              <li>실제 광고에 있을 때 그 키워드들이 이미지화가 됨</li>
+              <li>네이버 쇼핑에 검색하면 쿠팡에 검색하면 시간당 치면은 우리랑 용량 비슷하고 들어가는 거 비슷하고 컨셉트 비슷한 애들 10분도 안 돼서 다 찾음</li>
+              <li>할인만한 마케팅을 이길 수 있는 마케팅은 없음</li>
+            </ul>
+          </div>
+
+          <div class="border-b border-slate-100 pb-8 last:border-0 last:pb-0">
+            <div class="text-sm text-slate-500 mb-1.5 font-medium tracking-wide">156:11~159:59</div>
+            <h3 class="font-bold text-slate-900 text-lg mb-3">와디즈 펀딩 성공하는 방법</h3>
+            <ul class="list-disc pl-5 text-[15px] text-slate-700 space-y-2 marker:text-slate-300 leading-relaxed">
+              <li>와디즈 펀딩을 할 때는 한 번 실패가 모든 걸 좌우하진 않지만 한 번을 할 때 제대로 갈아 넣고 해야 함</li>
+              <li>애매하게 끝내면 두 번 세 번까지는 절대 못 감</li>
+              <li>반드시 순차적으로 가야 함</li>
+            </ul>
+          </div>
+          
+          <div class="border-b border-slate-100 pb-8 last:border-0 last:pb-0">
+            <div class="text-sm text-slate-500 mb-1.5 font-medium tracking-wide">171:50~174:40</div>
+            <h3 class="font-bold text-slate-900 text-lg mb-3">울진 지역자원 연결</h3>
+            <ul class="list-disc pl-5 text-[15px] text-slate-700 space-y-2 marker:text-slate-300 leading-relaxed">
+              <li>실험책 다 쓰시는 분들은 3 페이지에 울진 지역자원 연결 체크만 해 주시면 됨</li>
+              <li>연결 아이디어까지 있으신 분들은 연결 아이디어까지 작성을 해 주시면 됨</li>
+              <li>울진의 유명한 지역 자원들 체크 포인트 만들어 왔는데 이거 말고 다른 걸 활용하시는 분들은 써주시면 됨</li>
+            </ul>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- 경쟁업체 탭 -->
     <section id="tab-content-competitors" class="tab-content hidden space-y-6">
       <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
         <div class="border-b pb-4 mb-6">
@@ -268,6 +495,7 @@
       </div>
     </section>
 
+    <!-- 원가/마진 계산기 탭 -->
     <section id="tab-content-calculator" class="tab-content hidden space-y-6">
       <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
         <div class="flex flex-wrap justify-between items-center border-b pb-4 mb-6 gap-3">
@@ -339,6 +567,7 @@
       </div>
     </section>
 
+    <!-- 린캔버스 탭 -->
     <section id="tab-content-leancanvas" class="tab-content hidden space-y-6 print-area">
       <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
         <div class="flex flex-wrap justify-between items-center border-b pb-4 mb-6 gap-3">
@@ -393,6 +622,7 @@
       </div>
     </section>
 
+    <!-- 모두의창업 2기 탭 -->
     <section id="tab-content-modu" class="tab-content hidden space-y-6">
       <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
         <div class="flex flex-wrap justify-between items-center border-b pb-4 mb-6 gap-3">
@@ -488,6 +718,7 @@
       </div>
     </section>
 
+    <!-- 채팅방 -->
     <section class="mt-12 bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
       <div class="bg-slate-900 text-white px-6 py-4 flex justify-between items-center">
         <h2 class="text-base font-bold flex items-center gap-2"><span class="w-2.5 h-2.5 bg-green-400 rounded-full animate-ping"></span>💬 창업팀 실시간 익명 토론방</h2>
