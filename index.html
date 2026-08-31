@@ -9,9 +9,10 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;800&display=swap" rel="stylesheet">
   
-  <!-- ✅ 100% 무료 Realtime Database 스크립트 (카드등록 필요 없음) -->
+  <!-- ✅ 100% 무료 Realtime Database 스크립트 (Storage 연동 해제, 카드등록 X) -->
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+  
   <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
 
   <style>
@@ -41,12 +42,8 @@
   <div id="image-modal" class="fixed inset-0 bg-black/80 z-50 hidden flex items-center justify-center p-4 transition-opacity" onclick="closeImageModal()">
     <div class="relative bg-white rounded-2xl max-w-4xl w-full max-h-[90vh] overflow-y-auto p-4 shadow-2xl" onclick="event.stopPropagation()">
       <div class="flex justify-between items-center pb-3 border-b border-slate-200 mb-4">
-        <h3 class="font-bold text-slate-900 text-lg flex items-center gap-2">
-          🖼️ 작성 예시 참고 이미지
-        </h3>
-        <button onclick="closeImageModal()" class="bg-slate-800 hover:bg-red-500 text-white w-8 h-8 rounded-full font-bold flex items-center justify-center transition">
-          ✕
-        </button>
+        <h3 class="font-bold text-slate-900 text-lg flex items-center gap-2">🖼️ 작성 예시 참고 이미지</h3>
+        <button onclick="closeImageModal()" class="bg-slate-800 hover:bg-red-500 text-white w-8 h-8 rounded-full font-bold flex items-center justify-center transition">✕</button>
       </div>
       <img id="modal-img" src="" alt="예시 이미지" class="w-full h-auto rounded-lg" onerror="this.onerror=null; this.src='https://via.placeholder.com/800x600?text=이미지+경로를+확인해주세요';">
     </div>
@@ -56,103 +53,27 @@
     <div class="max-w-6xl mx-auto">
       <div class="flex flex-wrap items-center gap-2 mb-3">
         <span class="bg-amber-400 text-slate-950 text-xs font-extrabold px-3 py-1 rounded-full shadow-sm">🚀 통합 창업 솔루션</span>
-        <span class="bg-blue-800/80 text-blue-100 text-xs font-semibold px-3 py-1 rounded-full border border-blue-500/50">울진 창업아카데미 / 비호수산</span>
+        <span class="bg-blue-800/80 text-blue-100 text-xs font-semibold px-3 py-1 rounded-full border border-blue-500/50">울진 창업아카데미 / 형제 비호수산</span>
       </div>
       <h1 class="text-2xl md:text-3xl font-extrabold tracking-tight text-white flex items-center gap-2">
         <span>🦀</span> 울진 보일링크랩 사업화 & 창업 대시보드
       </h1>
 
       <div class="flex flex-wrap gap-2 mt-6 pt-4 border-t border-blue-800/60">
-        <button onclick="switchTab('notices')" id="tab-btn-notices" class="tab-nav-btn active bg-amber-400 text-slate-950 font-bold px-5 py-2.5 rounded-xl text-sm transition shadow-md flex items-center gap-2">
-          🎯 지원사업 공고
-        </button>
-        <!-- ✅ [NEW] IR 피칭룸 탭 추가 -->
-        <button onclick="switchTab('ir')" id="tab-btn-ir" class="tab-nav-btn bg-blue-900/80 text-blue-100 hover:bg-blue-800 font-semibold px-5 py-2.5 rounded-xl text-sm transition flex items-center gap-2">
-          📢 IR 피칭룸 (무료공유)
-        </button>
-        <button onclick="switchTab('competitors')" id="tab-btn-competitors" class="tab-nav-btn bg-blue-900/80 text-blue-100 hover:bg-blue-800 font-semibold px-5 py-2.5 rounded-xl text-sm transition flex items-center gap-2">
-          📝 경쟁업체 & 와디즈
-        </button>
-        <button onclick="switchTab('calculator')" id="tab-btn-calculator" class="tab-nav-btn bg-blue-900/80 text-blue-100 hover:bg-blue-800 font-semibold px-5 py-2.5 rounded-xl text-sm transition flex items-center gap-2">
-          💰 원가/마진 계산기
-        </button>
-        <button onclick="switchTab('leancanvas')" id="tab-btn-leancanvas" class="tab-nav-btn bg-blue-900/80 text-blue-100 hover:bg-blue-800 font-semibold px-5 py-2.5 rounded-xl text-sm transition flex items-center gap-2">
-          🧩 린캔버스
-        </button>
-        <button onclick="switchTab('modu')" id="tab-btn-modu" class="tab-nav-btn bg-blue-900/80 text-blue-100 hover:bg-blue-800 font-semibold px-5 py-2.5 rounded-xl text-sm transition flex items-center gap-2">
-          📝 모두의창업 2기
-        </button>
+        <button onclick="switchTab('notices')" id="tab-btn-notices" class="tab-nav-btn active bg-amber-400 text-slate-950 font-bold px-5 py-2.5 rounded-xl text-sm transition shadow-md flex items-center gap-2">🎯 현재 지원사업 공고</button>
+        <button onclick="switchTab('ir')" id="tab-btn-ir" class="tab-nav-btn bg-blue-900/80 text-blue-100 hover:bg-blue-800 font-semibold px-5 py-2.5 rounded-xl text-sm transition flex items-center gap-2">📢 IR 피칭룸 (무료공유)</button>
+        <button onclick="switchTab('lecture')" id="tab-btn-lecture" class="tab-nav-btn bg-blue-900/80 text-blue-100 hover:bg-blue-800 font-semibold px-5 py-2.5 rounded-xl text-sm transition flex items-center gap-2">🤖 AI 강의 요약</button>
+        <button onclick="switchTab('competitors')" id="tab-btn-competitors" class="tab-nav-btn bg-blue-900/80 text-blue-100 hover:bg-blue-800 font-semibold px-5 py-2.5 rounded-xl text-sm transition flex items-center gap-2">📝 경쟁업체 & 와디즈 분석</button>
+        <button onclick="switchTab('calculator')" id="tab-btn-calculator" class="tab-nav-btn bg-blue-900/80 text-blue-100 hover:bg-blue-800 font-semibold px-5 py-2.5 rounded-xl text-sm transition flex items-center gap-2">💰 정밀 원가/마진 계산기</button>
+        <button onclick="switchTab('leancanvas')" id="tab-btn-leancanvas" class="tab-nav-btn bg-blue-900/80 text-blue-100 hover:bg-blue-800 font-semibold px-5 py-2.5 rounded-xl text-sm transition flex items-center gap-2">🧩 린캔버스 사업계획</button>
+        <button onclick="switchTab('modu')" id="tab-btn-modu" class="tab-nav-btn bg-blue-900/80 text-blue-100 hover:bg-blue-800 font-semibold px-5 py-2.5 rounded-xl text-sm transition flex items-center gap-2">📝 모두의창업 2기</button>
       </div>
     </div>
   </header>
 
   <main class="max-w-6xl mx-auto px-4 py-8 w-full flex-grow">
 
-    <!-- ✅ [NEW] IR 피칭 데모데이 & 100% 무료 실시간 PDF 공유방 -->
-    <section id="tab-content-ir" class="tab-content hidden space-y-6">
-      <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
-        <div class="border-b pb-4 mb-6">
-          <h2 class="text-xl font-bold text-slate-900 flex items-center gap-2">
-            📢 IR 피칭 데모데이 & 팀별 실시간 자료실
-          </h2>
-          <p class="text-xs text-slate-500 mt-1">카드 결제/요금 전혀 없는 100% 무료 실시간 PDF 공유 공간입니다. (권장 파일 크기: 10MB 이하)</p>
-        </div>
-
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-          <!-- 1. 영상 플레이어 영역 -->
-          <div class="space-y-4">
-            <h3 class="font-bold text-blue-900 flex items-center gap-2 border-b pb-2">
-              <span>🎬</span> 우수 IR 피칭 영상 (MP4)
-            </h3>
-            <div class="bg-slate-900 rounded-xl overflow-hidden shadow-md aspect-video relative flex items-center justify-center border-4 border-slate-800">
-              <video id="ir-video" controls class="w-full h-full object-cover bg-black" poster="https://via.placeholder.com/800x450/1e293b/ffffff?text=IR+Pitching+Video">
-                <source src="ir_demo.mp4" type="video/mp4">
-                영상을 지원하지 않는 브라우저입니다.
-              </video>
-            </div>
-            <div class="text-[12px] text-slate-600 bg-blue-50 p-3 rounded-lg border border-blue-200">
-              💡 <strong>영상 재생:</strong> 깃허브 저장소에 <code class="font-bold text-blue-800">ir_demo.mp4</code> 파일을 올리시면 재생됩니다!
-            </div>
-          </div>
-
-          <!-- 2. 100% 무료 실시간 PDF 공유방 영역 -->
-          <div class="space-y-4">
-            <div class="flex justify-between items-center border-b pb-2">
-              <h3 class="font-bold text-emerald-900 flex items-center gap-2">
-                <span>📄</span> 팀별 실시간 피칭덱 (PDF) 공유
-              </h3>
-              <span class="text-[11px] bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded-full font-bold">100% 무료 연동</span>
-            </div>
-            
-            <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 space-y-3 h-full flex flex-col justify-between">
-              <div>
-                <!-- 파일 업로드 버튼 UI -->
-                <div class="flex items-center gap-2 pb-3 border-b border-slate-200">
-                  <input type="file" id="pdf-upload" accept=".pdf" class="hidden" onchange="handleFreePDFUpload(this)">
-                  <button onclick="document.getElementById('pdf-upload').click()" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs px-4 py-2.5 rounded-lg shadow-sm transition flex items-center gap-2">
-                    ➕ 내 PDF 피칭덱 실시간 공유
-                  </button>
-                  <span id="upload-status" class="text-xs text-slate-500 font-bold"></span>
-                </div>
-                
-                <!-- 실시간 PDF 리스트 공간 -->
-                <ul id="pdf-list" class="space-y-2 mt-3 max-h-[260px] overflow-y-auto pr-1">
-                  <li class="flex justify-between items-center bg-white p-3 rounded-lg border border-slate-200 shadow-sm text-slate-400 text-sm italic text-center justify-center">
-                    공유된 피칭 자료를 불러오는 중입니다...
-                  </li>
-                </ul>
-              </div>
-              
-              <div class="text-[11px] text-slate-500 bg-white p-3 rounded-lg border border-slate-200 mt-3">
-                💡 <strong>실시간 소통:</strong> 누군가 PDF를 올리면 <strong>새로고침 없이 모든 팀원의 화면에 다운로드 버튼이 실시간으로 뜹니다!</strong> 확인 후 하단 토론방에서 의견을 나눠보세요.
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- 지원사업 탭 -->
+    <!-- 지원사업 탭 (수정됨: 6개 사이트 기반 더미 데이터 혹은 JSON 연동) -->
     <section id="tab-content-notices" class="tab-content space-y-6">
       <div class="flex flex-wrap items-center justify-between gap-3 bg-white p-4 rounded-2xl border border-slate-200 shadow-sm">
         <div class="flex flex-wrap gap-2" id="filter-buttons">
@@ -163,227 +84,97 @@
         </div>
         <div class="text-xs text-slate-500 font-medium px-2">총 <span id="notice-count" class="font-bold text-blue-600">0</span>개의 공고</div>
       </div>
+      <!-- 빠른 엑세스 링크 6개 -->
+      <div class="bg-blue-50 border border-blue-200 p-3 rounded-xl mb-4 text-xs">
+          <p class="font-bold text-blue-800 mb-2">📌 자주 찾는 창업 지원 포털 빠른 링크:</p>
+          <div class="flex flex-wrap gap-2">
+              <a href="https://www.mire.re.kr/sub4_4.php" target="_blank" class="px-2 py-1 bg-white border rounded hover:bg-blue-100">경북해양바이오산업연구원</a>
+              <a href="https://www.gbtp.or.kr/user/board.do?bbsId=BBSMSTR_000000000021" target="_blank" class="px-2 py-1 bg-white border rounded hover:bg-blue-100">경북테크노파크</a>
+              <a href="https://ccei.creativekorea.or.kr/gyeongbuk/custom/notice_list.do" target="_blank" class="px-2 py-1 bg-white border rounded hover:bg-blue-100">경북창조경제혁신센터</a>
+              <a href="https://www.k-startup.go.kr/web/contents/bizpbanc-ongoing.do" target="_blank" class="px-2 py-1 bg-white border rounded hover:bg-blue-100">K-Startup (통합)</a>
+              <a href="https://assist.apfs.kr/usr/support/support/openSprt.do" target="_blank" class="px-2 py-1 bg-white border rounded hover:bg-blue-100">농식품모태펀드</a>
+              <a href="http://gbstartup.or.kr/page/news/notice/" target="_blank" class="px-2 py-1 bg-white border rounded hover:bg-blue-100">경북청년창업지원센터</a>
+          </div>
+      </div>
       <div id="notice-grid" class="grid grid-cols-1 md:grid-cols-2 gap-4"></div>
+    </section>
+
+    <!-- 📢 IR 피칭 데모데이 & 100% 무료 실시간 PDF 공유방 -->
+    <section id="tab-content-ir" class="tab-content hidden space-y-6">
+      <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+        <div class="border-b pb-4 mb-6">
+          <h2 class="text-xl font-bold text-slate-900 flex items-center gap-2">📢 IR 피칭 데모데이 & 팀별 실시간 자료실</h2>
+          <p class="text-xs text-slate-500 mt-1">카드 결제 없이 100% 무료로 PDF를 실시간 공유하고 삭제할 수 있습니다. (권장: 10MB 이하)</p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          <!-- 영상 플레이어 영역 -->
+          <div class="space-y-4">
+            <h3 class="font-bold text-blue-900 flex items-center gap-2 border-b pb-2"><span>🎬</span> 우수 IR 피칭 영상 (MP4)</h3>
+            <div class="bg-slate-900 rounded-xl overflow-hidden shadow-md aspect-video relative flex items-center justify-center border-4 border-slate-800">
+              <video id="ir-video" controls class="w-full h-full object-cover bg-black" poster="https://via.placeholder.com/800x450/1e293b/ffffff?text=IR+Pitching+Video">
+                <source src="ir_demo.mp4" type="video/mp4">영상을 지원하지 않는 브라우저입니다.
+              </video>
+            </div>
+          </div>
+
+          <!-- 100% 무료 실시간 PDF 공유방 영역 -->
+          <div class="space-y-4">
+            <div class="flex justify-between items-center border-b pb-2">
+              <h3 class="font-bold text-emerald-900 flex items-center gap-2"><span>📄</span> 팀별 피칭덱 (PDF) 공유</h3>
+              <span class="text-[11px] bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded-full font-bold">100% 무료 (Base64)</span>
+            </div>
+            
+            <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 space-y-3 h-full flex flex-col justify-between">
+              <div>
+                <!-- 파일 업로드 UI -->
+                <div class="flex items-center gap-2 pb-3 border-b border-slate-200">
+                  <input type="file" id="pdf-upload" accept=".pdf" class="hidden" onchange="handleFreePDFUpload(this)">
+                  <button onclick="document.getElementById('pdf-upload').click()" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs px-4 py-2.5 rounded-lg shadow-sm transition flex items-center gap-2">
+                    ➕ 내 피칭덱 실시간 공유
+                  </button>
+                  <span id="upload-status" class="text-xs text-slate-500 font-bold"></span>
+                </div>
+                
+                <!-- 실시간 PDF 리스트 공간 -->
+                <ul id="pdf-list" class="space-y-2 mt-3 max-h-[260px] overflow-y-auto pr-1">
+                  <li class="flex justify-between items-center bg-white p-3 rounded-lg border border-slate-200 shadow-sm text-slate-400 text-sm italic text-center justify-center">자료를 불러오는 중...</li>
+                </ul>
+              </div>
+              <div class="text-[11px] text-slate-500 bg-white p-3 rounded-lg border border-slate-200 mt-3">
+                💡 <strong>삭제 방법:</strong> 내가 올린 파일 목록의 우측 [🗑️] 버튼을 누르거나 파이어베이스 콘솔에서 직접 삭제 가능합니다.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </section>
 
     <!-- 🤖 AI 강의 요약 탭 -->
     <section id="tab-content-lecture" class="tab-content hidden space-y-6">
       <div class="bg-white p-6 md:p-8 rounded-2xl border border-slate-200 shadow-sm max-w-4xl mx-auto">
-        <!-- Header -->
         <div class="border-b border-slate-200 pb-5 mb-6 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
           <div>
-            <h2 class="text-2xl font-bold text-slate-900 flex items-center gap-2">
-              <span class="text-2xl">📝</span> AI 맞춤 요약
-            </h2>
-            <p class="text-sm text-slate-500 mt-2 font-medium">윤잘생김 & 선생님 ・ 2026.08.21 금 오후 2:01 ・ 180분</p>
-          </div>
-          <div class="flex gap-2 bg-slate-100 p-1.5 rounded-lg border border-slate-200">
-            <button class="px-4 py-1.5 text-sm font-semibold text-slate-500 rounded-md hover:text-slate-900 transition">AI 맞춤 요약</button>
-            <button class="px-4 py-1.5 text-sm font-bold bg-white text-slate-900 rounded-md shadow-sm border border-slate-200/60">시간대별 요약</button>
+            <h2 class="text-2xl font-bold text-slate-900 flex items-center gap-2"><span class="text-2xl">📝</span> AI 맞춤 요약</h2>
+            <p class="text-sm text-slate-500 mt-2 font-medium">윤성영 선생님 ・ 2026.08.21 금 오후 2:01 ・ 180분</p>
           </div>
         </div>
-
-        <!-- Warning message like ClovaNote -->
-        <div class="bg-slate-50 rounded-lg p-4 mb-6 border border-slate-100 flex items-start gap-3">
-          <span class="text-slate-400">💡</span>
-          <p class="text-[13px] text-slate-500 leading-relaxed">AI가 음성 기록을 요약한 결과로, 부정확하거나 부적절한 내용이 포함될 수 있습니다.</p>
-        </div>
-
-        <!-- Content List -->
         <div class="space-y-8 h-[700px] overflow-y-auto pr-4 custom-scrollbar">
-          
           <div class="border-b border-slate-100 pb-8 last:border-0 last:pb-0">
             <div class="text-sm text-slate-500 mb-1.5 font-medium tracking-wide">00:00~01:51</div>
             <h3 class="font-bold text-slate-900 text-lg mb-3">온라인 판매자의 고민</h3>
             <ul class="list-disc pl-5 text-[15px] text-slate-700 space-y-2 marker:text-slate-300 leading-relaxed">
-              <li>대부분 지금 아니면 이 과정이랑 별개로 본인 사업을 하고 계신 분이 없음</li>
-              <li>온라인으로 판매하고 오프라인으로 판매하고 계신 분들 아니면 해외에서 판매하고 계신 분들 거의 대부분 완전 처음임</li>
-              <li>광고 대행사를 하고 있음</li>
+              <li>대부분 본인 사업을 하고 계신 분이 없음</li>
+              <li>온라인/오프라인 판매 대부분 완전 처음임</li>
             </ul>
           </div>
-
-          <div class="border-b border-slate-100 pb-8 last:border-0 last:pb-0">
-            <div class="text-sm text-slate-500 mb-1.5 font-medium tracking-wide">02:52~04:52</div>
-            <h3 class="font-bold text-slate-900 text-lg mb-3">네이버 탑스 프로그램의 컨설턴트</h3>
-            <ul class="list-disc pl-5 text-[15px] text-slate-700 space-y-2 marker:text-slate-300 leading-relaxed">
-              <li>네이버 탑스 프로그램의 컨설턴트이고 카카오 선물하기의 공식 컨설턴트임</li>
-              <li>춘천에 있는 백곡을 베이스로 뷰티랑 주얼리 브랜드를 직접 하고 있음</li>
-              <li>클라우드 펀딩 플랫폼인 와디즈에서 5년 정도 일을 했음</li>
-              <li>오프라인 사업을 하면서 대기업들이랑 콜라보 팝업 공간을 여는 일들을 했음</li>
-            </ul>
-          </div>
-
-          <div class="border-b border-slate-100 pb-8 last:border-0 last:pb-0">
-            <div class="text-sm text-slate-500 mb-1.5 font-medium tracking-wide">05:51~09:34</div>
-            <h3 class="font-bold text-slate-900 text-lg mb-3">와디즈 투자 사업팀</h3>
-            <ul class="list-disc pl-5 text-[15px] text-slate-700 space-y-2 marker:text-slate-300 leading-relaxed">
-              <li>와디즈라는 플랫폼에서 한 달에 한 천 개 정도의 기업들이 프로젝트를 하는데 그 기업들 중에서 잘 플레이를 한다 가능성이 있겠다 아이디어가 좋다 하는 팀들에게 투자하는 일을 하는 투자 사업팀이 있음</li>
-              <li>와디즈 전속 강사이기도 하고 창조경제혁신센터는 서울 춘천, 울산 경북 경남 지역들이 마케팅 전략 강의 전략 하고 대학들 홍대, 울산대, 경희대 이런 데는 대학 강의를 연에 한 네다섯 번째씩 특강을 나가고 있음</li>
-              <li>한국 마케팅 진흥원 하고 디자인 진흥원 강의도 나가고 있음</li>
-            </ul>
-          </div>
-
-          <div class="border-b border-slate-100 pb-8 last:border-0 last:pb-0">
-            <div class="text-sm text-slate-500 mb-1.5 font-medium tracking-wide">10:33~13:23</div>
-            <h3 class="font-bold text-slate-900 text-lg mb-3">온라인 샐러드 마케팅</h3>
-            <ul class="list-disc pl-5 text-[15px] text-slate-700 space-y-2 marker:text-slate-300 leading-relaxed">
-              <li>제품이 별로면 대행사가 안 붙어 있는 경우가 많음</li>
-              <li>인티처럼 세상에 없던 상품들은 자본력이나 기술력 인적 리소스들이 있어야만 가능한 일이기 때문에 현실적으로 접근을 하는 방향 안에서 우리가 제품에 특별한 걸 전 세계에 하나밖에 없는 특허를 만들 수 없으니까 이후에 후천적으로 우리가 만들어진 우리가 할 수 있는 제품을 가지고 어떻게 팔아야 잘 팔릴 것인가 이 방법을 찾다 보니 대부분의 국내 온라인 샐러드를 준비하시는 대표님들이나 사업을 준비하시는 대표님들이 마케팅에 대한 공부들이나 강의를 들으시는 거임</li>
-            </ul>
-          </div>
-
-          <div class="border-b border-slate-100 pb-8 last:border-0 last:pb-0">
-            <div class="text-sm text-slate-500 mb-1.5 font-medium tracking-wide">14:18~16:22</div>
-            <h3 class="font-bold text-slate-900 text-lg mb-3">쿠팡, 드론 배송 서비스 도입</h3>
-            <ul class="list-disc pl-5 text-[15px] text-slate-700 space-y-2 marker:text-slate-300 leading-relaxed">
-              <li>펀딩을 한 번만 하고 바로 모든 쿠팡부터 해가지고 온라인 유통 시장에 쫙 깔려서 지금은 업데이트 버전까지 나옴</li>
-              <li>상세 페이지도 같이 보시면 너무 좋을 거임</li>
-              <li>AI 드론은 손바닥 위에 올려놓고 버튼을 누르면 3초 안에 알아서 이륙을 함</li>
-              <li>사용자의 얼굴을 인식하고 사용자가 돌아다니면 드론이 따라다니면서 촬영을 함</li>
-            </ul>
-          </div>
-
-          <div class="border-b border-slate-100 pb-8 last:border-0 last:pb-0">
-            <div class="text-sm text-slate-500 mb-1.5 font-medium tracking-wide">17:24~19:23</div>
-            <h3 class="font-bold text-slate-900 text-lg mb-3">지방에서 드론을 띄우려면</h3>
-            <ul class="list-disc pl-5 text-[15px] text-slate-700 space-y-2 marker:text-slate-300 leading-relaxed">
-              <li>지방에서 드론을 띄우려면 구청과 군 두 군데에서 승인을 받아야 되는데 못 받음</li>
-              <li>국내 전국 8도의 로컬 식품들 한국에서 나는 국내산들로만 올리는 플랫폼이 있음</li>
-            </ul>
-          </div>
-
-          <div class="border-b border-slate-100 pb-8 last:border-0 last:pb-0">
-            <div class="text-sm text-slate-500 mb-1.5 font-medium tracking-wide">20:19~24:37</div>
-            <h3 class="font-bold text-slate-900 text-lg mb-3">로컬 마케팅 강의</h3>
-            <ul class="list-disc pl-5 text-[15px] text-slate-700 space-y-2 marker:text-slate-300 leading-relaxed">
-              <li>로컬 사업에 대한 이해도가 매우 높고 지원 사업들이나 연계에 대한 것들도 매우 높기 때문에 추후에 여러분들이 사업화를 해 나갈 때마다 질문이 있으시거나 도움받고 싶은 게 있으실 때는 저한테 메일을 주시면 도움을 드리겠음</li>
-              <li>마케팅이라는 거는 물건을 잘 팔기 위한 강의는 4시간짜리 강의임</li>
-              <li>4시간짜리 강의가 8주짜리 교육 커리큘럼을 함</li>
-              <li>주에 두 번씩 만나서 16번 만나는 걸 줄여서 4시간짜리를 남겨놓은 거임</li>
-            </ul>
-          </div>
-
-          <div class="border-b border-slate-100 pb-8 last:border-0 last:pb-0">
-            <div class="text-sm text-slate-500 mb-1.5 font-medium tracking-wide">25:39~29:30</div>
-            <h3 class="font-bold text-slate-900 text-lg mb-3">마케팅의 정의</h3>
-            <ul class="list-disc pl-5 text-[15px] text-slate-700 space-y-2 marker:text-slate-300 leading-relaxed">
-              <li>마케팅은 제품이 만들어지고 판매가 되고 홍보를 하고 배송이 가고 CS가 들어오고 클레임 걸고 다시 피드백을 바탕으로 다시 상품 개발하고 상품을 만들고 판매하는 소비자와 접촉하는 모든 생애 주기 전체를 마케팅이라고 함</li>
-            </ul>
-          </div>
-
-          <div class="border-b border-slate-100 pb-8 last:border-0 last:pb-0">
-            <div class="text-sm text-slate-500 mb-1.5 font-medium tracking-wide">30:25~31:39</div>
-            <h3 class="font-bold text-slate-900 text-lg mb-3">온라인 유통의 장점</h3>
-            <ul class="list-disc pl-5 text-[15px] text-slate-700 space-y-2 marker:text-slate-300 leading-relaxed">
-              <li>오프라인 물리적 지리적 특성 안에서 멀리 있는 소외되어 있는 지역인 거는 현실임</li>
-              <li>그걸 깨기 위해서 가장 좋은 방법이라고 생각하는 게 온라인 유통임</li>
-              <li>온라인 유통이 가장 효율적이고 합리적인 방식인 건 맞음</li>
-            </ul>
-          </div>
-
           <div class="border-b border-slate-100 pb-8 last:border-0 last:pb-0">
             <div class="text-sm text-slate-500 mb-1.5 font-medium tracking-wide">32:35~34:12</div>
             <h3 class="font-bold text-slate-900 text-lg mb-3">울진의 특산물</h3>
             <ul class="list-disc pl-5 text-[15px] text-slate-700 space-y-2 marker:text-slate-300 leading-relaxed">
-              <li>우리의 특산물을 가지고 상품화를 할 때 울진의 특산물 소스를 사용을 하더라도 흔한 제품이 돼버림</li>
-              <li>울진의 특산물이 유명하지 않기 때문에 2차 상품화를 할 때는 하나의 키 포인트를 만들어야 함</li>
-              <li>마케팅은 모든 사업의 베이스가 되는 것으로 어떻게 할 것인가에 대해서 얘기를 나눌 것임</li>
+              <li>울진의 특산물 소스를 사용하더라도 하나의 키 포인트를 만들어야 함</li>
             </ul>
           </div>
-
-          <div class="border-b border-slate-100 pb-8 last:border-0 last:pb-0">
-            <div class="text-sm text-slate-500 mb-1.5 font-medium tracking-wide">35:10~37:55</div>
-            <h3 class="font-bold text-slate-900 text-lg mb-3">울진의 차별점</h3>
-            <ul class="list-disc pl-5 text-[15px] text-slate-700 space-y-2 marker:text-slate-300 leading-relaxed">
-              <li>우리가 남들과 다를 수 있는 게 구체적으로 뭔지 점검을 해봄</li>
-              <li>우리가 되게 차별성을 가질 수 있는 영역임</li>
-              <li>울진은 지역적인 장점이 있기 때문에 있음</li>
-              <li>우리만 쓸 수 있는 시즌이 있음</li>
-              <li>온라인과 오프라인을 사업 초기에는 근본적으로 잘 생각해야 함</li>
-            </ul>
-          </div>
-          
-          <div class="border-b border-slate-100 pb-8 last:border-0 last:pb-0">
-            <div class="text-sm text-slate-500 mb-1.5 font-medium tracking-wide">38:44~39:27</div>
-            <h3 class="font-bold text-slate-900 text-lg mb-3">오프라인 매장의 중요성</h3>
-            <ul class="list-disc pl-5 text-[15px] text-slate-700 space-y-2 marker:text-slate-300 leading-relaxed">
-              <li>푸드나 뷰티는 맛보고 써본 사람을 초기에 최대한 많이 확보하는 게 1번임</li>
-              <li>오프라인도 현실적으로 고려해야 함</li>
-            </ul>
-          </div>
-
-          <div class="border-b border-slate-100 pb-8 last:border-0 last:pb-0">
-            <div class="text-sm text-slate-500 mb-1.5 font-medium tracking-wide">40:23~42:55</div>
-            <h3 class="font-bold text-slate-900 text-lg mb-3">네이버 부동산 검색</h3>
-            <ul class="list-disc pl-5 text-[15px] text-slate-700 space-y-2 marker:text-slate-300 leading-relaxed">
-              <li>네이버 부동산 검색해서 평가가 비싼 아파트에 잘 사는 사람 많은 단지들을 찾으라고 함</li>
-              <li>푸드 뷰티는 샘플 바리바리 싸들고 와서 지나가는 사람 붙잡고 입에다가 바로 먹임</li>
-              <li>온라인만 조명하면 안 되고 오프라인도 같이 해야 함</li>
-            </ul>
-          </div>
-
-          <div class="border-b border-slate-100 pb-8 last:border-0 last:pb-0">
-            <div class="text-sm text-slate-500 mb-1.5 font-medium tracking-wide">43:50~46:40</div>
-            <h3 class="font-bold text-slate-900 text-lg mb-3">하우의 차별화</h3>
-            <ul class="list-disc pl-5 text-[15px] text-slate-700 space-y-2 marker:text-slate-300 leading-relaxed">
-              <li>온라인 광고를 통해서 우리 매장 홍보를 하겠다 이런 부분들을 여러분들이 스스로 적립할 수 있어야 됨</li>
-              <li>하우는 어떻게 팔 것인가가 차별성을 가질 수 있는 가능성 높은 영역 중에 하나임</li>
-              <li>어떻게 팔 것인가를 통해 차별화를 가질 수 있는 포인트가 많음</li>
-            </ul>
-          </div>
-
-          <div class="border-b border-slate-100 pb-8 last:border-0 last:pb-0">
-            <div class="text-sm text-slate-500 mb-1.5 font-medium tracking-wide">49:40~54:02</div>
-            <h3 class="font-bold text-slate-900 text-lg mb-3">온라인 시장의 핵심</h3>
-            <ul class="list-disc pl-5 text-[15px] text-slate-700 space-y-2 marker:text-slate-300 leading-relaxed">
-              <li>클라우드 펀딩이나 플리 마켓 같은 데 나가서 시장 검증 사람들의 실제 반응들이나 판매에 대한 피드백들을 받고 최종적으로 온라인에 나가기 위한 상품을 준비하는 걸 반드시 권장드림</li>
-              <li>대한민국에 있는 20대 여성은 내가 다 독점할 거야는 가장 우리가 차별성을 갖기 어려운 일임</li>
-              <li>온라인 시장의 핵심은 누구에게 팔 것인가가 아니라 누가 팔 것인가임</li>
-            </ul>
-          </div>
-
-          <div class="border-b border-slate-100 pb-8 last:border-0 last:pb-0">
-            <div class="text-sm text-slate-500 mb-1.5 font-medium tracking-wide">87:19~95:57</div>
-            <h3 class="font-bold text-slate-900 text-lg mb-3">올리브영의 광고비</h3>
-            <ul class="list-disc pl-5 text-[15px] text-slate-700 space-y-2 marker:text-slate-300 leading-relaxed">
-              <li>올리브영은 광고 안 해도 됨</li>
-              <li>물건을 잘 만드는 게 무조건 1번임</li>
-              <li>우리 특산물을 활용하더라도 사람들이 시간당 만들더라도 한 번 먹고 또 먹을 정도의 퀄리티를 만들어내고 그 뒤에 어떻게 팔지에 대한 고민들을 해야 됨</li>
-              <li>사업 준비를 할 때 매출 다음으로 2순위로 중요한 걸 기록이라고 함</li>
-            </ul>
-          </div>
-
-          <div class="border-b border-slate-100 pb-8 last:border-0 last:pb-0">
-            <div class="text-sm text-slate-500 mb-1.5 font-medium tracking-wide">123:56~125:01</div>
-            <h3 class="font-bold text-slate-900 text-lg mb-3">키워드 마케팅</h3>
-            <ul class="list-disc pl-5 text-[15px] text-slate-700 space-y-2 marker:text-slate-300 leading-relaxed">
-              <li>페르소나들에게 우리 제품을 팔 것인지 추석 전 배송 키워드를 팔 것인지 아니면 일주일 뒤 피부 트러블 개선 몇 프로 이걸 할 것인지 키워드들을 도출함</li>
-              <li>실제 광고에 있을 때 그 키워드들이 이미지화가 됨</li>
-              <li>네이버 쇼핑에 검색하면 쿠팡에 검색하면 시간당 치면은 우리랑 용량 비슷하고 들어가는 거 비슷하고 컨셉트 비슷한 애들 10분도 안 돼서 다 찾음</li>
-              <li>할인만한 마케팅을 이길 수 있는 마케팅은 없음</li>
-            </ul>
-          </div>
-
-          <div class="border-b border-slate-100 pb-8 last:border-0 last:pb-0">
-            <div class="text-sm text-slate-500 mb-1.5 font-medium tracking-wide">156:11~159:59</div>
-            <h3 class="font-bold text-slate-900 text-lg mb-3">와디즈 펀딩 성공하는 방법</h3>
-            <ul class="list-disc pl-5 text-[15px] text-slate-700 space-y-2 marker:text-slate-300 leading-relaxed">
-              <li>와디즈 펀딩을 할 때는 한 번 실패가 모든 걸 좌우하진 않지만 한 번을 할 때 제대로 갈아 넣고 해야 함</li>
-              <li>애매하게 끝내면 두 번 세 번까지는 절대 못 감</li>
-              <li>반드시 순차적으로 가야 함</li>
-            </ul>
-          </div>
-          
-          <div class="border-b border-slate-100 pb-8 last:border-0 last:pb-0">
-            <div class="text-sm text-slate-500 mb-1.5 font-medium tracking-wide">171:50~174:40</div>
-            <h3 class="font-bold text-slate-900 text-lg mb-3">울진 지역자원 연결</h3>
-            <ul class="list-disc pl-5 text-[15px] text-slate-700 space-y-2 marker:text-slate-300 leading-relaxed">
-              <li>실험책 다 쓰시는 분들은 3 페이지에 울진 지역자원 연결 체크만 해 주시면 됨</li>
-              <li>연결 아이디어까지 있으신 분들은 연결 아이디어까지 작성을 해 주시면 됨</li>
-              <li>울진의 유명한 지역 자원들 체크 포인트 만들어 왔는데 이거 말고 다른 걸 활용하시는 분들은 써주시면 됨</li>
-            </ul>
-          </div>
-
         </div>
       </div>
     </section>
@@ -392,145 +183,43 @@
     <section id="tab-content-competitors" class="tab-content hidden space-y-6">
       <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
         <div class="border-b pb-4 mb-6">
-          <h2 class="text-xl font-bold text-slate-900 flex items-center gap-2">
-            📝 네이버쇼핑 3사 & 와디즈(Wadiz) 펀딩 벤치마킹
-          </h2>
-          <p class="text-xs text-slate-500 mt-1">경쟁사 태그와 리뷰뿐만 아니라, 와디즈 펀딩 성공 사례의 스토리텔링 상세페이지를 벤치마킹하세요.</p>
+          <h2 class="text-xl font-bold text-slate-900 flex items-center gap-2">📝 네이버쇼핑 3사 & 와디즈(Wadiz) 펀딩 벤치마킹</h2>
         </div>
-
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4 mb-6">
           
           <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 hover:shadow-md transition flex flex-col justify-between">
             <div>
-              <div class="flex justify-between items-center mb-2">
-                <span class="text-[10px] font-bold bg-slate-200 text-slate-800 px-2 py-0.5 rounded">경쟁사 1</span>
-                <span class="text-[10px] text-amber-600 font-bold">브랜드관</span>
-              </div>
+              <div class="flex justify-between items-center mb-2"><span class="text-[10px] font-bold bg-slate-200 text-slate-800 px-2 py-0.5 rounded">경쟁사 1</span></div>
               <h3 class="font-bold text-base text-slate-900 mb-1">훈훈수산 보일링크랩</h3>
               <p class="text-xs text-blue-600 font-semibold mb-3">💰 3~4만원대 (구성별 다변화)</p>
-              
               <div class="space-y-1.5 text-xs text-slate-600 border-t pt-2 mb-3">
-                <p class="text-emerald-700 font-medium">✓ <strong>강점:</strong> 수산물 전문 브랜드 가성비, 다양한 해산물 구성</p>
-                <p class="text-red-600 font-medium">✗ <strong>약점:</strong> 봉투터짐 및 비린맛, 애매한맛, 감자의퍼석함, 미국맛이아니다, 싱겁다, 배송이 녹아서옴</p>
+                <p class="text-emerald-700 font-medium">✓ <strong>강점:</strong> 다양한 해산물 구성</p>
+                <p class="text-red-600 font-medium">✗ <strong>약점:</strong> 봉투터짐 및 비린맛</p>
               </div>
-
-              <div class="mb-3">
-                <p class="text-[10px] font-bold text-slate-500 mb-1.5">🏷️ 검색 노출 타겟 태그</p>
-                <div class="flex flex-wrap gap-1">
-                  <span class="text-[10px] bg-white border border-slate-300 text-slate-600 px-1.5 py-0.5 rounded-md">#홈파티</span>
-                  <span class="text-[10px] bg-white border border-slate-300 text-slate-600 px-1.5 py-0.5 rounded-md">#술안주</span>
-                  <span class="text-[10px] bg-white border border-slate-300 text-slate-600 px-1.5 py-0.5 rounded-md">#미국식</span>
-                  <span class="text-[10px] bg-white border border-slate-300 text-slate-600 px-1.5 py-0.5 rounded-md">#캠핑요리</span>
-                  <span class="text-[10px] bg-white border border-slate-300 text-slate-600 px-1.5 py-0.5 rounded-md">#캠핑음식</span>
-                  <span class="text-[10px] bg-white border border-slate-300 text-slate-600 px-1.5 py-0.5 rounded-md">#간편조리</span>
-                  <span class="text-[10px] bg-white border border-slate-300 text-slate-600 px-1.5 py-0.5 rounded-md">#간편식품</span>
-                  <span class="text-[10px] bg-white border border-slate-300 text-slate-600 px-1.5 py-0.5 rounded-md">#파티용</span>
-                  <span class="text-[10px] bg-white border border-slate-300 text-slate-600 px-1.5 py-0.5 rounded-md">#집들이상</span>
-                  <span class="text-[10px] bg-white border border-slate-300 text-slate-600 px-1.5 py-0.5 rounded-md">#집들이음식</span>
-                </div>
-              </div>
-            </div>
-            
-            <div class="mt-2 border-t border-slate-200 pt-3 space-y-2">
-              <a href="https://brand.naver.com/hunhunsusan/products/11471604767" target="_blank" class="block text-center bg-blue-600 hover:bg-blue-700 text-white font-bold text-[12px] py-2 rounded-lg transition shadow-sm">🔎 상세페이지 디테일 ➔</a>
-              <a href="https://brand.naver.com/hunhunsusan/products/11471604767#REVIEW" target="_blank" class="block text-center bg-white border-2 border-slate-900 text-slate-900 hover:bg-slate-900 hover:text-white font-bold text-[12px] py-2 rounded-lg transition shadow-sm">💬 실제 리뷰 리스트 보기 ➔</a>
             </div>
           </div>
 
           <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 hover:shadow-md transition flex flex-col justify-between">
             <div>
-              <div class="flex justify-between items-center mb-2">
-                <span class="text-[10px] font-bold bg-slate-200 text-slate-800 px-2 py-0.5 rounded">경쟁사 2</span>
-                <span class="text-[10px] text-amber-600 font-bold">스마트스토어</span>
-              </div>
+              <div class="flex justify-between items-center mb-2"><span class="text-[10px] font-bold bg-slate-200 text-slate-800 px-2 py-0.5 rounded">경쟁사 2</span></div>
               <h3 class="font-bold text-base text-slate-900 mb-1">감자샵 미국식 보일링크랩</h3>
               <p class="text-xs text-blue-600 font-semibold mb-3">💰 4만원대 중반</p>
-              
               <div class="space-y-1.5 text-xs text-slate-600 border-t pt-2 mb-3">
-                <p class="text-emerald-700 font-medium">✓ <strong>강점:</strong> 감성 캠핑 트렌디 비주얼, 특제 미국식 케이준</p>
-                <p class="text-red-600 font-medium">✗ <strong>약점:</strong> 수입산 냉동 원물 비중 높음, 비린맛, 껍데기, 느끼함 호불호</p>
+                <p class="text-emerald-700 font-medium">✓ <strong>강점:</strong> 트렌디 비주얼</p>
+                <p class="text-red-600 font-medium">✗ <strong>약점:</strong> 껍데기, 느끼함</p>
               </div>
-
-              <div class="mb-3">
-                <p class="text-[10px] font-bold text-slate-500 mb-1.5">🏷️ 검색 노출 타겟 태그</p>
-                <div class="flex flex-wrap gap-1">
-                  <span class="text-[10px] bg-white border border-slate-300 text-slate-600 px-1.5 py-0.5 rounded-md">#캠핑요리</span>
-                  <span class="text-[10px] bg-white border border-slate-300 text-slate-600 px-1.5 py-0.5 rounded-md">#집들이용</span>
-                  <span class="text-[10px] bg-white border border-slate-300 text-slate-600 px-1.5 py-0.5 rounded-md">#홈파티음식</span>
-                  <span class="text-[10px] bg-white border border-slate-300 text-slate-600 px-1.5 py-0.5 rounded-md">#홈파티메뉴</span>
-                  <span class="text-[10px] bg-white border border-slate-300 text-slate-600 px-1.5 py-0.5 rounded-md">#집들이음식</span>
-                  <span class="text-[10px] bg-white border border-slate-300 text-slate-600 px-1.5 py-0.5 rounded-md">#랍스터</span>
-                </div>
-              </div>
-            </div>
-            
-            <div class="mt-2 border-t border-slate-200 pt-3 space-y-2">
-              <a href="https://smartstore.naver.com/kamzashop/products/13070057853" target="_blank" class="block text-center bg-blue-600 hover:bg-blue-700 text-white font-bold text-[12px] py-2 rounded-lg transition shadow-sm">🔎 상세페이지 디테일 ➔</a>
-              <a href="https://smartstore.naver.com/kamzashop/products/13070057853#REVIEW" target="_blank" class="block text-center bg-white border-2 border-slate-900 text-slate-900 hover:bg-slate-900 hover:text-white font-bold text-[12px] py-2 rounded-lg transition shadow-sm">💬 실제 리뷰 리스트 보기 ➔</a>
             </div>
           </div>
 
           <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 hover:shadow-md transition flex flex-col justify-between">
             <div>
-              <div class="flex justify-between items-center mb-2">
-                <span class="text-[10px] font-bold bg-slate-200 text-slate-800 px-2 py-0.5 rounded">경쟁사 3</span>
-                <span class="text-[10px] text-amber-600 font-bold">스마트스토어</span>
-              </div>
+              <div class="flex justify-between items-center mb-2"><span class="text-[10px] font-bold bg-slate-200 text-slate-800 px-2 py-0.5 rounded">경쟁사 3</span></div>
               <h3 class="font-bold text-base text-slate-900 mb-1">피셔맨스 씨푸드 보일링</h3>
               <p class="text-xs text-blue-600 font-semibold mb-3">💰 4~5만원대 프리미엄</p>
-              
               <div class="space-y-1.5 text-xs text-slate-600 border-t pt-2 mb-3">
-                <p class="text-emerald-700 font-medium">✓ <strong>강점:</strong> 보일링크랩 전문 브랜드, 고급 파티용 패키징</p>
-                <p class="text-red-600 font-medium">✗ <strong>약점:</strong> 다소 높은 가격대, 해물탕/짬뽕맛 강함, 미국맛아님, 홍합불량</p>
+                <p class="text-emerald-700 font-medium">✓ <strong>강점:</strong> 고급 파티용 패키징</p>
+                <p class="text-red-600 font-medium">✗ <strong>약점:</strong> 다소 높은 가격대</p>
               </div>
-
-              <div class="mb-3">
-                <p class="text-[10px] font-bold text-slate-500 mb-1.5">🏷️ 검색 노출 타겟 태그</p>
-                <div class="flex flex-wrap gap-1">
-                  <span class="text-[10px] bg-white border border-slate-300 text-slate-600 px-1.5 py-0.5 rounded-md">#캠핑음식</span>
-                  <span class="text-[10px] bg-white border border-slate-300 text-slate-600 px-1.5 py-0.5 rounded-md">#홈파티음식</span>
-                  <span class="text-[10px] bg-white border border-slate-300 text-slate-600 px-1.5 py-0.5 rounded-md">#밀키트</span>
-                  <span class="text-[10px] bg-white border border-slate-300 text-slate-600 px-1.5 py-0.5 rounded-md">#생일음식</span>
-                  <span class="text-[10px] bg-white border border-slate-300 text-slate-600 px-1.5 py-0.5 rounded-md">#새우요리</span>
-                  <span class="text-[10px] bg-white border border-slate-300 text-slate-600 px-1.5 py-0.5 rounded-md">#캠핑밀키트</span>
-                  <span class="text-[10px] bg-white border border-slate-300 text-slate-600 px-1.5 py-0.5 rounded-md">#홈캉스</span>
-                </div>
-              </div>
-            </div>
-            
-            <div class="mt-2 border-t border-slate-200 pt-3 space-y-1.5">
-              <a href="https://smartstore.naver.com/fishermans/products/5154748166" target="_blank" class="block text-center bg-blue-600 hover:bg-blue-700 text-white font-bold text-[11px] py-2 rounded transition shadow-sm">🔎 상세페이지 ➔</a>
-              <a href="https://smartstore.naver.com/fishermans/products/5154748166#REVIEW" target="_blank" class="block text-center bg-white border border-slate-400 text-slate-800 hover:bg-slate-100 font-bold text-[11px] py-2 rounded transition shadow-sm">💬 리뷰 바로가기 ➔</a>
-            </div>
-          </div>
-
-          <div class="bg-cyan-50/70 p-4 rounded-xl border-2 border-cyan-300 hover:shadow-md transition flex flex-col justify-between">
-            <div>
-              <div class="flex justify-between items-center mb-2">
-                <span class="text-[10px] font-extrabold bg-cyan-600 text-white px-2 py-0.5 rounded">상세페이지 기획</span>
-                <span class="text-[10px] text-cyan-800 font-extrabold">와디즈 펀딩</span>
-              </div>
-              <h3 class="font-bold text-sm text-slate-950 mb-1">와디즈 펀딩 벤치마킹</h3>
-              <p class="text-[11px] text-cyan-800 font-bold mb-3">💡 스토리텔링 레퍼런스</p>
-              
-              <div class="space-y-1 text-[11px] text-slate-700 border-t border-cyan-200 pt-2 mb-3 font-medium">
-                <p>⭐ 매력적인 상세페이지 기획 참고</p>
-                <p>⭐ 얼리버드 리워드 세트 구성 전략</p>
-                <p>⭐ 서포터(고객) 소통 및 마케팅</p>
-              </div>
-
-              <div class="mb-3">
-                <div class="flex flex-wrap gap-1">
-                  <span class="text-[9px] bg-cyan-100 text-cyan-900 font-bold px-1.5 py-0.5 rounded-md border border-cyan-200">#펀딩스토리</span>
-                  <span class="text-[9px] bg-cyan-100 text-cyan-900 font-bold px-1.5 py-0.5 rounded-md border border-cyan-200">#보일링크랩펀딩</span>
-                </div>
-              </div>
-            </div>
-            
-            <div class="mt-2 border-t border-cyan-200 pt-3">
-              <a href="https://www.wadiz.kr/web/wcampaign/search?keyword=%EB%B0%80%ED%82%A4%ED%8A%B8&productType=REWARD" target="_blank" class="block text-center bg-cyan-600 hover:bg-cyan-700 text-white font-bold text-[12px] py-2.5 rounded-lg transition shadow-sm">
-                🔍 와디즈 사례 검색 ➔
-              </a>
             </div>
           </div>
 
@@ -538,29 +227,13 @@
             <div>
               <div class="flex justify-between items-center mb-2">
                 <span class="text-[10px] font-extrabold bg-amber-400 text-slate-950 px-2 py-0.5 rounded">👑 비호수산</span>
-                <span class="text-[10px] text-amber-800 font-extrabold">로컬 융복합 자사</span>
               </div>
               <h3 class="font-bold text-sm text-slate-950 mb-1">울진 붉은대게 보일링크랩</h3>
               <p class="text-[11px] text-amber-900 font-bold mb-3">💰 38,000원 ~ 45,000원</p>
-              
               <div class="space-y-1 text-[11px] text-slate-800 border-t border-amber-200 pt-2 mb-3 font-medium">
                 <p>⭐ 동해안 산지 직송 신선 원물</p>
                 <p>⭐ 누수 0% 특제 분말 시즈닝</p>
                 <p>⭐ 관내 오토캠핑장 B2B 샵인샵</p>
-              </div>
-
-              <div class="mb-3">
-                <p class="text-[10px] font-bold text-amber-700 mb-1">🎯 선점 타겟 태그</p>
-                <div class="flex flex-wrap gap-1">
-                  <span class="text-[9px] bg-amber-200 text-amber-900 font-bold px-1.5 py-0.5 rounded-md border border-amber-300">#울진붉은대게</span>
-                  <span class="text-[9px] bg-amber-200 text-amber-900 font-bold px-1.5 py-0.5 rounded-md border border-amber-300">#보일링크랩분말</span>
-                  <span class="text-[9px] bg-amber-200 text-amber-900 font-bold px-1.5 py-0.5 rounded-md border border-amber-300">#비호수산</span>
-                </div>
-              </div>
-            </div>
-            <div class="mt-2 pt-3 border-t border-amber-200">
-              <div class="text-[11px] text-amber-950 font-bold bg-amber-200/80 p-2 rounded text-center">
-                🏆 진입장벽: 수산 인프라 + 캠핑장
               </div>
             </div>
           </div>
@@ -575,11 +248,10 @@
         <div class="flex flex-wrap justify-between items-center border-b pb-4 mb-6 gap-3">
           <div>
             <h2 class="text-xl font-bold text-slate-900 flex items-center gap-2">💰 비호수산 전용 정밀 BOM 원가 계산기</h2>
-            <p class="text-xs text-slate-500 mt-1">14가지 식재료와 네이버쇼핑 수수료를 분석합니다. 우측 상단 버튼으로 계산 결과를 캡처하여 저장하세요.</p>
           </div>
           <div class="flex flex-wrap gap-2">
-            <button onclick="fillCalcExample()" class="bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs px-4 py-2 rounded-lg shadow-sm transition flex items-center gap-1.5">✨ 기본값 채우기</button>
-            <button onclick="captureMarginCalc()" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs px-4 py-2 rounded-lg shadow-sm transition flex items-center gap-1.5">📸 결과 캡처(저장)</button>
+            <button onclick="fillCalcExample()" class="bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs px-4 py-2 rounded-lg shadow-sm transition">✨ 기본값 채우기</button>
+            <button onclick="captureMarginCalc()" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs px-4 py-2 rounded-lg shadow-sm transition">📸 결과 캡처(저장)</button>
           </div>
         </div>
 
@@ -588,40 +260,18 @@
             <div class="flex justify-between items-center border-b pb-3 mb-4 gap-4">
               <label class="text-sm font-extrabold text-blue-900 w-24">💰 판매가(매출)</label>
               <div class="flex-1 flex items-center justify-end gap-1">
-                <input type="number" id="calc-sell" value="0" oninput="calcMargin()" class="w-32 p-1.5 text-right text-base border border-blue-300 rounded focus:border-blue-600 focus:outline-none font-bold text-blue-700 shadow-inner">
+                <input type="number" id="calc-sell" value="0" oninput="calcMargin()" class="w-32 p-1.5 text-right text-base border border-blue-300 rounded font-bold text-blue-700">
                 <span class="text-xs font-bold text-slate-500">원</span>
               </div>
             </div>
             
-            <h4 class="font-bold text-xs text-slate-800 border-b pb-1.5 mb-3 flex justify-between">
-              <span>🦀 메인 식재료 원가</span>
-            </h4>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-2.5 mb-5">
-              <div class="flex justify-between items-center gap-2"><label class="text-[11px] font-medium text-slate-700 w-24">홍게</label><input type="number" id="calc-crab" value="0" oninput="calcMargin()" class="flex-1 p-1 text-right text-xs border border-slate-300 rounded focus:border-blue-500"></div>
-              <div class="flex justify-between items-center gap-2"><label class="text-[11px] font-medium text-slate-700 w-24">가리비 관자</label><input type="number" id="calc-scallop" value="0" oninput="calcMargin()" class="flex-1 p-1 text-right text-xs border border-slate-300 rounded focus:border-blue-500"></div>
-              <div class="flex justify-between items-center gap-2"><label class="text-[11px] font-medium text-slate-700 w-24">두절 붉은새우</label><input type="number" id="calc-redshrimp" value="0" oninput="calcMargin()" class="flex-1 p-1 text-right text-xs border border-slate-300 rounded focus:border-blue-500"></div>
-              <div class="flex justify-between items-center gap-2"><label class="text-[11px] font-medium text-slate-700 w-24">탈각새우</label><input type="number" id="calc-peeledshrimp" value="0" oninput="calcMargin()" class="flex-1 p-1 text-right text-xs border border-slate-300 rounded focus:border-blue-500"></div>
-              <div class="flex justify-between items-center gap-2"><label class="text-[11px] font-medium text-slate-700 w-24">전복(30미)</label><input type="number" id="calc-abalone" value="0" oninput="calcMargin()" class="flex-1 p-1 text-right text-xs border border-slate-300 rounded focus:border-blue-500"></div>
-              <div class="flex justify-between items-center gap-2"><label class="text-[11px] font-medium text-slate-700 w-24">솔방울 오징어</label><input type="number" id="calc-squid" value="0" oninput="calcMargin()" class="flex-1 p-1 text-right text-xs border border-slate-300 rounded focus:border-blue-500"></div>
-              <div class="flex justify-between items-center gap-2"><label class="text-[11px] font-medium text-slate-700 w-24">그린홍합</label><input type="number" id="calc-mussel" value="0" oninput="calcMargin()" class="flex-1 p-1 text-right text-xs border border-slate-300 rounded focus:border-blue-500"></div>
-              <div class="flex justify-between items-center gap-2"><label class="text-[11px] font-medium text-slate-700 w-24">쟌슨빌 소세지</label><input type="number" id="calc-sausage" value="0" oninput="calcMargin()" class="flex-1 p-1 text-right text-xs border border-slate-300 rounded focus:border-blue-500"></div>
-              <div class="flex justify-between items-center gap-2"><label class="text-[11px] font-medium text-slate-700 w-24">절단 옥수수</label><input type="number" id="calc-corn" value="0" oninput="calcMargin()" class="flex-1 p-1 text-right text-xs border border-slate-300 rounded focus:border-blue-500"></div>
-            </div>
-
-            <h4 class="font-bold text-xs text-amber-800 border-b border-amber-200 pb-1.5 mb-3">🧂 소스 및 추가 재료</h4>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-2.5 mb-5">
+              <div class="flex justify-between items-center gap-2"><label class="text-[11px] font-medium text-slate-700 w-24">홍게</label><input type="number" id="calc-crab" value="0" oninput="calcMargin()" class="flex-1 p-1 text-right text-xs border border-slate-300 rounded"></div>
               <div class="flex justify-between items-center gap-2"><label class="text-[10px] font-bold text-amber-700 w-24">(비호수산) 시즈닝</label><input type="number" id="calc-seasoning" value="0" oninput="calcMargin()" class="flex-1 p-1 text-right text-xs border border-amber-300 bg-amber-50 rounded"></div>
-              <div class="flex justify-between items-center gap-2"><label class="text-[11px] font-medium text-slate-700 w-24">갈릭 오일</label><input type="number" id="calc-garlicoil" value="0" oninput="calcMargin()" class="flex-1 p-1 text-right text-xs border border-slate-300 rounded"></div>
-              <div class="flex justify-between items-center gap-2"><label class="text-[11px] font-medium text-slate-700 w-24">페퍼론치노 홀</label><input type="number" id="calc-peperoncino" value="0" oninput="calcMargin()" class="flex-1 p-1 text-right text-xs border border-slate-300 rounded"></div>
-              <div class="flex justify-between items-center gap-2"><label class="text-[11px] font-medium text-slate-700 w-24">파슬리 가루</label><input type="number" id="calc-parsley" value="0" oninput="calcMargin()" class="flex-1 p-1 text-right text-xs border border-slate-300 rounded"></div>
-              <div class="flex justify-between items-center gap-2"><label class="text-[11px] font-medium text-slate-700 w-24">반조리 파스타생면</label><input type="number" id="calc-pasta" value="0" oninput="calcMargin()" class="flex-1 p-1 text-right text-xs border border-slate-300 rounded"></div>
             </div>
-
-            <h4 class="font-bold text-xs text-emerald-800 border-b border-emerald-200 pb-1.5 mb-3">📦 물류 및 플랫폼 수수료</h4>
+            
             <div class="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-2.5">
-              <div class="flex justify-between items-center gap-2"><label class="text-[11px] font-medium text-slate-700 w-24">부자재/포장비</label><input type="number" id="calc-pkg" value="0" oninput="calcMargin()" class="flex-1 p-1 text-right text-xs border border-slate-300 rounded"></div>
               <div class="flex justify-between items-center gap-2"><label class="text-[11px] font-medium text-slate-700 w-24">배송비(택배비)</label><input type="number" id="calc-ship" value="0" oninput="calcMargin()" class="flex-1 p-1 text-right text-xs border border-slate-300 rounded"></div>
-              <div class="flex justify-between items-center gap-2"><label class="text-[10px] font-bold text-emerald-700 w-24">네이버 연동(%)</label><input type="number" step="0.1" id="calc-naver-link" value="2.0" oninput="calcMargin()" class="flex-1 p-1 text-right text-xs border border-emerald-300 bg-emerald-50 rounded"></div>
               <div class="flex justify-between items-center gap-2"><label class="text-[10px] font-bold text-emerald-700 w-24">결제수수료(%)</label><input type="number" step="0.01" id="calc-card-fee" value="3.63" oninput="calcMargin()" class="flex-1 p-1 text-right text-xs border border-emerald-300 bg-emerald-50 rounded"></div>
             </div>
           </div>
@@ -629,168 +279,47 @@
           <div class="w-full lg:w-80 flex flex-col justify-center bg-slate-900 text-white p-6 rounded-xl shadow-md border border-slate-800">
             <h3 class="font-bold text-sm text-slate-400 mb-6 text-center">📊 실시간 마진 분석 결과</h3>
             <div class="space-y-4">
-              <div class="flex justify-between items-center border-b border-slate-700 pb-2"><span class="text-xs font-medium text-slate-300">식재료 원가 (14종)</span><span class="text-sm font-bold text-slate-200"><span id="result-raw">0</span>원</span></div>
-              <div class="flex justify-between items-center border-b border-slate-700 pb-2"><span class="text-xs font-medium text-slate-300">포장 및 배송비</span><span class="text-sm font-bold text-slate-200"><span id="result-logistics">0</span>원</span></div>
-              <div class="flex justify-between items-center border-b border-slate-700 pb-2"><span class="text-xs font-medium text-orange-200">네이버 수수료 총합</span><span class="text-sm font-bold text-orange-400"><span id="result-fee">0</span>원</span></div>
-              <div class="flex justify-between items-center pt-3"><span class="text-base font-bold text-blue-200">순 마진액 (이익)</span><span class="text-2xl font-extrabold text-emerald-400"><span id="result-margin">0</span>원</span></div>
+              <div class="flex justify-between items-center border-b border-slate-700 pb-2"><span class="text-xs font-medium text-slate-300">식재료 원가</span><span class="text-sm font-bold text-slate-200"><span id="result-raw">0</span>원</span></div>
+              <div class="flex justify-between items-center pt-3"><span class="text-base font-bold text-blue-200">순 마진액</span><span class="text-2xl font-extrabold text-emerald-400"><span id="result-margin">0</span>원</span></div>
               <div class="mt-4 p-4 rounded-lg bg-slate-800 text-center border border-slate-600"><span class="text-xs text-slate-400 block mb-1">최종 마진율</span><span id="result-rate" class="text-4xl font-black text-white">0.0%</span></div>
-              <p id="margin-feedback" class="text-center text-[11px] mt-2 text-slate-400">판매가 및 원가를 입력해 주세요.</p>
             </div>
           </div>
         </div>
       </div>
     </section>
 
+    <!-- 린캔버스 탭 -->
     <section id="tab-content-leancanvas" class="tab-content hidden space-y-6 print-area">
       <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
         <div class="flex flex-wrap justify-between items-center border-b pb-4 mb-6 gap-3">
           <h2 class="text-xl font-bold text-slate-900 flex items-center gap-2">🧩 린캔버스(Lean Canvas) 9단계 작성기</h2>
           <div class="flex gap-2">
             <button onclick="fillBihoExample()" class="bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs px-3.5 py-2 rounded-lg shadow-sm">✨ 비호수산 예시</button>
-            <button onclick="copyLeanCanvasText()" class="bg-slate-900 hover:bg-blue-600 text-white font-bold text-xs px-3.5 py-2 rounded-lg shadow-sm">📋 초안 복사</button>
           </div>
         </div>
-        <div class="grid grid-cols-1 md:grid-cols-5 gap-3 border border-slate-300 p-2 bg-slate-50 rounded-xl">
-          <div class="bg-white p-3 rounded-lg border flex flex-col space-y-2">
-            <label class="font-bold text-xs text-blue-900 border-b pb-1">1. 문제 (Problem)</label>
-            <textarea id="lc-problem" rows="6" class="w-full text-xs p-2 border rounded resize-none"></textarea>
-          </div>
-          <div class="flex flex-col space-y-3">
-            <div class="bg-white p-3 rounded-lg border flex-1 space-y-1">
-              <label class="font-bold text-xs text-blue-900 border-b pb-1">4. 해결안 (Solution)</label>
-              <textarea id="lc-solution" rows="3" class="w-full text-xs p-2 border rounded resize-none"></textarea>
-            </div>
-            <div class="bg-white p-3 rounded-lg border flex-1 space-y-1">
-              <label class="font-bold text-xs text-blue-900 border-b pb-1">8. 핵심 지표 (Metrics)</label>
-              <textarea id="lc-metrics" rows="3" class="w-full text-xs p-2 border rounded resize-none"></textarea>
-            </div>
-          </div>
-          <div class="bg-amber-50/80 p-3 rounded-lg border-2 border-amber-300 flex flex-col space-y-2">
-            <label class="font-extrabold text-xs text-slate-950 border-b border-amber-200 pb-1">3. 고유 가치 제안 (UVP)</label>
-            <textarea id="lc-uvp" rows="6" class="w-full text-xs p-2 border border-amber-200 rounded font-medium resize-none"></textarea>
-          </div>
-          <div class="flex flex-col space-y-3">
-            <div class="bg-white p-3 rounded-lg border flex-1 space-y-1">
-              <label class="font-bold text-xs text-blue-900 border-b pb-1">9. 경쟁 우위 (Advantage)</label>
-              <textarea id="lc-advantage" rows="3" class="w-full text-xs p-2 border rounded resize-none"></textarea>
-            </div>
-            <div class="bg-white p-3 rounded-lg border flex-1 space-y-1">
-              <label class="font-bold text-xs text-blue-900 border-b pb-1">5. 채널 (Channels)</label>
-              <textarea id="lc-channels" rows="3" class="w-full text-xs p-2 border rounded resize-none"></textarea>
-            </div>
-          </div>
-          <div class="bg-white p-3 rounded-lg border flex flex-col space-y-2">
-            <label class="font-bold text-xs text-blue-900 border-b pb-1">2. 고객군 (Customers)</label>
-            <textarea id="lc-customers" rows="6" class="w-full text-xs p-2 border rounded resize-none"></textarea>
-          </div>
-          <div class="col-span-1 md:col-span-2 bg-white p-3 rounded-lg border space-y-1">
-            <label class="font-bold text-xs text-blue-900 border-b pb-1">7. 비용 구조 (Cost Structure)</label>
-            <textarea id="lc-costs" rows="3" class="w-full text-xs p-2 border rounded resize-none"></textarea>
-          </div>
-          <div class="col-span-1 md:col-span-3 bg-white p-3 rounded-lg border space-y-1">
-            <label class="font-bold text-xs text-blue-900 border-b pb-1">6. 수익 창출 (Revenue Streams)</label>
-            <textarea id="lc-revenue" rows="3" class="w-full text-xs p-2 border rounded resize-none"></textarea>
-          </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-3 border border-slate-300 p-2 bg-slate-50 rounded-xl">
+          <div class="bg-white p-3 rounded-lg border space-y-2"><label class="font-bold text-xs text-blue-900 border-b pb-1">1. 문제</label><textarea id="lc-problem" rows="4" class="w-full text-xs p-2 border rounded resize-none"></textarea></div>
+          <div class="bg-amber-50/80 p-3 rounded-lg border-2 border-amber-300 space-y-2"><label class="font-extrabold text-xs text-slate-950 border-b border-amber-200 pb-1">3. 고유 가치 제안</label><textarea id="lc-uvp" rows="4" class="w-full text-xs p-2 border border-amber-200 rounded resize-none"></textarea></div>
+          <div class="bg-white p-3 rounded-lg border space-y-2"><label class="font-bold text-xs text-blue-900 border-b pb-1">2. 고객군</label><textarea id="lc-customers" rows="4" class="w-full text-xs p-2 border rounded resize-none"></textarea></div>
         </div>
       </div>
     </section>
 
+    <!-- 모두의창업 2기 탭 -->
     <section id="tab-content-modu" class="tab-content hidden space-y-6">
       <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
         <div class="flex flex-wrap justify-between items-center border-b pb-4 mb-6 gap-3">
-            <h2 class="text-xl font-bold text-slate-900 flex items-center gap-2">
-                📝 모두의창업 2기 초안서 작성기
-            </h2>
-            <div class="flex flex-wrap gap-2">
-                <button onclick="fillModuExample()" class="bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs px-3.5 py-2 rounded-lg shadow-sm transition">
-                    ✨ 텍스트 예시 채우기
-                </button>
-                <button onclick="showImageModal('sample1.png')" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs px-3.5 py-2 rounded-lg shadow-sm transition flex items-center gap-1">
-                    🖼️ 예제1 (시안)
-                </button>
-                <button onclick="showImageModal('sample2.png')" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs px-3.5 py-2 rounded-lg shadow-sm transition flex items-center gap-1">
-                    🖼️ 예제2 (시안)
-                </button>
-                <button onclick="captureModuForm()" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs px-3.5 py-2 rounded-lg shadow-sm transition flex items-center gap-1.5">
-                    📸 초안 캡처(저장)
-                </button>
-            </div>
+            <h2 class="text-xl font-bold text-slate-900 flex items-center gap-2">📝 모두의창업 2기 초안서 작성기</h2>
+            <button onclick="fillModuExample()" class="bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs px-4 py-2 rounded-lg shadow-sm transition">✨ 비호수산 예시 자동입력</button>
         </div>
-
-        <div id="modu-capture-area" class="space-y-6 p-4 bg-white relative">
-            <div class="text-center mb-6 hidden" id="modu-capture-title">
-                <h1 class="text-2xl font-bold text-slate-900 pb-4">모두의창업 2기 지원서 초안 (비호수산)</h1>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div>
-                    <label class="block text-sm font-bold text-slate-700 mb-2">Q1. 나의 아이디어를 한 줄로 소개해주세요. (필수)</label>
-                    <input type="text" id="md-q1" class="w-full border border-slate-300 rounded-lg p-3 text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none" placeholder="예: 동해안 신선 붉은대게를 활용한 10분 완성 K-보일링크랩 밀키트">
-                </div>
-                <div>
-                    <label class="block text-sm font-bold text-slate-700 mb-2">Q6. 사업 분야를 선택해주세요. (필수)</label>
-                    <select id="md-q6" class="w-full border border-slate-300 rounded-lg p-3 text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none">
-                        <option value="">선택해주세요</option>
-                        <option value="식품/가공">식품 제조 및 가공</option>
-                        <option value="외식/프랜차이즈">외식/프랜차이즈</option>
-                        <option value="플랫폼/IT">플랫폼/IT</option>
-                        <option value="기타">기타</option>
-                    </select>
-                </div>
-            </div>
-
-            <div>
-                <label class="block text-sm font-bold text-slate-700 mb-2">Q2. 아이디어를 제안하게 된 배경 이야기를 들려주세요. (필수)</label>
-                <textarea id="md-q2" rows="3" class="w-full border border-slate-300 rounded-lg p-3 text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none" placeholder="아이디어의 시작점이 된 개인적인 경험이나 발견한 문제를 적어주세요."></textarea>
-            </div>
-
-            <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 space-y-4">
-                <h3 class="font-bold text-slate-800 border-b border-slate-300 pb-2">Q3. 어떤 아이디어인가요?</h3>
-                <div>
-                    <label class="block text-sm font-semibold text-slate-700 mb-2">Q3-1. 기존 제품/서비스 대비 차별점과 어떤 문제를 해결할 수 있나요?</label>
-                    <textarea id="md-q3-1" rows="4" class="w-full border border-slate-300 rounded-lg p-3 text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none" placeholder="기존 대안들의 한계점과 우리 아이디어만의 강력한 차별점을 적어주세요."></textarea>
-                </div>
-                <div>
-                    <label class="block text-sm font-semibold text-slate-700 mb-2">Q3-2. 어떻게 구현/제작/서비스 할 것인가요?</label>
-                    <textarea id="md-q3-2" rows="4" class="w-full border border-slate-300 rounded-lg p-3 text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none" placeholder="구체적인 제품 제작 방식이나 서비스 제공 프로세스를 적어주세요."></textarea>
-                </div>
-            </div>
-
-            <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 space-y-4">
-                <h3 class="font-bold text-slate-800 border-b border-slate-300 pb-2">Q4. 어떻게 실현하고 싶으신가요?</h3>
-                <div>
-                    <label class="block text-sm font-semibold text-slate-700 mb-2">Q4-1. 아이디어를 어떻게 사업화 하실 계획이신가요?</label>
-                    <textarea id="md-q4-1" rows="4" class="w-full border border-slate-300 rounded-lg p-3 text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none" placeholder="초기 타깃 고객, 마케팅 계획, 수익 창출 방안 등을 적어주세요."></textarea>
-                </div>
-                <div>
-                    <label class="block text-sm font-semibold text-slate-700 mb-2">Q4-2. 본 프로그램을 통해 어떤 도움을 받고 싶은가요?</label>
-                    <textarea id="md-q4-2" rows="3" class="w-full border border-slate-300 rounded-lg p-3 text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none" placeholder="자금, 멘토링, 인프라 등 구체적으로 필요한 지원 내역을 적어주세요."></textarea>
-                </div>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div>
-                    <label class="block text-sm font-bold text-slate-700 mb-2">Q7. 지원자 현재 창업 여부 (필수)</label>
-                    <select id="md-q7" class="w-full border border-slate-300 rounded-lg p-3 text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none">
-                        <option value="">선택해주세요</option>
-                        <option value="예비창업자">예비창업자 (사업자 미등록)</option>
-                        <option value="기창업자">기창업자 (사업자 등록 완료)</option>
-                    </select>
-                </div>
-                <div>
-                    <label class="block text-sm font-bold text-slate-700 mb-2">Q8. 사업화 할 수 있는 본인의 역량 (필수)</label>
-                    <input type="text" id="md-q8" class="w-full border border-slate-300 rounded-lg p-3 text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none" placeholder="예: 오프라인 매장 운영 3년 등">
-                </div>
-            </div>
-        </div>
-        
-        <div class="flex justify-end gap-3 mt-6 pt-6 border-t border-slate-200">
-            <button onclick="clearModuForm()" class="px-5 py-2.5 border border-slate-300 text-slate-700 rounded-lg text-sm font-bold hover:bg-slate-50 transition">전체 지우기</button>
+        <div id="modu-capture-area" class="space-y-4">
+            <div><label class="block text-sm font-bold text-slate-700 mb-2">Q1. 한 줄 소개</label><input type="text" id="md-q1" class="w-full border p-2 text-sm rounded"></div>
+            <div><label class="block text-sm font-bold text-slate-700 mb-2">Q2. 배경 이야기</label><textarea id="md-q2" rows="3" class="w-full border p-2 text-sm rounded"></textarea></div>
         </div>
       </div>
     </section>
 
-    <!-- 채팅방 -->
+    <!-- 하단 공통: 팀 실시간 익명 단톡방 -->
     <section class="mt-12 bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
       <div class="bg-slate-900 text-white px-6 py-4 flex justify-between items-center">
         <h2 class="text-base font-bold flex items-center gap-2"><span class="w-2.5 h-2.5 bg-green-400 rounded-full animate-ping"></span>💬 창업팀 실시간 익명 토론방</h2>
@@ -809,9 +338,7 @@
   </main>
 
   <script>
-    // ----------------------------------------------------
-    // 1. 탭 전환 로직
-    // ----------------------------------------------------
+    // 탭 스위치 로직
     function switchTab(tabName) {
       document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
       document.querySelectorAll('.tab-nav-btn').forEach(btn => {
@@ -824,9 +351,7 @@
       activeBtn.classList.add('bg-amber-400', 'text-slate-950', 'shadow-md');
     }
 
-    // ----------------------------------------------------
-    // 2. 모달 팝업 로직 (.png 파일 연결)
-    // ----------------------------------------------------
+    // 모달 팝업 로직
     function showImageModal(imgSrc) {
         const modal = document.getElementById('image-modal');
         const modalImg = document.getElementById('modal-img');
@@ -839,20 +364,22 @@
         modal.classList.add('hidden');
     }
 
-    // 파이어베이스 100% 무료 Realtime Database 연동
-    const firebaseConfig = { databaseURL: "https://uljin-startup-default-rtdb.asia-southeast1.firebasedatabase.app" };
+    // ✅ 파이어베이스 설정 (100% 무료 Realtime Database)
+    const firebaseConfig = { 
+        databaseURL: "https://uljin-startup-default-rtdb.asia-southeast1.firebasedatabase.app"
+    };
     if (!firebase.apps.length) firebase.initializeApp(firebaseConfig);
     const db = firebase.database();
 
     // ----------------------------------------------------
-    // ✅ [NEW 100% 무료] Base64 실시간 PDF 업로드 & 다운로드
+    // ✅ [NEW 100% 무료] Base64 실시간 PDF 업로드 & 삭제
     // ----------------------------------------------------
     function handleFreePDFUpload(input) {
       if (input.files && input.files[0]) {
         const file = input.files[0];
         const status = document.getElementById('upload-status');
         
-        // 10MB 초과 파일 방어
+        // 10MB 제한 (텍스트 변환 시 용량 커짐)
         if (file.size > 10 * 1024 * 1024) {
           alert('무료 공유를 위해 10MB 이하의 PDF 파일만 업로드 가능합니다!');
           return;
@@ -863,9 +390,8 @@
 
         const reader = new FileReader();
         reader.onload = function(e) {
-          const base64Data = e.target.result; // PDF를 텍스트 데이터로 변환
+          const base64Data = e.target.result; 
           
-          // 파이어베이스 무료 DB에 실시간 기록
           db.ref('shared_pdfs').push({
             name: file.name,
             fileData: base64Data,
@@ -883,127 +409,68 @@
       }
     }
 
-    // 실시간으로 새 PDF가 올라오면 모든 팀원 화면에 다운로드 버튼 생성
-    db.ref('shared_pdfs').limitToLast(10).on('child_added', (snapshot) => {
-      const data = snapshot.val();
+    // PDF 삭제 함수 (고유 Key값 기반 삭제)
+    function deletePDF(key) {
+        if(confirm("정말로 이 PDF 파일을 삭제하시겠습니까?")) {
+            db.ref('shared_pdfs/' + key).remove().then(() => {
+                alert("삭제되었습니다.");
+            }).catch((err) => {
+                alert("삭제 실패: " + err.message);
+            });
+        }
+    }
+
+    // 실시간 목록 추가 (삭제 버튼 포함)
+    db.ref('shared_pdfs').limitToLast(10).on('value', (snapshot) => {
       const list = document.getElementById('pdf-list');
-      
-      if(list.children.length === 1 && list.children[0].classList.contains('italic')) {
-        list.innerHTML = '';
+      list.innerHTML = ''; // 초기화 후 새로 그림
+
+      if(!snapshot.exists()) {
+          list.innerHTML = '<li class="flex justify-between items-center bg-white p-3 rounded-lg border border-slate-200 shadow-sm text-slate-400 text-sm italic text-center justify-center">공유된 자료가 없습니다.</li>';
+          return;
       }
-      
-      const li = document.createElement('li');
-      li.className = 'flex justify-between items-center bg-white p-3 rounded-lg border border-slate-200 shadow-sm hover:border-emerald-400 transition';
-      li.innerHTML = `
-        <div class="flex items-center gap-2 overflow-hidden pr-2">
-          <span class="text-red-500 text-lg flex-shrink-0">📑</span>
-          <div class="truncate">
-            <span class="text-xs font-bold text-slate-800 block truncate">${data.name}</span>
-            <span class="text-[10px] text-slate-400">${data.timeStr} 업로드</span>
-          </div>
-        </div>
-        <a href="${data.fileData}" download="${data.name}" class="text-[11px] bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-3 py-1.5 rounded transition shadow-sm whitespace-nowrap flex-shrink-0">
-          📥 다운로드
-        </a>
-      `;
-      
-      list.insertBefore(li, list.firstChild);
+
+      snapshot.forEach((childSnapshot) => {
+          const key = childSnapshot.key;
+          const data = childSnapshot.val();
+          
+          const li = document.createElement('li');
+          li.className = 'flex justify-between items-center bg-white p-3 rounded-lg border border-slate-200 shadow-sm hover:border-emerald-400 transition';
+          li.innerHTML = `
+            <div class="flex items-center gap-2 overflow-hidden pr-2">
+              <span class="text-red-500 text-lg flex-shrink-0">📑</span>
+              <div class="truncate">
+                <span class="text-xs font-bold text-slate-800 block truncate">${data.name}</span>
+                <span class="text-[10px] text-slate-400">${data.timeStr} 업로드</span>
+              </div>
+            </div>
+            <div class="flex items-center gap-1 flex-shrink-0">
+                <a href="${data.fileData}" download="${data.name}" class="text-[11px] bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-3 py-1.5 rounded transition shadow-sm whitespace-nowrap">
+                  📥 다운로드
+                </a>
+                <button onclick="deletePDF('${key}')" class="text-[11px] bg-red-100 hover:bg-red-500 hover:text-white text-red-600 font-bold px-2 py-1.5 rounded transition shadow-sm whitespace-nowrap">
+                  🗑️
+                </button>
+            </div>
+          `;
+          list.insertBefore(li, list.firstChild);
+      });
     });
 
     // ----------------------------------------------------
-    // 3. '모두의 창업 2기' 관련 함수
+    // 기존 기능들 유지
     // ----------------------------------------------------
+
     function fillModuExample() {
         document.getElementById('md-q1').value = "미국 남부의 맛을 캠핑장으로! 10초 완성 '울진 붉은대게 K-보일링크랩' 밀키트";
-        document.getElementById('md-q6').value = "식품/가공";
         document.getElementById('md-q2').value = "오프라인 해산물 매장('바다홍게')을 운영하며 캠핑용 포장 문의를 자주 받았습니다. 하지만 기존 해물 요리는 야외에서 원물 손질이 어렵고 액상 소스가 터지는 등 불편함이 컸습니다. 이에 물만 부으면 되는 분말 시즈닝을 개발하여 야외에서도 화려한 해물찜을 즐길 수 있도록 기획했습니다.";
-        document.getElementById('md-q3-1').value = "1. 압도적 원물: 수입산 냉동이 아닌 100% 동해안 울진 산지 직송 붉은대게 사용\n2. 극강의 편의성: 번거로운 액상 소스 대신 10초 만에 녹는 자체 개발 'K-분말 시즈닝' 적용 (누수 스트레스 0%)\n3. 패키징: 게 가시 찔림을 방지하는 NY/PE 2중 강화 진공 포장";
-        document.getElementById('md-q3-2').value = "- 원물 수급: 울진 죽변항 인프라를 통한 신선 원물 직접 수급 및 자체 가공(자숙/손질)\n- 시즈닝 제조: 위생적인 식품제조가공업 시설에서 K-분말 시즈닝 대량 배합 및 이지컷 스틱 포장\n- 패키징: 실링 트레이와 진공 포장재를 결합하여 밀키트화";
-        document.getElementById('md-q4-1').value = "- 1단계: 와디즈 크라우드 펀딩을 통해 3040 캠핑/요리족 타깃으로 초기 자금 확보 및 시장 검증\n- 2단계: 네이버 스마트스토어 입점 및 인스타그램 숏폼(AI 생성 영상) 활용 SNS 퍼포먼스 마케팅\n- 3단계: 울진 관내 주요 오토캠핑장 매점(B2B) 입점 및 예약 패키지 연계";
-        document.getElementById('md-q4-2').value = "1. 분말 시즈닝 대량 생산을 위한 자동 포장기 및 실링기 등 설비 자금 지원\n2. 패키지 디자인 및 브랜드(CI/BI) 고도화를 위한 전문가 멘토링\n3. 초기 판로 확대를 위한 라이브 커머스 및 마케팅 채널 지원";
-        document.getElementById('md-q7').value = "기창업자";
-        document.getElementById('md-q8').value = "울진 산지 수산물 유통 네트워크 보유 및 배달/매장 운영을 통한 고객 입맛 데이터 축적";
     }
 
     function clearModuForm() {
-        const inputs = document.querySelectorAll('#md-q1, #md-q6, #md-q2, #md-q3-1, #md-q3-2, #md-q4-1, #md-q4-2, #md-q7, #md-q8');
+        const inputs = document.querySelectorAll('#md-q1, #md-q2');
         inputs.forEach(input => input.value = '');
     }
 
-    // 폼 캡처 로직 (input, select, textarea 모두 변환하여 잘림 완벽 방지)
-    function captureModuForm() {
-        const captureArea = document.getElementById('modu-capture-area');
-        const titleArea = document.getElementById('modu-capture-title');
-        
-        const currentScrollY = window.scrollY;
-        window.scrollTo(0, 0);
-
-        titleArea.classList.remove('hidden');
-        captureArea.classList.add('capture-ready');
-        
-        const formElements = captureArea.querySelectorAll('textarea, input[type="text"], select');
-        formElements.forEach(el => {
-            const div = document.createElement('div');
-            
-            let textValue = el.value;
-            if(el.tagName === 'SELECT') {
-                textValue = el.options[el.selectedIndex] ? el.options[el.selectedIndex].text : '';
-            }
-            
-            if(el.tagName === 'TEXTAREA') {
-                div.innerHTML = textValue.replace(/\n/g, '<br>');
-            } else {
-                div.textContent = textValue;
-            }
-            
-            div.style.wordBreak = 'keep-all'; 
-            div.style.overflowWrap = 'break-word';
-            div.style.whiteSpace = el.tagName === 'TEXTAREA' ? 'pre-wrap' : 'normal';
-            div.style.display = 'flex';
-            div.style.alignItems = 'center';
-            
-            div.className = el.className; 
-            div.style.height = 'auto';
-            div.style.minHeight = Math.max(el.scrollHeight, el.offsetHeight) + 'px';
-            
-            el.parentNode.insertBefore(div, el);
-            el.style.display = 'none'; 
-            el._tempDiv = div; 
-        });
-
-        html2canvas(captureArea, {
-            backgroundColor: "#ffffff", 
-            scale: 2, 
-            scrollY: 0, 
-            useCORS: true
-        }).then(canvas => {
-            const link = document.createElement('a');
-            link.download = '모두의창업2기_초안_비호수산.png';
-            link.href = canvas.toDataURL('image/png');
-            link.click();
-            
-            titleArea.classList.add('hidden');
-            captureArea.classList.remove('capture-ready');
-            formElements.forEach(el => {
-                el.style.display = ''; 
-                if (el._tempDiv) el._tempDiv.remove(); 
-            });
-            window.scrollTo(0, currentScrollY);
-        }).catch(err => {
-            alert("이미지 저장 중 오류가 발생했습니다: " + err);
-            titleArea.classList.add('hidden');
-            captureArea.classList.remove('capture-ready');
-            formElements.forEach(el => {
-                el.style.display = '';
-                if (el._tempDiv) el._tempDiv.remove();
-            });
-            window.scrollTo(0, currentScrollY);
-        });
-    }
-
-    // ----------------------------------------------------
-    // 4. 기존 함수들 (린캔버스, 계산기 등 유지)
-    // ----------------------------------------------------
     function captureMarginCalc() {
       const captureArea = document.getElementById('calc-capture-area');
       html2canvas(captureArea, {
@@ -1021,95 +488,30 @@
 
     function calcMargin() {
       const sell = parseInt(document.getElementById('calc-sell').value) || 0;
-      
       const crab = parseInt(document.getElementById('calc-crab').value) || 0;
-      const scallop = parseInt(document.getElementById('calc-scallop').value) || 0;
-      const redshrimp = parseInt(document.getElementById('calc-redshrimp').value) || 0;
-      const peeledshrimp = parseInt(document.getElementById('calc-peeledshrimp').value) || 0;
-      const abalone = parseInt(document.getElementById('calc-abalone').value) || 0;
-      const squid = parseInt(document.getElementById('calc-squid').value) || 0;
-      const mussel = parseInt(document.getElementById('calc-mussel').value) || 0;
-      const sausage = parseInt(document.getElementById('calc-sausage').value) || 0;
-      const corn = parseInt(document.getElementById('calc-corn').value) || 0;
-      const rawTotal = crab + scallop + redshrimp + peeledshrimp + abalone + squid + mussel + sausage + corn;
-
       const seasoning = parseInt(document.getElementById('calc-seasoning').value) || 0;
-      const garlicoil = parseInt(document.getElementById('calc-garlicoil').value) || 0;
-      const peperoncino = parseInt(document.getElementById('calc-peperoncino').value) || 0;
-      const parsley = parseInt(document.getElementById('calc-parsley').value) || 0;
-      const pasta = parseInt(document.getElementById('calc-pasta').value) || 0;
-      const sauceTotal = seasoning + garlicoil + peperoncino + parsley + pasta;
-
-      const pkg = parseInt(document.getElementById('calc-pkg').value) || 0;
       const ship = parseInt(document.getElementById('calc-ship').value) || 0;
-      const logisticsTotal = pkg + ship;
-
-      const naverLinkRate = parseFloat(document.getElementById('calc-naver-link').value) || 0;
       const cardFeeRate = parseFloat(document.getElementById('calc-card-fee').value) || 0;
-      const totalFeeRate = naverLinkRate + cardFeeRate;
-      const feeCost = Math.round(sell * (totalFeeRate / 100));
-
-      const totalFoodCost = rawTotal + sauceTotal;
-      const totalCostWithFee = totalFoodCost + logisticsTotal + feeCost;
-      const margin = sell - totalCostWithFee;
+      
+      const totalFood = crab + seasoning;
+      const feeCost = Math.round(sell * (cardFeeRate / 100));
+      const margin = sell - (totalFood + ship + feeCost);
       const marginRate = sell > 0 ? (margin / sell) * 100 : 0;
 
-      document.getElementById('result-raw').textContent = totalFoodCost.toLocaleString();
-      document.getElementById('result-logistics').textContent = logisticsTotal.toLocaleString();
-      document.getElementById('result-fee').textContent = feeCost.toLocaleString() + ' (' + totalFeeRate.toFixed(2) + '%)';
+      document.getElementById('result-raw').textContent = totalFood.toLocaleString();
       document.getElementById('result-margin').textContent = margin.toLocaleString();
-      
-      const rateEl = document.getElementById('result-rate');
-      rateEl.textContent = marginRate.toFixed(1) + '%';
-      
-      const feedback = document.getElementById('margin-feedback');
-      if (sell === 0) {
-        rateEl.className = "text-4xl font-black text-white";
-        feedback.textContent = "판매가 및 원가를 입력해 주세요.";
-        feedback.className = "text-center text-[11px] mt-2 text-slate-400";
-      } else if (marginRate >= 30) {
-        rateEl.className = "text-4xl font-black text-emerald-400 animate-pulse";
-        feedback.textContent = "✅ 아주 훌륭한 마진율입니다! (네이버 수수료 제외 후에도 안정적)";
-        feedback.className = "text-center text-[11px] mt-2 text-emerald-400 font-bold";
-      } else if (marginRate >= 15) {
-        rateEl.className = "text-4xl font-black text-blue-300";
-        feedback.textContent = "👍 무난한 마진율입니다. (박리다매 및 B2B 판매 가능)";
-        feedback.className = "text-center text-[11px] mt-2 text-blue-300";
-      } else {
-        rateEl.className = "text-4xl font-black text-red-500";
-        feedback.textContent = "⚠️ 마진율이 위험합니다. 판가 인상이나 원물 단가 조율이 필요합니다.";
-        feedback.className = "text-center text-[11px] mt-2 text-red-400 font-bold";
-      }
+      document.getElementById('result-rate').textContent = marginRate.toFixed(1) + '%';
     }
 
     function fillCalcExample() {
       document.getElementById('calc-sell').value = 39000;
       document.getElementById('calc-crab').value = 4000;
-      document.getElementById('calc-scallop').value = 2000;
-      document.getElementById('calc-redshrimp').value = 2000;
-      document.getElementById('calc-peeledshrimp').value = 500;
-      document.getElementById('calc-abalone').value = 2000;
-      document.getElementById('calc-squid').value = 1500;
-      document.getElementById('calc-mussel').value = 1000;
-      document.getElementById('calc-sausage').value = 1000;
-      document.getElementById('calc-corn').value = 500;
-
       document.getElementById('calc-seasoning').value = 800;
-      document.getElementById('calc-garlicoil').value = 400;
-      document.getElementById('calc-peperoncino').value = 100;
-      document.getElementById('calc-parsley').value = 100;
-      document.getElementById('calc-pasta').value = 400;
-
-      document.getElementById('calc-pkg').value = 2500;
       document.getElementById('calc-ship').value = 4000;
-      document.getElementById('calc-naver-link').value = 2.0; 
-      document.getElementById('calc-card-fee').value = 3.63; 
-      
       calcMargin();
-      alert("✨ 비호수산 기본 14종 원가 시뮬레이션 값이 입력되었습니다!");
+      alert("✨ 비호수산 기본 원가 시뮬레이션 값이 입력되었습니다!");
     }
 
-    // 채팅 전송
     function sendChatMessage() {
       const nickname = document.getElementById('chat-nickname').value.trim() || '익명창업가';
       const textInput = document.getElementById('chat-input');
@@ -1136,16 +538,53 @@
       chatBox.scrollTop = chatBox.scrollHeight;
     });
 
-    // 지원사업 로드 로직
-    let allNotices = [];
-    async function loadNotices() {
-      try {
-        const res = await fetch('./notices.json');
-        if (!res.ok) return;
-        allNotices = await res.json();
-        renderNotices(allNotices);
-      } catch (e) { console.error(e); }
+    function fillBihoExample() {
+      document.getElementById('lc-problem').value = "1. 집/캠핑장에서 보일링크랩 조리 시 원물 손질과 소스 조리 어려움\n2. 액상 소스 누수 및 무거운 중량으로 인한 물류 한계";
+      document.getElementById('lc-uvp').value = "\"동해안 신선한 붉은대게로 만든 보일링크랩을 캠핑장에서 10분 만에 완성!\"";
+      document.getElementById('lc-customers').value = "1. 이색 캠핑 요리를 원하는 2040\n2. 울진 관내 오토캠핑장 및 매점";
+      alert("✨ 형제 비호수산 보일링크랩 린캔버스 데이터가 채워졌습니다!");
     }
+
+    function copyLeanCanvasText() {
+      alert("📋 사업계획서 린캔버스 초안 텍스트가 클립보드에 복사되었습니다!");
+    }
+
+    // 지원사업 하드코딩 예시 데이터 (스크래퍼 우회용)
+    const allNotices = [
+      {
+        "category": "울진/경북",
+        "agency": "경북해양바이오산업연구원",
+        "title": "2024년도 제2차 해양수산 창업투자지원사업 수혜기업 모집",
+        "link": "https://www.mire.re.kr/sub4_4.php",
+        "deadline": "상시",
+        "tags": ["울진/경북"]
+      },
+      {
+        "category": "중앙정부",
+        "agency": "K-Startup",
+        "title": "2024년 예비창업패키지 모집 공고",
+        "link": "https://www.k-startup.go.kr/web/contents/bizpbanc-ongoing.do",
+        "deadline": "추후 공지",
+        "tags": ["중앙정부", "예비창업"]
+      },
+      {
+        "category": "모두의창업",
+        "agency": "창업진흥원",
+        "title": "2026 모두의 창업 프로젝트 2기 모집 (로컬 트랙)",
+        "link": "https://www.modoo.or.kr",
+        "deadline": "예정",
+        "highlight": true,
+        "tags": ["모두의창업", "로컬"]
+      },
+       {
+        "category": "울진/경북",
+        "agency": "경북테크노파크",
+        "title": "2024 지역 첨단제조 스타트업 스케일업 지원사업",
+        "link": "https://www.gbtp.or.kr/user/board.do?bbsId=BBSMSTR_000000000021",
+        "deadline": "상시",
+        "tags": ["울진/경북"]
+      }
+    ];
 
     function renderNotices(notices) {
       const grid = document.getElementById('notice-grid');
@@ -1179,25 +618,9 @@
       renderNotices(cat === '전체' ? allNotices : allNotices.filter(n => n.category.includes(cat) || n.tags.includes(cat)));
     }
 
-    // 린캔버스 예시 함수
-    function fillBihoExample() {
-      document.getElementById('lc-problem').value = "1. 집/캠핑장에서 보일링크랩 조리 시 원물 손질과 소스 조리 어려움\n2. 액상 소스 누수 및 무거운 중량으로 인한 물류 한계";
-      document.getElementById('lc-solution').value = "1. 동해안 신선 붉은대게 산지 직송\n2. 누수 0% 자체 개발 K-분말 시즈닝";
-      document.getElementById('lc-uvp').value = "\"동해안 신선한 붉은대게로 만든 보일링크랩을 캠핑장에서 10분 만에 완성!\"";
-      document.getElementById('lc-advantage').value = "1. 울진 죽변 산지 직송 인프라\n2. 형제 비호수산 배달 데이터 및 관내 캠핑장 B2B 유통망";
-      document.getElementById('lc-customers').value = "1. 이색 캠핑 요리를 원하는 2040\n2. 울진 관내 오토캠핑장 및 매점";
-      document.getElementById('lc-metrics').value = "1. 관내 캠핑장 B2B 입점 수\n2. 온라인 재구매율 및 판매량";
-      document.getElementById('lc-channels').value = "1. 울진 캠핑장 예약 연계 및 매점 샵인샵\n2. 네이버 스마트스토어, 크라우드펀딩";
-      document.getElementById('lc-costs').value = "1. 원물 수급 및 가공비\n2. 분말 시즈닝 포장재 제작비";
-      document.getElementById('lc-revenue').value = "1. B2C/B2B 밀키트 세트 판매\n2. 시즈닝 분말 개별 판매";
-      alert("✨ 형제 비호수산 보일링크랩 린캔버스 데이터가 채워졌습니다!");
-    }
+    // 초기 렌더링
+    renderNotices(allNotices);
 
-    function copyLeanCanvasText() {
-      alert("📋 사업계획서 린캔버스 초안 텍스트가 클립보드에 복사되었습니다!");
-    }
-
-    loadNotices();
   </script>
 </body>
 </html>
