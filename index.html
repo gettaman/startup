@@ -60,7 +60,7 @@
         <span class="bg-blue-800/80 text-blue-100 text-xs font-semibold px-3 py-1 rounded-full border border-blue-500/50">울진 창업아카데미 / 비호수산</span>
       </div>
       <h1 class="text-2xl md:text-3xl font-extrabold tracking-tight text-white flex items-center gap-2">
-        <span>🦀</span> 울진 보일링크랩 사업화 & 창업 대시보드
+        <span>🦀</span> 비호수산 아이디어 사업화 & 창업 대시보드
       </h1>
 
       <div class="flex flex-wrap gap-2 mt-6 pt-4 border-t border-blue-800/60">
@@ -72,13 +72,13 @@
           📢 IR 피칭룸 (무료공유)
         </button>
         <button onclick="switchTab('competitors')" id="tab-btn-competitors" class="tab-nav-btn bg-blue-900/80 text-blue-100 hover:bg-blue-800 font-semibold px-5 py-2.5 rounded-xl text-sm transition flex items-center gap-2">
-          📝 경쟁업체 & 와디즈
+          📝 경쟁업체 & 와디즈 분석
         </button>
         <button onclick="switchTab('calculator')" id="tab-btn-calculator" class="tab-nav-btn bg-blue-900/80 text-blue-100 hover:bg-blue-800 font-semibold px-5 py-2.5 rounded-xl text-sm transition flex items-center gap-2">
-          💰 원가/마진 계산기
+          💰 정밀 원가/마진 계산기
         </button>
         <button onclick="switchTab('leancanvas')" id="tab-btn-leancanvas" class="tab-nav-btn bg-blue-900/80 text-blue-100 hover:bg-blue-800 font-semibold px-5 py-2.5 rounded-xl text-sm transition flex items-center gap-2">
-          🧩 린캔버스
+          🧩 린캔버스 사업계획
         </button>
         <button onclick="switchTab('modu')" id="tab-btn-modu" class="tab-nav-btn bg-blue-900/80 text-blue-100 hover:bg-blue-800 font-semibold px-5 py-2.5 rounded-xl text-sm transition flex items-center gap-2">
           📝 모두의창업 2기
@@ -91,19 +91,14 @@
 
     <!-- ✅ 업데이트된 현재 지원사업 공고 탭 -->
     <section id="tab-content-notices" class="tab-content space-y-6">
-      <div class="flex flex-wrap items-center justify-between gap-3 bg-white p-4 rounded-2xl border border-slate-200 shadow-sm">
-        <div class="flex flex-wrap gap-2" id="filter-buttons">
-          <button onclick="filterNotices('전체', this)" class="filter-btn active bg-slate-900 text-white font-bold px-4 py-2 rounded-lg text-sm shadow-sm transition">전체보기</button>
-          <button onclick="filterNotices('모두의창업', this)" class="filter-btn bg-amber-500 hover:bg-amber-400 text-slate-950 font-extrabold px-4 py-2 rounded-lg text-sm shadow-sm transition">🚀 모두의 창업 (통합)</button>
-          <button onclick="filterNotices('울진/경북', this)" class="filter-btn bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold px-4 py-2 rounded-lg text-sm transition">🌊 울진/경북</button>
-          <button onclick="filterNotices('중앙정부', this)" class="filter-btn bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold px-4 py-2 rounded-lg text-sm transition">🏛️ 중앙부처</button>
-        </div>
-        <div class="text-xs text-slate-500 font-medium px-2">총 <span id="notice-count" class="font-bold text-blue-600">0</span>개의 공고</div>
-      </div>
       
-      <!-- ✅ 6개 사이트 빠른 접속 박스 -->
+      <!-- ✅ 기존 필터 버튼 제거, 6개 사이트 빠른 접속 박스만 상단 배치 -->
       <div class="bg-blue-50 border border-blue-200 p-4 rounded-xl shadow-sm text-sm">
-          <p class="font-extrabold text-blue-900 mb-3 flex items-center gap-1">📌 자주 찾는 창업 지원 포털 빠른 링크</p>
+          <div class="flex justify-between items-center mb-3">
+              <p class="font-extrabold text-blue-900 flex items-center gap-1">📌 자주 찾는 창업 지원 포털 빠른 링크</p>
+              <div class="text-xs text-blue-700 font-bold px-2">총 <span id="notice-count">0</span>개의 공고</div>
+          </div>
+          
           <div class="flex flex-wrap gap-2">
               <a href="https://www.mire.re.kr/sub4_4.php" target="_blank" class="px-3 py-1.5 bg-white border border-blue-200 text-blue-800 font-bold rounded-lg hover:bg-blue-600 hover:text-white transition shadow-sm">경북해양바이오산업연구원</a>
               <a href="https://www.gbtp.or.kr/user/board.do?bbsId=BBSMSTR_000000000021" target="_blank" class="px-3 py-1.5 bg-white border border-blue-200 text-blue-800 font-bold rounded-lg hover:bg-blue-600 hover:text-white transition shadow-sm">경북테크노파크</a>
@@ -440,6 +435,11 @@
                   <span class="text-[10px] bg-white border border-slate-300 text-slate-600 px-1.5 py-0.5 rounded-md">#캠핑요리</span>
                   <span class="text-[10px] bg-white border border-slate-300 text-slate-600 px-1.5 py-0.5 rounded-md">#캠핑음식</span>
                   <span class="text-[10px] bg-white border border-slate-300 text-slate-600 px-1.5 py-0.5 rounded-md">#간편조리</span>
+                  <span class="text-[10px] bg-white border border-slate-300 text-slate-600 px-1.5 py-0.5 rounded-md">#간편식품</span>
+                  <span class="text-[10px] bg-white border border-slate-300 text-slate-600 px-1.5 py-0.5 rounded-md">#파티용</span>
+                  <span class="text-[10px] bg-white border border-slate-300 text-slate-600 px-1.5 py-0.5 rounded-md">#집들이상</span>
+                  <span class="text-[10px] bg-white border border-slate-300 text-slate-600 px-1.5 py-0.5 rounded-md">#집들이음식</span>
+
                 </div>
               </div>
             </div>
@@ -467,10 +467,11 @@
               <div class="mb-3">
                 <p class="text-[10px] font-bold text-slate-500 mb-1.5">🏷️ 검색 노출 타겟 태그</p>
                 <div class="flex flex-wrap gap-1">
-                  <span class="text-[10px] bg-white border border-slate-300 text-slate-600 px-1.5 py-0.5 rounded-md">#캠핑요리</span>
+                   <span class="text-[10px] bg-white border border-slate-300 text-slate-600 px-1.5 py-0.5 rounded-md">#캠핑요리</span>
                   <span class="text-[10px] bg-white border border-slate-300 text-slate-600 px-1.5 py-0.5 rounded-md">#집들이용</span>
                   <span class="text-[10px] bg-white border border-slate-300 text-slate-600 px-1.5 py-0.5 rounded-md">#홈파티음식</span>
                   <span class="text-[10px] bg-white border border-slate-300 text-slate-600 px-1.5 py-0.5 rounded-md">#홈파티메뉴</span>
+                  <span class="text-[10px] bg-white border border-slate-300 text-slate-600 px-1.5 py-0.5 rounded-md">#집들이음식</span>
                   <span class="text-[10px] bg-white border border-slate-300 text-slate-600 px-1.5 py-0.5 rounded-md">#랍스터</span>
                 </div>
               </div>
@@ -503,7 +504,10 @@
                   <span class="text-[10px] bg-white border border-slate-300 text-slate-600 px-1.5 py-0.5 rounded-md">#홈파티음식</span>
                   <span class="text-[10px] bg-white border border-slate-300 text-slate-600 px-1.5 py-0.5 rounded-md">#밀키트</span>
                   <span class="text-[10px] bg-white border border-slate-300 text-slate-600 px-1.5 py-0.5 rounded-md">#생일음식</span>
+                  <span class="text-[10px] bg-white border border-slate-300 text-slate-600 px-1.5 py-0.5 rounded-md">#새우요리</span>
+                  <span class="text-[10px] bg-white border border-slate-300 text-slate-600 px-1.5 py-0.5 rounded-md">#캠핑밀키트</span>
                   <span class="text-[10px] bg-white border border-slate-300 text-slate-600 px-1.5 py-0.5 rounded-md">#홈캉스</span>
+
                 </div>
               </div>
             </div>
@@ -547,7 +551,7 @@
           <div class="bg-amber-50/70 p-4 rounded-xl border-2 border-amber-400 flex flex-col justify-between shadow-md">
             <div>
               <div class="flex justify-between items-center mb-2">
-                <span class="text-[10px] font-extrabold bg-amber-400 text-slate-950 px-2 py-0.5 rounded">👑 비호수산</span>
+                <span class="text-[10px] font-extrabold bg-amber-400 text-slate-950 px-2 py-0.5 rounded">👑 형제 비호수산</span>
                 <span class="text-[10px] text-amber-800 font-extrabold">로컬 융복합 자사</span>
               </div>
               <h3 class="font-bold text-sm text-slate-950 mb-1">울진 붉은대게 보일링크랩</h3>
@@ -651,6 +655,7 @@
       </div>
     </section>
 
+    <!-- 린캔버스 탭 -->
     <section id="tab-content-leancanvas" class="tab-content hidden space-y-6 print-area">
       <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
         <div class="flex flex-wrap justify-between items-center border-b pb-4 mb-6 gap-3">
@@ -705,25 +710,32 @@
       </div>
     </section>
 
+    <!-- 모두의창업 2기 탭 -->
     <section id="tab-content-modu" class="tab-content hidden space-y-6">
       <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
         <div class="flex flex-wrap justify-between items-center border-b pb-4 mb-6 gap-3">
             <h2 class="text-xl font-bold text-slate-900 flex items-center gap-2">
                 📝 모두의창업 2기 초안서 작성기
             </h2>
-            <div class="flex gap-2">
-                <button onclick="fillModuExample()" class="bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs px-4 py-2 rounded-lg shadow-sm transition">
-                    ✨ 예시 자동입력
+            <div class="flex flex-wrap gap-2">
+                <button onclick="fillModuExample()" class="bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs px-3.5 py-2 rounded-lg shadow-sm transition">
+                    ✨ 텍스트 예시 채우기
                 </button>
-                <button onclick="captureModuForm()" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs px-4 py-2 rounded-lg shadow-sm transition flex items-center gap-1.5">
+                <button onclick="showImageModal('sample1.png')" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs px-3.5 py-2 rounded-lg shadow-sm transition flex items-center gap-1">
+                    🖼️ 예제1 (시안)
+                </button>
+                <button onclick="showImageModal('sample2.png')" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs px-3.5 py-2 rounded-lg shadow-sm transition flex items-center gap-1">
+                    🖼️ 예제2 (시안)
+                </button>
+                <button onclick="captureModuForm()" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs px-3.5 py-2 rounded-lg shadow-sm transition flex items-center gap-1.5">
                     📸 초안 캡처(저장)
                 </button>
             </div>
         </div>
 
-        <div id="modu-capture-area" class="space-y-6 p-4 bg-white">
+        <div id="modu-capture-area" class="space-y-6 p-4 bg-white relative">
             <div class="text-center mb-6 hidden" id="modu-capture-title">
-                <h1 class="text-2xl font-bold text-slate-900">모두의창업 2기 지원서 초안 (비호수산)</h1>
+                <h1 class="text-2xl font-bold text-slate-900 pb-4">모두의창업 2기 지원서 초안 (비호수산)</h1>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -856,7 +868,6 @@
         const file = input.files[0];
         const status = document.getElementById('upload-status');
         
-        // 10MB 제한 (텍스트 변환 시 용량 커짐 방어)
         if (file.size > 10 * 1024 * 1024) {
           alert('무료 공유를 위해 10MB 이하의 PDF 파일만 업로드 가능합니다!');
           return;
@@ -886,7 +897,7 @@
       }
     }
 
-    // PDF 삭제 함수 (고유 Key값 기반 삭제)
+    // PDF 삭제 함수
     function deletePDF(key) {
         if(confirm("정말로 이 PDF 파일을 삭제하시겠습니까?")) {
             db.ref('shared_pdfs/' + key).remove().then(() => {
@@ -897,10 +908,10 @@
         }
     }
 
-    // 실시간 목록 추가 (삭제 버튼 포함)
+    // 실시간 목록 추가
     db.ref('shared_pdfs').limitToLast(10).on('value', (snapshot) => {
       const list = document.getElementById('pdf-list');
-      list.innerHTML = ''; // 초기화 후 새로 그림
+      list.innerHTML = ''; 
 
       if(!snapshot.exists()) {
           list.innerHTML = '<li class="flex justify-between items-center bg-white p-3 rounded-lg border border-slate-200 shadow-sm text-slate-400 text-sm italic text-center justify-center">공유된 자료가 없습니다.</li>';
@@ -935,7 +946,7 @@
     });
 
     // ----------------------------------------------------
-    // 2. '모두의 창업 2기' 관련 함수 (캡처 영역 textarea 변환 로직 포함)
+    // 3. '모두의 창업 2기' 관련 함수
     // ----------------------------------------------------
     function fillModuExample() {
         document.getElementById('md-q1').value = "미국 남부의 맛을 캠핑장으로! 10초 완성 '울진 붉은대게 K-보일링크랩' 밀키트";
@@ -954,33 +965,51 @@
         inputs.forEach(input => input.value = '');
     }
 
-    // 폼 캡처 로직 (글자 잘림 완벽 해결)
     function captureModuForm() {
         const captureArea = document.getElementById('modu-capture-area');
         const titleArea = document.getElementById('modu-capture-title');
         
+        const currentScrollY = window.scrollY;
+        window.scrollTo(0, 0);
+
         titleArea.classList.remove('hidden');
         captureArea.classList.add('capture-ready');
         
-        const textareas = captureArea.querySelectorAll('textarea');
-        textareas.forEach(ta => {
+        const formElements = captureArea.querySelectorAll('textarea, input[type="text"], select');
+        formElements.forEach(el => {
             const div = document.createElement('div');
-            div.style.whiteSpace = 'pre-wrap'; 
-            div.textContent = ta.value;
-            div.className = ta.className; 
-            div.style.height = 'auto';
-            div.style.minHeight = ta.offsetHeight + 'px';
             
-            ta.parentNode.insertBefore(div, ta);
-            ta.style.display = 'none'; 
-            ta._tempDiv = div; 
+            let textValue = el.value;
+            if(el.tagName === 'SELECT') {
+                textValue = el.options[el.selectedIndex] ? el.options[el.selectedIndex].text : '';
+            }
+            
+            if(el.tagName === 'TEXTAREA') {
+                div.innerHTML = textValue.replace(/\n/g, '<br>');
+            } else {
+                div.textContent = textValue;
+            }
+            
+            div.style.wordBreak = 'keep-all'; 
+            div.style.overflowWrap = 'break-word';
+            div.style.whiteSpace = el.tagName === 'TEXTAREA' ? 'pre-wrap' : 'normal';
+            div.style.display = 'flex';
+            div.style.alignItems = 'center';
+            
+            div.className = el.className; 
+            div.style.height = 'auto';
+            div.style.minHeight = Math.max(el.scrollHeight, el.offsetHeight) + 'px';
+            
+            el.parentNode.insertBefore(div, el);
+            el.style.display = 'none'; 
+            el._tempDiv = div; 
         });
 
         html2canvas(captureArea, {
             backgroundColor: "#ffffff", 
-            scale: 2,
-            windowWidth: captureArea.scrollWidth,
-            windowHeight: captureArea.scrollHeight
+            scale: 2, 
+            scrollY: 0, 
+            useCORS: true
         }).then(canvas => {
             const link = document.createElement('a');
             link.download = '모두의창업2기_초안_비호수산.png';
@@ -989,23 +1018,25 @@
             
             titleArea.classList.add('hidden');
             captureArea.classList.remove('capture-ready');
-            textareas.forEach(ta => {
-                ta.style.display = ''; 
-                if (ta._tempDiv) ta._tempDiv.remove(); 
+            formElements.forEach(el => {
+                el.style.display = ''; 
+                if (el._tempDiv) el._tempDiv.remove(); 
             });
+            window.scrollTo(0, currentScrollY);
         }).catch(err => {
             alert("이미지 저장 중 오류가 발생했습니다: " + err);
             titleArea.classList.add('hidden');
             captureArea.classList.remove('capture-ready');
-            textareas.forEach(ta => {
-                ta.style.display = '';
-                if (ta._tempDiv) ta._tempDiv.remove();
+            formElements.forEach(el => {
+                el.style.display = '';
+                if (el._tempDiv) el._tempDiv.remove();
             });
+            window.scrollTo(0, currentScrollY);
         });
     }
 
     // ----------------------------------------------------
-    // 3. 기존 함수들 (린캔버스, 계산기 등 유지)
+    // 4. 기존 함수들 (계산기, 린캔버스, 채팅)
     // ----------------------------------------------------
     function captureMarginCalc() {
       const captureArea = document.getElementById('calc-capture-area');
@@ -1112,7 +1143,6 @@
       alert("✨ 비호수산 기본 14종 원가 시뮬레이션 값이 입력되었습니다!");
     }
 
-    // 파이어베이스 채팅 로직
     function sendChatMessage() {
       const nickname = document.getElementById('chat-nickname').value.trim() || '익명창업가';
       const textInput = document.getElementById('chat-input');
@@ -1139,94 +1169,6 @@
       chatBox.scrollTop = chatBox.scrollHeight;
     });
 
-    // ----------------------------------------------------
-    // ✅ [NEW] 업데이트된 지원사업 공고 6개 하드코딩 데이터 적용
-    // ----------------------------------------------------
-    const allNotices = [
-      {
-        "category": "울진/경북",
-        "agency": "경북해양바이오산업연구원",
-        "title": "해양수산 창업투자지원사업 및 시제품 제작 지원",
-        "link": "https://www.mire.re.kr/sub4_4.php",
-        "deadline": "상시 확인",
-        "tags": ["울진/경북"]
-      },
-      {
-        "category": "울진/경북",
-        "agency": "경북테크노파크",
-        "title": "지역 첨단제조 및 푸드테크 스타트업 지원사업",
-        "link": "https://www.gbtp.or.kr/user/board.do?bbsId=BBSMSTR_000000000021",
-        "deadline": "상시 확인",
-        "tags": ["울진/경북"]
-      },
-      {
-        "category": "울진/경북",
-        "agency": "경북창조경제혁신센터",
-        "title": "경북 로컬크리에이터 및 예비창업자 지원 공고",
-        "link": "https://ccei.creativekorea.or.kr/gyeongbuk/custom/notice_list.do?&page=1",
-        "deadline": "추후 공지",
-        "highlight": true,
-        "tags": ["울진/경북", "로컬"]
-      },
-      {
-        "category": "중앙정부",
-        "agency": "K-Startup",
-        "title": "예비창업패키지 및 모두의창업 통합 지원 공고",
-        "link": "https://www.k-startup.go.kr/web/contents/bizpbanc-ongoing.do",
-        "deadline": "상시 확인",
-        "tags": ["중앙정부", "예비창업", "모두의창업"]
-      },
-      {
-        "category": "중앙정부",
-        "agency": "농식품모태펀드",
-        "title": "농림수산식품 모태펀드 출자 및 농식품 벤처 투자",
-        "link": "https://assist.apfs.kr/usr/support/support/openSprt.do",
-        "deadline": "추후 공지",
-        "tags": ["중앙정부", "농식품/수산"]
-      },
-      {
-        "category": "울진/경북",
-        "agency": "경북청년창업지원센터",
-        "title": "경북 청년창업지원 및 초기 창업 패키지 모집",
-        "link": "http://gbstartup.or.kr/page/news/notice/",
-        "deadline": "상시 확인",
-        "tags": ["울진/경북", "청년창업"]
-      }
-    ];
-
-    function renderNotices(notices) {
-      const grid = document.getElementById('notice-grid');
-      document.getElementById('notice-count').textContent = notices.length;
-      grid.innerHTML = '';
-      notices.forEach(item => {
-        const isHighlight = item.highlight;
-        const cardStyle = isHighlight ? 'border-2 border-amber-400 bg-gradient-to-br from-amber-50/40 via-white shadow-md' : 'border border-slate-200 bg-white shadow-sm';
-        grid.innerHTML += `
-          <div class="${cardStyle} p-5 rounded-2xl flex flex-col justify-between">
-            <div>
-              <span class="text-xs font-bold px-2.5 py-1 rounded-md ${isHighlight ? 'bg-amber-400' : 'bg-slate-100'}">${item.agency}</span>
-              <h3 class="font-bold text-slate-900 mt-3 mb-2"><a href="${item.link}" target="_blank">${item.title}</a></h3>
-            </div>
-            <div class="flex justify-between items-center pt-3 border-t mt-4 text-xs">
-              <span>📅 마감: <strong>${item.deadline}</strong></span>
-              <a href="${item.link}" target="_blank" class="${isHighlight ? 'bg-amber-500 text-slate-950' : 'bg-slate-900 text-white'} px-3 py-1.5 rounded font-bold">확인 ➔</a>
-            </div>
-          </div>`;
-      });
-    }
-
-    function filterNotices(cat, btn) {
-      document.querySelectorAll('.filter-btn').forEach(b => {
-        b.classList.remove('bg-slate-900', 'text-white', 'shadow-sm');
-        if (!b.classList.contains('bg-amber-500')) b.classList.add('bg-slate-100');
-      });
-      if (!btn.classList.contains('bg-amber-500')) {
-        btn.classList.remove('bg-slate-100'); btn.classList.add('bg-slate-900', 'text-white', 'shadow-sm');
-      }
-      renderNotices(cat === '전체' ? allNotices : allNotices.filter(n => n.category.includes(cat) || n.tags.includes(cat)));
-    }
-
-    // 린캔버스 예시 함수
     function fillBihoExample() {
       document.getElementById('lc-problem').value = "1. 집/캠핑장에서 보일링크랩 조리 시 원물 손질과 소스 조리 어려움\n2. 액상 소스 누수 및 무거운 중량으로 인한 물류 한계";
       document.getElementById('lc-solution').value = "1. 동해안 신선 붉은대게 산지 직송\n2. 누수 0% 자체 개발 K-분말 시즈닝";
@@ -1244,8 +1186,76 @@
       alert("📋 사업계획서 린캔버스 초안 텍스트가 클립보드에 복사되었습니다!");
     }
 
+    // ----------------------------------------------------
+    // ✅ [NEW] 업데이트된 지원사업 공고 6개 하드코딩 데이터
+    // ----------------------------------------------------
+    const allNotices = [
+      {
+        "agency": "경북해양바이오산업연구원",
+        "title": "해양수산 창업투자지원사업 및 시제품 제작 지원",
+        "link": "https://www.mire.re.kr/sub4_4.php",
+        "deadline": "상시 확인"
+      },
+      {
+        "agency": "경북테크노파크",
+        "title": "지역 첨단제조 및 푸드테크 스타트업 지원사업",
+        "link": "https://www.gbtp.or.kr/user/board.do?bbsId=BBSMSTR_000000000021",
+        "deadline": "상시 확인"
+      },
+      {
+        "agency": "경북창조경제혁신센터",
+        "title": "경북 로컬크리에이터 및 예비창업자 지원 공고",
+        "link": "https://ccei.creativekorea.or.kr/gyeongbuk/custom/notice_list.do?&page=1",
+        "deadline": "추후 공지",
+        "highlight": true
+      },
+      {
+        "agency": "K-Startup (중기부)",
+        "title": "예비창업패키지 및 모두의창업 통합 지원 공고",
+        "link": "https://www.k-startup.go.kr/web/contents/bizpbanc-ongoing.do",
+        "deadline": "상시 확인"
+      },
+      {
+        "agency": "농식품모태펀드",
+        "title": "농림수산식품 모태펀드 출자 및 농식품 벤처 투자",
+        "link": "https://assist.apfs.kr/usr/support/support/openSprt.do",
+        "deadline": "추후 공지"
+      },
+      {
+        "agency": "경북청년창업지원센터",
+        "title": "경북 청년창업지원 및 초기 창업 패키지 모집",
+        "link": "http://gbstartup.or.kr/page/news/notice/",
+        "deadline": "상시 확인"
+      }
+    ];
+
+    function renderNotices(notices) {
+      const grid = document.getElementById('notice-grid');
+      document.getElementById('notice-count').textContent = notices.length;
+      grid.innerHTML = '';
+      notices.forEach(item => {
+        const isHighlight = item.highlight;
+        const cardStyle = isHighlight ? 'border-2 border-amber-400 bg-gradient-to-br from-amber-50/40 via-white shadow-md' : 'border border-slate-200 bg-white shadow-sm';
+        grid.innerHTML += `
+          <div class="${cardStyle} p-5 rounded-2xl flex flex-col justify-between">
+            <div>
+              <span class="text-xs font-bold px-2.5 py-1 rounded-md ${isHighlight ? 'bg-amber-400' : 'bg-slate-100'}">${item.agency}</span>
+              <h3 class="font-bold text-slate-900 mt-3 mb-2 hover:text-blue-600 transition"><a href="${item.link}" target="_blank">${item.title}</a></h3>
+            </div>
+            <div class="flex justify-between items-center pt-3 border-t border-slate-200/60 mt-4 text-xs">
+              <span>📅 마감: <strong>${item.deadline}</strong></span>
+              <a href="${item.link}" target="_blank" class="${isHighlight ? 'bg-amber-500 hover:bg-amber-400 text-slate-950' : 'bg-slate-900 hover:bg-blue-700 text-white'} px-3 py-1.5 rounded font-bold transition shadow-sm">공고 확인 ➔</a>
+            </div>
+          </div>`;
+      });
+    }
+
+    // 필터 기능 제거에 따라 빈 함수로 처리 (오류 방지)
+    function filterNotices() {}
+
     // 초기 지원사업 렌더링
     renderNotices(allNotices);
+
   </script>
 </body>
 </html>
